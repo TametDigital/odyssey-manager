@@ -1391,7 +1391,13 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
         <!-- Remplissage dégradé sous la courbe (étendu au-delà) -->
         <path d="M-400,60 C-200,60 -50,220 150,220 C260,220 340,70 450,70 C560,70 640,210 750,210 C860,210 940,50 1050,50 C1160,50 1350,210 1600,220 L1600,280 L-400,280 Z" fill="url(#tl-grad)"/>
         <!-- Courbe étendue au-delà du conteneur -->
-        <path d="M-400,60 C-200,60 -50,220 150,220 C260,220 340,70 450,70 C560,70 640,210 750,210 C860,210 940,50 1050,50 C1160,50 1350,210 1600,220" fill="none" stroke="var(--violet)" stroke-width="2.5"/>
+        <path id="road-path-orig" d="M-400,60 C-200,60 -50,220 150,220 C260,220 340,70 450,70 C560,70 640,210 750,210 C860,210 940,50 1050,50 C1160,50 1350,210 1600,220" fill="none" stroke="var(--violet)" stroke-width="2.5"/>
+        <!-- Point mobile -->
+        <circle r="9" fill="var(--violet)" stroke="#fff" stroke-width="3">
+          <animateMotion dur="10s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+            <mpath href="#road-path-orig"/>
+          </animateMotion>
+        </circle>
         <!-- Points -->
         <circle cx="150" cy="220" r="18" fill="#C05000" stroke="#fff" stroke-width="4" class="tl-dot"/>
         <g class="tl-dot" style="animation-delay:.4s">
