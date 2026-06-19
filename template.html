@@ -403,6 +403,25 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 .bg-off      { background: var(--off); }
 .bg-violet-l { background: var(--violet-10); }
 
+/* CONTACT 2 CARDS */
+.cnt-2cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; }
+.cnt-2cards > div { display: flex; flex-direction: column; }
+.contact-avatar { width: 80px; height: 80px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; animation: breathe-w 3s ease-out infinite; }
+
+/* CUSTOM SELECT */
+.csel { position: relative; }
+.csel-trigger { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border: 1px solid var(--ink-14); border-radius: 10px; font-family: var(--f-sans); font-size: var(--t-s); color: var(--ink); background: var(--white); cursor: pointer; transition: border-color .2s; }
+.csel-trigger:hover, .csel.open .csel-trigger { border-color: var(--violet); }
+.csel-val { color: var(--ink-60); }
+.csel-val.selected { color: var(--ink); }
+.csel-drop { display: none; position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #fff; border: 1px solid var(--ink-14); border-radius: 12px; box-shadow: 0 12px 32px -8px rgba(44,46,77,.12); z-index: 100; overflow: hidden; }
+.csel.open .csel-drop { display: block; }
+.csel-opt { padding: 14px 16px; cursor: pointer; display: flex; flex-direction: column; gap: 2px; border-bottom: 1px solid var(--ink-08); transition: background .15s; }
+.csel-opt:last-child { border-bottom: none; }
+.csel-opt:hover { background: var(--violet-10); }
+.csel-opt strong { font-size: var(--t-s); font-weight: 600; color: var(--violet); }
+.csel-opt span { font-size: var(--t-xs); color: var(--ink-60); }
+
 /* CALENDLY */
 .cal-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start; }
 .cal-widget { border-radius: 14px; overflow: hidden; background: var(--violet-10); }
@@ -520,6 +539,9 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 
   /* Calendly */
   .cal-grid { grid-template-columns: 1fr; gap: 40px; }
+
+  /* Contact 2 cards */
+  .cnt-2cards { grid-template-columns: 1fr; }
 
   /* Footer */
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
@@ -1527,47 +1549,83 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 <div id="bcnt" class="blk">CONTACT</div>
 <section class="px py">
   <div class="cnt">
-    <div class="cnt-grid">
-      <div>
-        <p class="eyebrow mb-xs">Démo gratuite · 30 min</p>
-        <h2 class="h-l" style="margin-bottom:20px">30 minutes pour tout comprendre</h2>
-        <p class="muted" style="font-size:var(--t-l);line-height:1.7;margin-bottom:40px">On échange sur votre situation et vos objectifs. On vous montre les résultats obtenus. Sans engagement.</p>
-        <div style="display:flex;flex-direction:column;gap:20px">
-          <div style="display:flex;align-items:center;gap:16px">
-            <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1.5" y="3.5" width="12" height="8" rx="2"/><path d="M1.5 7l6 3 6-3"/></svg></div>
-            <div><p style="font-weight:600;font-size:var(--t-s)">Format visio-conférence</p><p class="muted" style="font-size:var(--t-xs)">À l'heure qui vous convient</p></div>
+    <hr class="mb-s">
+    <h2 class="h-l" style="margin-bottom:16px">Hello ! On discute ?</h2>
+    <p class="muted" style="font-size:var(--t-l);line-height:1.7;max-width:600px;margin-bottom:var(--sp-s)">Méthodologie, durée, tarifs...</p>
+
+    <div class="cnt-2cards">
+
+      <!-- Encart 1 — Programmer une démo -->
+      <div style="background:var(--sable);border-radius:14px;padding:40px;display:flex;flex-direction:column;gap:28px;">
+        <p class="eyebrow">Réservez votre démo</p>
+        <div style="display:flex;align-items:center;gap:20px">
+          <div class="contact-avatar">
+            <img src="images/etienne.jpg" alt="Étienne Carpentier" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
           </div>
-          <div style="display:flex;align-items:center;gap:16px">
-            <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7.5" cy="7.5" r="6"/><path d="M7.5 5v2.5l2 2"/></svg></div>
-            <div><p style="font-weight:600;font-size:var(--t-s)">Démo personnalisée</p><p class="muted" style="font-size:var(--t-xs)">Adaptée à votre secteur</p></div>
-          </div>
-          <div style="display:flex;align-items:center;gap:16px">
-            <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7.5l3.5 3.5 7-7"/></svg></div>
-            <div><p style="font-weight:600;font-size:var(--t-s)">Sans engagement</p><p class="muted" style="font-size:var(--t-xs)">Pas de carte bleue, pas de contrat</p></div>
+          <div>
+            <p style="font-weight:700;font-size:var(--t-s);color:var(--ink)">Étienne Carpentier</p>
+            <p class="muted" style="font-size:var(--t-xs)">Responsable clientèle · Odyssey Manager</p>
           </div>
         </div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;gap:14px">
+            <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1.5" y="3.5" width="12" height="8" rx="2"/><path d="M1.5 7l6 3 6-3"/></svg></div>
+            <p style="font-weight:600;font-size:var(--t-s)">Visio-conférence</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px">
+            <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7.5" cy="7.5" r="6"/><path d="M7.5 5v2.5l2 2"/></svg></div>
+            <p style="font-weight:600;font-size:var(--t-s)">Durée 30 min</p>
+          </div>
+        </div>
+        <a href="https://calendly.com/etienne-odyssey-manager/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=6e5bff&month=2026-06" target="_blank" class="btn btn-p" style="justify-content:center;text-align:center">Programmer une démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
       </div>
+
+      <!-- Encart 2 — Formulaire -->
       <div style="background:var(--violet-10);border-radius:14px;padding:40px;">
-        <h3 class="h-xs" style="margin-bottom:26px">Réserver une session</h3>
+        <p class="eyebrow" style="margin-bottom:26px">Contactez-nous</p>
         <form class="form">
           <div class="f-row">
-            <div class="f"><label>Prénom</label><input type="text" placeholder="Jean"></div>
-            <div class="f"><label>Nom</label><input type="text" placeholder="Dupont"></div>
+            <div class="f"><input type="text" placeholder="Votre prénom"></div>
+            <div class="f"><input type="text" placeholder="Votre nom"></div>
           </div>
-          <div class="f"><label>Email professionnel</label><input type="email" placeholder="jean@votreorganisation.fr"></div>
+          <div class="f"><input type="email" placeholder="Votre email"></div>
           <div class="f">
-            <label>Votre secteur</label>
-            <select>
-              <option>Destination & Territoire</option>
-              <option>Site & Patrimoine</option>
-              <option>Complexe & Loisirs</option>
-              <option>Bien-être & Santé</option>
-              <option>Événementiel & MICE</option>
-            </select>
+            <div class="csel" id="csel">
+              <div class="csel-trigger" onclick="toggleCsel()">
+                <span class="csel-val">Votre secteur</span>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 5l4 4 4-4"/></svg>
+              </div>
+              <div class="csel-drop" id="csel-drop">
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Destinations &amp; Territoires"><strong>Destinations &amp; Territoires</strong><span>OT · CDT · CRT</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Sites &amp; Patrimoine"><strong>Sites &amp; Patrimoine</strong><span>Culturel · Cultuel · Nature</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Complexe &amp; Loisirs"><strong>Complexe &amp; Loisirs</strong><span>Villages · Parcs · Campings</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Bien-être &amp; Santé"><strong>Bien-être &amp; Santé</strong><span>Thalassos · Spas · Clubs</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Opérateurs &amp; Médias"><strong>Opérateurs &amp; Médias</strong><span>Agences · Guides · Médias</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Événementiel &amp; MICE"><strong>Événementiel &amp; MICE</strong><span>Organisateurs · Événementiel</span></div>
+              </div>
+            </div>
+            <input type="hidden" name="secteur" id="csel-input">
           </div>
-          <button type="submit" class="btn btn-p" style="width:100%;justify-content:center;margin-top:6px">Réserver ma démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></button>
+          <div class="f">
+            <div class="csel" id="csel2">
+              <div class="csel-trigger" onclick="toggleCsel2()">
+                <span class="csel-val" id="csel2-val">Votre besoin</span>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 5l4 4 4-4"/></svg>
+              </div>
+              <div class="csel-drop" id="csel2-drop">
+                <div class="csel-opt" onclick="pickCsel2(this)" data-val="ULYS"><strong>ULYS</strong><span>Votre guide local I.A.</span></div>
+                <div class="csel-opt" onclick="pickCsel2(this)" data-val="ITHAK"><strong>ITHAK</strong><span>Votre propre plateforme de réservation</span></div>
+                <div class="csel-opt" onclick="pickCsel2(this)" data-val="ECHO"><strong>ECHO</strong><span>Votre destination en tête sur Google</span></div>
+                <div class="csel-opt" onclick="pickCsel2(this)" data-val="NEST"><strong>NEST</strong><span>Votre parcours découverte interactif</span></div>
+              </div>
+            </div>
+            <input type="hidden" name="besoin" id="csel2-input">
+          </div>
+          <div class="f"><textarea placeholder="Votre projet"></textarea></div>
+          <button type="submit" class="btn btn-p" style="width:100%;justify-content:center;margin-top:6px">Envoyer ma demande <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></button>
         </form>
       </div>
+
     </div>
   </div>
 </section>
@@ -1575,37 +1633,6 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 
 
 
-<!-- ════ CONTACT CALENDLY ════════════════════════════════════ -->
-<div id="bcalendly" class="blk">CONTACT — Calendly</div>
-<section class="px py">
-  <div class="cnt">
-    <div class="cal-grid">
-      <div>
-        <p class="eyebrow mb-xs">Démo gratuite · 30 min</p>
-        <h2 class="h-l" style="margin-bottom:20px">Réservez directement un créneau</h2>
-        <p class="muted" style="font-size:var(--t-l);line-height:1.7;margin-bottom:40px">Choisissez l'heure qui vous convient. Étienne vous présentera les résultats obtenus pour des acteurs comme vous — sans engagement.</p>
-        <div style="display:flex;flex-direction:column;gap:20px">
-          <div style="display:flex;align-items:center;gap:16px">
-            <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1.5" y="3.5" width="12" height="8" rx="2"/><path d="M1.5 7l6 3 6-3"/></svg></div>
-            <div><p style="font-weight:600;font-size:var(--t-s)">Format visio-conférence</p><p class="muted" style="font-size:var(--t-xs)">À l'heure qui vous convient</p></div>
-          </div>
-          <div style="display:flex;align-items:center;gap:16px">
-            <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7.5" cy="7.5" r="6"/><path d="M7.5 5v2.5l2 2"/></svg></div>
-            <div><p style="font-weight:600;font-size:var(--t-s)">30 minutes chrono</p><p class="muted" style="font-size:var(--t-xs)">Démo adaptée à votre secteur</p></div>
-          </div>
-          <div style="display:flex;align-items:center;gap:16px">
-            <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7.5l3.5 3.5 7-7"/></svg></div>
-            <div><p style="font-weight:600;font-size:var(--t-s)">Sans engagement</p><p class="muted" style="font-size:var(--t-xs)">Pas de carte bleue, pas de contrat</p></div>
-          </div>
-        </div>
-      </div>
-      <div class="cal-widget">
-        <div class="calendly-inline-widget" data-url="https://calendly.com/etienne-odyssey-manager/30min" style="min-width:320px;height:700px;"></div>
-        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ════ FOOTER ═══════════════════════════════════════════════ -->
 <div id="bfooter" class="blk">FOOTER</div>
@@ -1636,5 +1663,35 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
   </div>
 </footer>
 
+<script>
+function toggleCsel2() {
+  document.getElementById('csel2').classList.toggle('open');
+}
+function pickCsel2(el) {
+  var val = el.getAttribute('data-val');
+  document.getElementById('csel2-val').textContent = el.querySelector('strong').textContent;
+  document.getElementById('csel2-val').classList.add('selected');
+  document.getElementById('csel2-input').value = val;
+  document.getElementById('csel2').classList.remove('open');
+}
+document.addEventListener('click', function(e) {
+  var csel2 = document.getElementById('csel2');
+  if (csel2 && !csel2.contains(e.target)) csel2.classList.remove('open');
+});
+function toggleCsel() {
+  document.getElementById('csel').classList.toggle('open');
+}
+function pickCsel(el) {
+  var val = el.getAttribute('data-val');
+  document.querySelector('.csel-val').textContent = el.querySelector('strong').textContent;
+  document.querySelector('.csel-val').classList.add('selected');
+  document.getElementById('csel-input').value = val;
+  document.getElementById('csel').classList.remove('open');
+}
+document.addEventListener('click', function(e) {
+  var csel = document.getElementById('csel');
+  if (csel && !csel.contains(e.target)) csel.classList.remove('open');
+});
+</script>
 </body>
 </html>
