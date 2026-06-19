@@ -403,6 +403,10 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 .bg-off      { background: var(--off); }
 .bg-violet-l { background: var(--violet-10); }
 
+/* CALENDLY */
+.cal-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start; }
+.cal-widget { border-radius: 14px; overflow: hidden; background: var(--violet-10); }
+
 /* ═══════════════════════════════════════════════════════
    RESPONSIVE — Tablette 768px
    ═══════════════════════════════════════════════════════ */
@@ -513,6 +517,9 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
   /* Contact */
   .cnt-grid { grid-template-columns: 1fr; gap: 40px; }
   .f-row { grid-template-columns: 1fr; }
+
+  /* Calendly */
+  .cal-grid { grid-template-columns: 1fr; gap: 40px; }
 
   /* Footer */
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
@@ -1567,6 +1574,38 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 
 
 
+
+<!-- ════ CONTACT CALENDLY ════════════════════════════════════ -->
+<div id="bcalendly" class="blk">CONTACT — Calendly</div>
+<section class="px py">
+  <div class="cnt">
+    <div class="cal-grid">
+      <div>
+        <p class="eyebrow mb-xs">Démo gratuite · 30 min</p>
+        <h2 class="h-l" style="margin-bottom:20px">Réservez directement un créneau</h2>
+        <p class="muted" style="font-size:var(--t-l);line-height:1.7;margin-bottom:40px">Choisissez l'heure qui vous convient. Étienne vous présentera les résultats obtenus pour des acteurs comme vous — sans engagement.</p>
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div style="display:flex;align-items:center;gap:16px">
+            <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1.5" y="3.5" width="12" height="8" rx="2"/><path d="M1.5 7l6 3 6-3"/></svg></div>
+            <div><p style="font-weight:600;font-size:var(--t-s)">Format visio-conférence</p><p class="muted" style="font-size:var(--t-xs)">À l'heure qui vous convient</p></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px">
+            <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7.5" cy="7.5" r="6"/><path d="M7.5 5v2.5l2 2"/></svg></div>
+            <div><p style="font-weight:600;font-size:var(--t-s)">30 minutes chrono</p><p class="muted" style="font-size:var(--t-xs)">Démo adaptée à votre secteur</p></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px">
+            <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7.5l3.5 3.5 7-7"/></svg></div>
+            <div><p style="font-weight:600;font-size:var(--t-s)">Sans engagement</p><p class="muted" style="font-size:var(--t-xs)">Pas de carte bleue, pas de contrat</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="cal-widget">
+        <div class="calendly-inline-widget" data-url="https://calendly.com/etienne-odyssey-manager/30min" style="min-width:320px;height:700px;"></div>
+        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ════ FOOTER ═══════════════════════════════════════════════ -->
 <div id="bfooter" class="blk">FOOTER</div>
