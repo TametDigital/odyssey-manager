@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Odyssey Manager — Template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN SYSTEM — Odyssey × Fabric DNA
+   ============================================================ */
+:root {
+  --violet:     #6E5BFF;
+  --violet-10:  rgba(110,91,255,.10);
+  --violet-20:  rgba(110,91,255,.20);
+  --sable:      #FFEAD5;
+  --sable-dark: #F5D9B8;
+  --ink:        #2C2E4D;
+  --ink-60:     rgba(44,46,77,.60);
+  --ink-14:     rgba(44,46,77,.14);
+  --ink-08:     rgba(44,46,77,.08);
+  --white:      #ffffff;
+  --off:        #FAFAF8;
+
+  --f-serif: 'Libre Baskerville', Georgia, serif;
+  --f-sans:  'Inter', system-ui, sans-serif;
+
+  /* Heading scale — Fabric proportions */
+  --h-xl:  3.6rem;
+  --h-l:   3rem;
+  --h-m:   2rem;
+  --h-s:   1.5rem;
+  --h-xs:  1.125rem;
+
+  /* Text */
+  --t-xl: 1.375rem;
+  --t-l:  1.25rem;
+  --t-m:  1.125rem;
+  --t-s:  1.0625rem;
+  --t-xs: 1rem;
+
+  /* Spacing */
+  --sp-xxl: 96px;
+  --sp-xl:  80px;
+  --sp-l:   64px;
+  --sp-m:   48px;
+  --sp-s:   32px;
+  --sp-xs:  16px;
+
+  --container: 83rem;
+  --px: clamp(24px, 5vw, 80px);
+
+  --btn-shadow: 0 12px 26px -12px rgba(110,91,255,.70);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--f-sans); font-size: var(--t-m); line-height: 1.6; color: var(--ink); background: var(--white); -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+/* Layout */
+.px  { padding-left: var(--px); padding-right: var(--px); }
+.cnt { max-width: var(--container); margin: 0 auto; }
+.cnt--m { max-width: 68rem; margin: 0 auto; }
+.py  { padding-top: var(--sp-xxl); padding-bottom: var(--sp-xxl); }
+.py-m{ padding-top: var(--sp-m);   padding-bottom: var(--sp-m); }
+
+hr { border: none; border-top: 1px solid var(--ink-14); }
+
+/* Type */
+.h-xl { font-family: var(--f-serif); font-size: var(--h-xl); line-height: 1.06; font-weight: 700; letter-spacing: -.025em; }
+.h-l  { font-family: var(--f-serif); font-size: var(--h-l);  line-height: 1.1;  font-weight: 700; letter-spacing: -.02em; }
+.h-m  { font-family: var(--f-serif); font-size: var(--h-m);  line-height: 1.18; font-weight: 700; }
+.h-s  { font-family: var(--f-serif); font-size: var(--h-s);  line-height: 1.25; font-weight: 700; }
+.h-xs { font-family: var(--f-sans);  font-size: var(--h-xs); line-height: 1.35; font-weight: 600; }
+.eyebrow { font-size: var(--t-xs); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--violet); }
+.muted { color: var(--ink-60); }
+
+/* Buttons */
+@keyframes breathe {
+  0%       { box-shadow: 0 0 0 0   rgba(110,91,255,.45), var(--btn-shadow); }
+  70%,100% { box-shadow: 0 0 0 12px rgba(110,91,255,0),  var(--btn-shadow); }
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 26px; border-radius: 12px;
+  font-family: var(--f-sans); font-size: var(--t-s); font-weight: 600;
+  cursor: pointer; border: none; transition: background .2s, box-shadow .2s, color .2s;
+  white-space: nowrap;
+}
+.btn svg { transition: transform .2s; flex-shrink: 0; }
+.btn:hover svg { transform: translateX(4px); }
+.btn-p { background: var(--violet); color: #fff; animation: breathe 3s ease-out infinite; }
+.btn-p:hover { background: #5a48e8; box-shadow: 0 16px 34px -12px rgba(110,91,255,.7); animation: none; }
+.btn-g { background: var(--white); color: var(--ink); border: 1px solid var(--ink-14); }
+.btn-g:hover { border-color: var(--violet); color: var(--violet); background: var(--violet-10); }
+.btn-d { background: var(--ink); color: #fff; }
+.btn-d:hover { background: #1e2040; }
+.btn-w { background: #fff; color: var(--violet); font-weight: 600; animation: breathe-w 3s ease-out infinite; }
+.btn-w:hover { background: var(--sable); animation: none; box-shadow: 0 16px 34px -12px rgba(255,255,255,.4); }
+@keyframes breathe-w {
+  0%       { box-shadow: 0 0 0 0 rgba(255,255,255,.5), 0 12px 26px -12px rgba(255,255,255,.35); }
+  70%,100% { box-shadow: 0 0 0 12px rgba(255,255,255,0), 0 12px 26px -12px rgba(255,255,255,.35); }
+}
+.btn-ghost-w { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.3); }
+.btn-ghost-w:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.6); }
+.link { display: inline-flex; align-items: center; gap: 6px; color: var(--violet); font-size: var(--t-s); font-weight: 600; }
+.link svg { transition: transform .2s; }
+.link:hover svg { transform: translateX(4px); }
+
+/* Template nav */
+.tnav { position: sticky; top: 0; z-index: 99; background: var(--ink); padding: 9px var(--px); display: flex; gap: 18px; overflow-x: auto; }
+.tnav a { color: rgba(255,255,255,.38); font-size: 10px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; white-space: nowrap; transition: color .15s; }
+.tnav a:hover { color: #fff; }
+.blk { background: var(--violet-10); color: var(--violet); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 7px var(--px); border-left: 3px solid var(--violet); }
+
+/* ── NAV ───────────────────────────────────────────── */
+.nav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--ink-08); }
+.nav-inner { display: flex; align-items: center; height: 68px; gap: 40px; padding: 0 var(--px); max-width: var(--container); margin: 0 auto; }
+.nav-logo { font-family: var(--f-serif); font-size: 1.1rem; font-weight: 700; }
+.nav-logo span { color: var(--violet); }
+.nav-menu { display: flex; align-items: center; gap: 2px; flex: 1; }
+.nav-menu a { padding: 7px 13px; border-radius: 8px; font-size: var(--t-s); font-weight: 500; color: var(--ink-60); transition: color .15s, background .15s; }
+.nav-menu a:hover { color: var(--ink); background: var(--ink-08); }
+.nav-actions { display: flex; gap: 10px; margin-left: auto; }
+
+/* ── HERO A — blanc 2 cols ──────────────────────────── */
+.hero { display: flex; align-items: center; gap: 80px; padding: var(--sp-xl) 0; }
+.hero-text { flex: 6; }
+.hero-vis  { flex: 6; }
+.hero-eyebrow { display: flex; align-items: center; margin-bottom: 28px; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; background: #fff; border-radius: 999px; padding: 7px 16px 7px 10px; font-size: .8125rem; font-weight: 600; color: var(--ink); letter-spacing: .06em; text-transform: uppercase; }
+.hero-badge svg { width: 14px; height: 14px; color: var(--violet); flex-shrink: 0; }
+.hero-badge--dark { background: rgba(255,255,255,.15); color: #fff; }
+.hero-badge--dark svg { color: rgba(255,255,255,.7); }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 36px; }
+.screen { background: var(--sable); border-radius: 16px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; }
+.screen span { font-size: var(--t-xs); color: var(--ink-60); }
+
+/* ── HERO B — sable centré ──────────────────────────── */
+.hero-c { padding: var(--sp-xl) 0; text-align: center; }
+.hero-c .h-xl, .hero-c p { max-width: 760px; margin-left: auto; margin-right: auto; }
+.hero-c p { margin-top: 20px; }
+.hero-c .hero-actions { justify-content: center; margin-top: 36px; }
+
+/* ── LOGOS ──────────────────────────────────────────── */
+.logos { border-top: 1px solid var(--ink-08); border-bottom: 1px solid var(--ink-08); padding: 40px 0; overflow: hidden; }
+.logos-track { display: flex; gap: 60px; align-items: center; width: max-content; animation: scroll 30s linear infinite; }
+@keyframes scroll { to { transform: translateX(-50%); } }
+.logo-item { font-family: var(--f-serif); font-size: .9rem; font-weight: 700; color: var(--ink); opacity: .2; white-space: nowrap; }
+
+/* ── CHIFFRES CARDS ─────────────────────────────────── */
+.num-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.num-card { border-radius: 14px; padding: 28px 24px; display: flex; flex-direction: column; justify-content: space-between; min-height: 220px; }
+.num-card--sable  { background: var(--sable); transition: background .25s ease; }
+.num-card--violet { background: var(--violet-10); transition: background .25s ease; }
+.num-card--ink    { background: var(--ink); }
+.num-card--sable:hover,
+.num-card--violet:hover { background: var(--violet); }
+.num-n { font-family: var(--f-serif); font-size: clamp(2.8rem, 5vw, 4rem); font-weight: 700; line-height: 1; letter-spacing: -.03em; color: var(--ink); transition: color .25s ease; }
+.num-card--ink .num-n { color: #fff; }
+.num-card--sable:hover .num-n,
+.num-card--violet:hover .num-n { color: #fff; }
+.num-n span { transition: color .25s ease; }
+.num-card--sable:hover .num-n span,
+.num-card--violet:hover .num-n span { color: rgba(255,255,255,.55); }
+.num-l { font-size: var(--t-xs); color: var(--ink-60); line-height: 1.6; max-width: 180px; transition: color .25s ease; }
+.num-card--ink .num-l { color: rgba(255,255,255,.45); }
+.num-card--sable:hover .num-l,
+.num-card--violet:hover .num-l { color: rgba(255,255,255,.7); }
+
+/* ── STATS ──────────────────────────────────────────── */
+.stats { display: flex; }
+.stat { flex: 1; padding: var(--sp-l) var(--sp-s); border-right: 1px solid var(--ink-14); }
+.stat:first-child { padding-left: 0; }
+.stat:last-child  { border-right: none; }
+.stat-n { font-family: var(--f-serif); font-size: 4rem; line-height: 1; font-weight: 700; margin-bottom: 8px; }
+.stat-n span { color: var(--violet); }
+.stat-l { font-size: var(--t-xs); color: var(--ink-60); line-height: 1.55; max-width: 160px; }
+.stats.dark-v { background: var(--violet); }
+.stats.dark-v .stat { border-right-color: rgba(255,255,255,.2); }
+.stats.dark-v .stat-n { color: #fff; }
+.stats.dark-v .stat-l { color: rgba(255,255,255,.55); }
+.stats.dark-v .stat-n span { color: rgba(255,255,255,.55); }
+
+/* ── SPLIT SECTION ──────────────────────────────────── */
+.split { display: flex; gap: 80px; align-items: flex-start; padding: var(--sp-xxl) 0; }
+.split-a { flex: 5; }
+.split-b { flex: 7; }
+
+/* ── SOLUTION CARDS (hover-reveal) ─────────────────── */
+.sol-grid { display: flex; gap: 14px; }
+.sol { flex: 1; cursor: default; transition: flex .4s ease; }
+.sol:hover { flex: 1.5; }
+.sol-inner {
+  background: var(--sable); border-radius: 14px;
+  padding: 28px 24px; height: 340px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  overflow: hidden; position: relative;
+  transition: background .35s;
+}
+.sol:hover .sol-inner { background: var(--violet); }
+.sol-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--violet); background: var(--violet-10); padding: 4px 10px; border-radius: 6px; transition: all .35s; }
+.sol:hover .sol-tag { color: rgba(255,255,255,.65); background: rgba(255,255,255,.15); }
+.sol-title { font-family: var(--f-serif); font-size: 1.35rem; line-height: 1.2; font-weight: 700; margin-top: 16px; transition: color .35s; }
+.sol:hover .sol-title { color: #fff; }
+.sol-desc { font-size: var(--t-xs); color: var(--ink-60); line-height: 1.65; margin-top: 12px; max-height: 0; overflow: hidden; opacity: 0; transition: max-height .4s ease, opacity .3s; }
+.sol:hover .sol-desc { max-height: 200px; opacity: 1; color: rgba(255,255,255,.65); }
+.sol-link { display: inline-flex; align-items: center; gap: 6px; font-size: var(--t-xs); font-weight: 600; color: var(--violet); margin-top: auto; padding-top: 20px; transition: color .35s; }
+.sol-link svg { transition: transform .2s; }
+.sol-link:hover svg { transform: translateX(4px); }
+.sol:hover .sol-link { color: #fff; }
+.sol-n { position: absolute; bottom: 20px; right: 20px; font-family: var(--f-serif); font-size: 3.5rem; font-weight: 700; color: var(--ink); opacity: .05; transition: opacity .35s, color .35s; }
+.sol:hover .sol-n { opacity: .09; color: #fff; }
+
+/* ── FEATURE LIST ───────────────────────────────────── */
+.feat-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 80px; align-items: start; }
+.feat-list { display: flex; flex-direction: column; }
+.feat-item { display: flex; align-items: flex-start; gap: 18px; padding: 22px 0; border-bottom: 1px solid var(--ink-08); }
+.feat-item:first-child { border-top: 1px solid var(--ink-08); }
+.feat-icon { width: 38px; height: 38px; flex-shrink: 0; background: var(--violet-10); border-radius: 9px; display: flex; align-items: center; justify-content: center; transition: background .2s ease; }
+.feat-icon svg { width: 17px; height: 17px; color: var(--violet); transition: color .2s ease; }
+.feat-item:hover .feat-icon { background: var(--violet); }
+.feat-item:hover .feat-icon svg { color: #fff; }
+.feat-text h3 { font-size: var(--t-s); font-weight: 600; margin-bottom: 3px; transition: color .2s ease; }
+.feat-item:hover .feat-text h3 { color: var(--violet); }
+.feat-text p  { font-size: var(--t-xs); color: var(--ink-60); line-height: 1.6; }
+
+/* ── CAPA CARDS ─────────────────────────────────────── */
+.capa-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.capa-card { background: var(--white); border-radius: 12px; padding: 22px 20px; display: flex; flex-direction: column; gap: 10px; transition: background .25s ease; cursor: default; }
+.capa-card:hover { background: var(--violet) !important; }
+.capa-icon { width: 32px; height: 32px; color: var(--violet); transition: color .25s ease; }
+.capa-card:hover .capa-icon { color: #fff; }
+.capa-icon svg { width: 100%; height: 100%; }
+.capa-card h3 { font-size: var(--t-s); font-weight: 600; line-height: 1.3; color: var(--ink); transition: color .25s ease; }
+.capa-card:hover h3 { color: #fff; }
+.capa-card p  { font-size: var(--t-xs); color: var(--violet); line-height: 1.6; transition: color .25s ease; }
+.capa-card:hover p { color: rgba(255,255,255,.65); }
+
+/* ── 2 COLS ─────────────────────────────────────────── */
+.twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+.vis { background: var(--sable); border-radius: 14px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; }
+.vis span { font-size: var(--t-xs); color: var(--ink-60); }
+.check-list { display: flex; flex-direction: column; gap: 14px; margin: 24px 0; }
+.check-list li { display: flex; align-items: center; gap: 12px; font-size: var(--t-s); color: var(--ink-60); line-height: 1.5; }
+.check-icon { width: 22px; height: 22px; border-radius: 6px; background: var(--violet); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.check-icon svg { width: 11px; height: 11px; color: #fff; stroke-width: 2.2; }
+
+/* ── ORBIT ──────────────────────────────────────────── */
+.orbit-card { background: var(--sable); border-radius: 20px; padding: 72px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; overflow: hidden; }
+.orbit-stage { position: relative; width: 420px; height: 420px; margin: 0 auto; flex-shrink: 0; }
+
+/* Halos rayonnants via box-shadow (non clippable) */
+
+/* Centre */
+.orbit-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 80px; height: 80px; border-radius: 50%; background: var(--violet); display: flex; align-items: center; justify-content: center; z-index: 1; animation: orbit-breathe 3s ease-in-out infinite; }
+@keyframes orbit-breathe {
+  0%, 100% { box-shadow: 0 0 0 14px rgba(110,91,255,.20), 0 0 0 32px rgba(110,91,255,.10), 0 0 0 60px rgba(110,91,255,.05), 0 0 0 100px rgba(110,91,255,.02); }
+  50%       { box-shadow: 0 0 0 22px rgba(110,91,255,.16), 0 0 0 50px rgba(110,91,255,.08), 0 0 0 88px rgba(110,91,255,.04), 0 0 0 130px rgba(110,91,255,.01); }
+}
+.orbit-center svg { width: 32px; height: 32px; color: #fff; }
+
+/* Chaque icône positionnée directement dans le stage, animée individuellement */
+.oi { position: absolute; top: 50%; left: 50%; width: 52px; height: 52px; margin: -26px 0 0 -26px; z-index: 4; }
+.oi-inner { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .7rem; font-weight: 700; letter-spacing: .02em; font-family: var(--f-sans); box-shadow: 0 4px 16px rgba(0,0,0,.14); }
+
+/* Chaque icône part de son angle initial et fait un tour complet tout en se contre-tournant */
+.oi--1 { animation: oi1 24s linear infinite; }
+.oi--2 { animation: oi2 24s linear infinite; }
+.oi--3 { animation: oi3 24s linear infinite; }
+.oi--4 { animation: oi4 24s linear infinite; }
+.oi--5 { animation: oi5 24s linear infinite; }
+.oi--6 { animation: oi6 24s linear infinite; }
+.oi--7 { animation: oi7 24s linear infinite; }
+.oi--8 { animation: oi8 24s linear infinite; }
+
+@keyframes oi1 { from{transform:rotate(0deg)   translateX(170px) rotate(0deg);}   to{transform:rotate(360deg)  translateX(170px) rotate(-360deg);} }
+@keyframes oi2 { from{transform:rotate(45deg)  translateX(170px) rotate(-45deg);}  to{transform:rotate(405deg)  translateX(170px) rotate(-405deg);} }
+@keyframes oi3 { from{transform:rotate(90deg)  translateX(170px) rotate(-90deg);}  to{transform:rotate(450deg)  translateX(170px) rotate(-450deg);} }
+@keyframes oi4 { from{transform:rotate(135deg) translateX(170px) rotate(-135deg);} to{transform:rotate(495deg)  translateX(170px) rotate(-495deg);} }
+@keyframes oi5 { from{transform:rotate(180deg) translateX(170px) rotate(-180deg);} to{transform:rotate(540deg)  translateX(170px) rotate(-540deg);} }
+@keyframes oi6 { from{transform:rotate(225deg) translateX(170px) rotate(-225deg);} to{transform:rotate(585deg)  translateX(170px) rotate(-585deg);} }
+@keyframes oi7 { from{transform:rotate(270deg) translateX(170px) rotate(-270deg);} to{transform:rotate(630deg)  translateX(170px) rotate(-630deg);} }
+@keyframes oi8 { from{transform:rotate(315deg) translateX(170px) rotate(-315deg);} to{transform:rotate(675deg)  translateX(170px) rotate(-675deg);} }
+
+/* ── BENTO ──────────────────────────────────────────── */
+.bento-header { text-align: center; margin: 0 0 var(--sp-m); }
+.bento-header h2 { color: var(--violet); }
+.bento-header p  { font-size: var(--t-m); color: var(--ink-60); margin-top: 10px; line-height: 1.7; }
+.bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.bento-card { background: var(--sable); border-radius: 16px; padding: 72px 40px; display: flex; flex-direction: column; gap: 14px; transition: transform .25s ease, box-shadow .25s ease; }
+.bento-card:hover { transform: translateY(-5px); box-shadow: 0 14px 36px -10px rgba(110,91,255,.15); }
+.bento-card--wide { grid-column: span 2; }  /* prend 2 colonnes */
+.bento-card h3 { font-family: var(--f-serif); font-size: var(--h-xs); font-weight: 700; line-height: 1.25; color: var(--ink); }
+.bento-card p  { font-size: var(--t-s); color: var(--ink-60); line-height: 1.7; }
+
+/* ── SECTEURS ───────────────────────────────────────── */
+.sec-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+.sec-item { padding: 32px; border-right: 1px solid var(--ink-08); border-bottom: 1px solid var(--ink-08); display: flex; flex-direction: column; gap: 12px; transition: background .2s; }
+.sec-item:nth-child(3n)        { border-right: none; }
+.sec-item:nth-last-child(-n+3) { border-bottom: none; }
+.sec-item:hover { background: var(--violet); }
+.sec-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--violet-10); display: flex; align-items: center; justify-content: center; transition: background .25s ease; }
+.sec-item:hover .sec-icon { background: rgba(255,255,255,.2); }
+.sec-icon svg { width: 15px; height: 15px; color: var(--violet); transition: color .25s ease; }
+.sec-item:hover .sec-icon svg { color: #fff; }
+.sec-item h3 { font-size: var(--t-s); font-weight: 600; line-height: 1.35; transition: color .25s ease; }
+.sec-item:hover h3 { color: #fff; }
+.sec-item p  { font-size: var(--t-xs); color: var(--ink-60); line-height: 1.6; transition: color .25s ease; }
+.sec-item:hover p { color: rgba(255,255,255,.6); }
+.sec-item .lnk { transition: color .25s ease; }
+.sec-item:hover .lnk { color: rgba(255,255,255,.8); }
+
+/* ── CTA BANDS ──────────────────────────────────────── */
+.cta { padding: var(--sp-xl) 0; display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+.cta h2 { max-width: 520px; }
+.cta-acts { display: flex; gap: 12px; flex-shrink: 0; }
+.bg-v { background: var(--violet); }
+.bg-v h2, .bg-v p { color: #fff; }
+.bg-v p { opacity: .6; }
+.bg-d { background: var(--ink); }
+.bg-d h2, .bg-d p { color: #fff; }
+.bg-d p { opacity: .45; }
+.bg-s { background: var(--sable); }
+
+/* ── TÉMOIGNAGE ─────────────────────────────────────── */
+.temo { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.temo-quote { font-family: var(--f-serif); font-size: 1.35rem; line-height: 1.75; color: var(--ink); margin-bottom: 28px; }
+.temo-src { display: flex; align-items: center; gap: 14px; }
+.temo-av { width: 44px; height: 44px; border-radius: 50%; background: var(--sable-dark); display: flex; align-items: center; justify-content: center; font-family: var(--f-serif); font-weight: 700; font-size: .85rem; flex-shrink: 0; }
+.temo-name { font-weight: 600; font-size: var(--t-s); }
+.temo-role { font-size: var(--t-xs); color: var(--ink-60); margin-top: 2px; }
+
+/* ── PRESSE ─────────────────────────────────────────── */
+.press { display: grid; grid-template-columns: repeat(3, 1fr); }
+.press-card { padding: 36px 32px; border-right: 1px solid var(--ink-08); display: flex; flex-direction: column; gap: 14px; }
+.press-card:last-child { border-right: none; }
+.press-src { font-size: var(--t-xs); font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-60); }
+.press-q { font-size: var(--t-s); line-height: 1.65; color: var(--ink); flex: 1; }
+
+/* ── CONTACT ────────────────────────────────────────── */
+.cnt-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 80px; align-items: start; }
+.form { display: flex; flex-direction: column; gap: 14px; }
+.f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.f { display: flex; flex-direction: column; gap: 6px; }
+.f label { font-size: var(--t-xs); font-weight: 600; }
+.f input, .f select, .f textarea { padding: 12px 16px; border: 1px solid var(--ink-14); border-radius: 10px; font-family: var(--f-sans); font-size: var(--t-s); color: var(--ink); background: var(--white); outline: none; transition: border-color .2s; appearance: none; -webkit-appearance: none; }
+.f input:focus, .f select:focus, .f textarea:focus { border-color: var(--violet); }
+.f textarea { resize: vertical; min-height: 110px; }
+
+/* ── TARIFS ─────────────────────────────────────────── */
+.price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.price { padding: 40px 32px; background: var(--off); border-radius: 14px; border: 1px solid var(--ink-08); display: flex; flex-direction: column; }
+.price.feat { background: var(--ink); border-color: var(--ink); }
+.price-plan { font-size: var(--t-xs); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-60); margin-bottom: 20px; }
+.price.feat .price-plan { color: rgba(255,255,255,.35); }
+.price-amt { font-family: var(--f-serif); font-size: 2.8rem; font-weight: 700; line-height: 1; margin-bottom: 6px; }
+.price.feat .price-amt { color: #fff; }
+.price-per { font-size: var(--t-xs); color: var(--ink-60); margin-bottom: 24px; }
+.price.feat .price-per { color: rgba(255,255,255,.3); }
+.price hr { border-color: var(--ink-08); margin-bottom: 24px; }
+.price.feat hr { border-color: rgba(255,255,255,.1); }
+.price-feats { flex: 1; display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+.price-feats li { display: flex; align-items: center; gap: 10px; font-size: var(--t-xs); color: var(--ink-60); }
+.price.feat .price-feats li { color: rgba(255,255,255,.55); }
+.price-feats svg { width: 13px; height: 13px; color: var(--violet); flex-shrink: 0; }
+
+/* ── FOOTER ─────────────────────────────────────────── */
+.footer { background: var(--ink); padding: 64px 0 32px; }
+.ft-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 56px; }
+.ft-logo { font-family: var(--f-serif); font-size: 1.05rem; color: #fff; margin-bottom: 12px; }
+.ft-logo span { color: var(--violet); }
+.ft-desc { font-size: var(--t-xs); color: rgba(255,255,255,.35); line-height: 1.7; max-width: 260px; }
+.ft-head { font-size: var(--t-xs); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,.28); margin-bottom: 18px; }
+.ft-links { display: flex; flex-direction: column; gap: 10px; }
+.ft-links a { font-size: var(--t-s); color: rgba(255,255,255,.45); transition: color .15s; }
+.ft-links a:hover { color: #fff; }
+.ft-bottom { border-top: 1px solid rgba(255,255,255,.07); padding-top: 28px; display: flex; align-items: center; justify-content: space-between; font-size: var(--t-xs); color: rgba(255,255,255,.22); }
+.ft-legal { display: flex; gap: 20px; }
+
+/* ── ICONE CARDS ────────────────────────────────────── */
+.icard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.icard { border-radius: 14px; padding: 32px 28px; display: flex; flex-direction: column; gap: 20px; transition: transform .25s ease, box-shadow .25s ease; }
+.icard:hover { transform: translateY(-6px); box-shadow: 0 16px 40px -12px rgba(110,91,255,.18); }
+.icard--sable  { background: var(--sable); }
+.icard--violet { background: var(--violet-10); }
+.icard-icon { width: 42px; height: 42px; border-radius: 10px; background: rgba(255,255,255,.65); display: flex; align-items: center; justify-content: center; }
+.icard-icon svg { width: 18px; height: 18px; color: var(--ink); opacity: .6; }
+.icard h3 { font-family: var(--f-serif); font-size: var(--h-xs); line-height: 1.25; font-weight: 700; }
+.icard p  { font-size: var(--t-xs); color: var(--ink-60); line-height: 1.7; }
+
+/* Utils */
+.mb-xs { margin-bottom: var(--sp-xs); }
+.mb-s  { margin-bottom: var(--sp-s); }
+.mb-m  { margin-bottom: var(--sp-m); }
+.tc { text-align: center; }
+.bg-sable    { background: var(--sable); }
+.bg-off      { background: var(--off); }
+.bg-violet-l { background: var(--violet-10); }
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE — Tablette 768px
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* Nav blocs */
+  .blk-nav { overflow-x: auto; flex-wrap: nowrap; padding: 10px 16px; gap: 6px; }
+  .blk-nav a { white-space: nowrap; flex-shrink: 0; }
+
+  /* Headings */
+  :root {
+    --h-xl: 2.8rem;
+    --h-l:  2.2rem;
+    --h-m:  1.8rem;
+    --h-s:  1.4rem;
+    --h-xs: 1.2rem;
+  }
+
+  /* Sections padding */
+  .px { padding-left: 24px; padding-right: 24px; }
+  .py { padding-top: 56px; padding-bottom: 56px; }
+
+  /* Hero */
+  .hero { flex-direction: column; gap: 40px; }
+  .hero-vis { width: 100%; }
+  .screen { min-height: 220px; }
+  .hero-c h1 { font-size: var(--h-xl); }
+
+  /* Stats */
+  .stats { flex-wrap: wrap; }
+  .stat { width: 50%; border-right: none; border-bottom: 1px solid var(--ink-08); padding: 24px 16px; }
+  .stat:nth-child(odd)  { border-right: 1px solid var(--ink-08); }
+  .stat:last-child, .stat:nth-last-child(-n+2):nth-child(odd) { border-bottom: none; }
+  .dark-v .stat { border-color: rgba(255,255,255,.2); }
+
+  /* Split section */
+  .split { flex-direction: column; gap: 32px; }
+
+  /* Solution cards */
+  .sol-grid { flex-direction: column; gap: 12px; }
+  .sol-card { flex: none; width: 100%; }
+  .sol-card-inner { height: 240px; }
+
+  /* Features list */
+  .feat-grid { grid-template-columns: 1fr; }
+  .feat-col:first-child { display: none; } /* cache la colonne titre sur mobile */
+
+  /* Icone cards */
+  .icard-grid { grid-template-columns: 1fr; }
+
+  /* Chiffres cards */
+  .num-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Capacités */
+  .capa-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Bento */
+  .bento-grid { grid-template-columns: 1fr; }
+  .bento-card--wide { grid-column: span 1; }
+
+  /* Orbit */
+  .orbit-card { grid-template-columns: 1fr; gap: 48px; padding: 48px 32px; }
+  .orbit-stage { width: 300px; height: 300px; }
+  .orbit-center { width: 64px; height: 64px; }
+  .orbit-center svg { width: 26px; height: 26px; }
+  .oi { width: 44px; height: 44px; margin: -22px 0 0 -22px; }
+  .oi-inner { width: 44px; height: 44px; }
+  .oi--1,.oi--2,.oi--3,.oi--4,.oi--5,.oi--6,.oi--7,.oi--8 { animation-name: none; }
+  .oi--1 { animation-name: oi1s; } .oi--2 { animation-name: oi2s; }
+  .oi--3 { animation-name: oi3s; } .oi--4 { animation-name: oi4s; }
+  .oi--5 { animation-name: oi5s; } .oi--6 { animation-name: oi6s; }
+  .oi--7 { animation-name: oi7s; } .oi--8 { animation-name: oi8s; }
+  @keyframes oi1s { from{transform:rotate(0deg)   translateX(120px) rotate(0deg);}   to{transform:rotate(360deg)  translateX(120px) rotate(-360deg);} }
+  @keyframes oi2s { from{transform:rotate(45deg)  translateX(120px) rotate(-45deg);}  to{transform:rotate(405deg)  translateX(120px) rotate(-405deg);} }
+  @keyframes oi3s { from{transform:rotate(90deg)  translateX(120px) rotate(-90deg);}  to{transform:rotate(450deg)  translateX(120px) rotate(-450deg);} }
+  @keyframes oi4s { from{transform:rotate(135deg) translateX(120px) rotate(-135deg);} to{transform:rotate(495deg)  translateX(120px) rotate(-495deg);} }
+  @keyframes oi5s { from{transform:rotate(180deg) translateX(120px) rotate(-180deg);} to{transform:rotate(540deg)  translateX(120px) rotate(-540deg);} }
+  @keyframes oi6s { from{transform:rotate(225deg) translateX(120px) rotate(-225deg);} to{transform:rotate(585deg)  translateX(120px) rotate(-585deg);} }
+  @keyframes oi7s { from{transform:rotate(270deg) translateX(120px) rotate(-270deg);} to{transform:rotate(630deg)  translateX(120px) rotate(-630deg);} }
+  @keyframes oi8s { from{transform:rotate(315deg) translateX(120px) rotate(-315deg);} to{transform:rotate(675deg)  translateX(120px) rotate(-675deg);} }
+
+  /* Secteurs */
+  .sec-grid { grid-template-columns: 1fr 1fr; }
+  .sec-item:nth-child(2n)  { border-right: none; }
+  .sec-item:nth-child(3n)  { border-right: 1px solid var(--ink-08); }
+  .sec-item:nth-last-child(-n+2) { border-bottom: none; }
+
+  /* 2 cols */
+  .twocol { grid-template-columns: 1fr; gap: 40px; }
+
+  /* CTA band */
+  .cta { flex-direction: column; gap: 24px; }
+  .cta h2 { max-width: 100%; }
+
+  /* Contact */
+  .cnt-grid { grid-template-columns: 1fr; gap: 40px; }
+
+  /* Tarifs */
+  .plans { grid-template-columns: 1fr; }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+
+  /* Témoignage */
+  .temo { flex-direction: column; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE — Mobile 480px
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+
+  :root {
+    --h-xl: 2.2rem;
+    --h-l:  1.8rem;
+    --h-m:  1.5rem;
+  }
+
+  .px { padding-left: 16px; padding-right: 16px; }
+  .py { padding-top: 40px; padding-bottom: 40px; }
+
+  /* Stats 1 col */
+  .stat { width: 100%; border-right: none; }
+  .stat:nth-child(odd) { border-right: none; }
+
+  /* Icone cards */
+  .icard-grid { grid-template-columns: 1fr; }
+
+  /* Chiffres cards 1 col */
+  .num-grid { grid-template-columns: 1fr; }
+
+  /* Capacités 1 col */
+  .capa-grid { grid-template-columns: 1fr; }
+
+  /* Secteurs 1 col */
+  .sec-grid { grid-template-columns: 1fr; }
+  .sec-item { border-right: none !important; }
+  .sec-item:nth-last-child(-n+1) { border-bottom: none; }
+
+  /* Boutons hero */
+  .hero-actions { flex-direction: column; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+
+  /* Footer 1 col */
+  .footer-grid { grid-template-columns: 1fr; }
+
+  /* Orbit réduit */
+  .orbit-stage { width: 260px; height: 260px; }
+  .oi--1 { animation-name: oi1xs; } .oi--2 { animation-name: oi2xs; }
+  .oi--3 { animation-name: oi3xs; } .oi--4 { animation-name: oi4xs; }
+  .oi--5 { animation-name: oi5xs; } .oi--6 { animation-name: oi6xs; }
+  .oi--7 { animation-name: oi7xs; } .oi--8 { animation-name: oi8xs; }
+  @keyframes oi1xs { from{transform:rotate(0deg)   translateX(100px) rotate(0deg);}   to{transform:rotate(360deg)  translateX(100px) rotate(-360deg);} }
+  @keyframes oi2xs { from{transform:rotate(45deg)  translateX(100px) rotate(-45deg);}  to{transform:rotate(405deg)  translateX(100px) rotate(-405deg);} }
+  @keyframes oi3xs { from{transform:rotate(90deg)  translateX(100px) rotate(-90deg);}  to{transform:rotate(450deg)  translateX(100px) rotate(-450deg);} }
+  @keyframes oi4xs { from{transform:rotate(135deg) translateX(100px) rotate(-135deg);} to{transform:rotate(495deg)  translateX(100px) rotate(-495deg);} }
+  @keyframes oi5xs { from{transform:rotate(180deg) translateX(100px) rotate(-180deg);} to{transform:rotate(540deg)  translateX(100px) rotate(-540deg);} }
+  @keyframes oi6xs { from{transform:rotate(225deg) translateX(100px) rotate(-225deg);} to{transform:rotate(585deg)  translateX(100px) rotate(-585deg);} }
+  @keyframes oi7xs { from{transform:rotate(270deg) translateX(100px) rotate(-270deg);} to{transform:rotate(630deg)  translateX(100px) rotate(-630deg);} }
+  @keyframes oi8xs { from{transform:rotate(315deg) translateX(100px) rotate(-315deg);} to{transform:rotate(675deg)  translateX(100px) rotate(-675deg);} }
+}
+</style>
+</head>
+<body>
+
+<!-- KIT NAV -->
+<nav class="tnav">
+  <a href="#bnav">Nav</a>
+  <a href="#bhero-a">Hero blanc</a>
+  <a href="#bhero-sable">Hero sable</a>
+  <a href="#bhero-b">Hero B</a>
+  <a href="#bhero-c">Hero C</a>
+  <a href="#blogos">Logos</a>
+  <a href="#bstats-w">Stats blanc</a>
+  <a href="#bstats-v">Stats violet</a>
+  <a href="#bsplit">Split section</a>
+  <a href="#bsol">Solution cards</a>
+  <a href="#bfeat">Features</a>
+  <a href="#bcapa-vl">Capa A · fond violet clair</a>
+  <a href="#bcapa-s">Capa B · cards sable</a>
+  <a href="#bcapa-vv">Capa C · cards violet clair</a>
+  <a href="#btwocol">2 cols</a>
+  <a href="#borbit">Orbit</a>
+  <a href="#bbento-s">Bento sable</a>
+  <a href="#bbento-v">Bento violet clair</a>
+  <a href="#bsec">Secteurs</a>
+  <a href="#bcta">CTA bands</a>
+  <a href="#btemo">Témoignage</a>
+  <a href="#bpress">Presse</a>
+  <a href="#bcnt">Contact</a>
+  <a href="#bprice">Tarifs</a>
+  <a href="#bfooter">Footer</a>
+</nav>
+
+
+<!-- ════ NAV ════════════════════════════════════════════════ -->
+<div id="bnav" class="blk">NAV</div>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Odyssey<span>.</span></a>
+    <div class="nav-menu">
+      <a href="#">Solutions</a>
+      <a href="#">Secteurs</a>
+      <a href="#">Objectifs</a>
+      <a href="#">À propos</a>
+      <a href="#">Presse</a>
+    </div>
+    <div class="nav-actions">
+      <a href="#" class="btn btn-g" style="padding:10px 20px;font-size:.8rem">Se connecter</a>
+      <a href="#" class="btn btn-p" style="padding:10px 20px;font-size:.8rem">
+        Demander une démo
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ════ HERO A — blanc, 2 cols ═════════════════════════════ -->
+<div id="bhero-a" class="blk">HERO A — Blanc · 2 colonnes</div>
+<section class="px" style="background:var(--white)">
+  <div class="cnt">
+    <div class="hero">
+      <div class="hero-text">
+        <div class="hero-eyebrow">
+          <div class="hero-badge"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7h10M7 2l5 5-5 5"/></svg>Guide IA pour le tourisme</div>
+        </div>
+        <h1 class="h-xl" style="margin-bottom:22px">Votre destination mérite un guide qui ne dort jamais.</h1>
+        <p class="muted" style="font-size:var(--t-l);line-height:1.65;max-width:500px">ULYS répond à tout, tout de suite — en 20 langues, 24h/24, formé sur vos contenus. Vos visiteurs ont leurs réponses.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-p">Demander une démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+          <a href="#" class="btn btn-g">Voir comment ça marche</a>
+        </div>
+      </div>
+      <div class="hero-vis">
+        <div class="screen"><span>Visuel produit</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<hr>
+
+
+<!-- ════ HERO — sable, 2 cols ════════════════════════════════ -->
+<div id="bhero-sable" class="blk">HERO — Sable · 2 colonnes</div>
+<section class="px bg-sable" style="min-height:100vh;display:flex;align-items:center;">
+  <div class="cnt">
+    <div class="hero">
+      <div class="hero-text">
+        <div class="hero-eyebrow">
+          <div class="hero-badge"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7h10M7 2l5 5-5 5"/></svg>Guide IA pour le tourisme</div>
+        </div>
+        <h1 class="h-xl" style="margin-bottom:22px">Votre destination mérite un guide qui ne dort jamais.</h1>
+        <p class="muted" style="font-size:var(--t-l);line-height:1.65;max-width:500px">ULYS répond à tout, tout de suite — en 20 langues, 24h/24, formé sur vos contenus. Vos visiteurs ont leurs réponses.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-p">Demander une démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+          <a href="#" class="btn btn-g">Voir comment ça marche</a>
+        </div>
+      </div>
+      <div class="hero-vis">
+        <div class="screen" style="background:rgba(110,91,255,.08)"><span>Visuel produit</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<hr>
+
+
+<!-- ════ HERO B — sable, centré ═════════════════════════════ -->
+<div id="bhero-b" class="blk">HERO B — Sable · Centré</div>
+<section class="px bg-sable">
+  <div class="cnt">
+    <div class="hero-c">
+      <p class="eyebrow mb-xs">Odyssey Manager</p>
+      <h1 class="h-xl">Devenez manager de l'odyssée de vos visiteurs</h1>
+      <p class="muted" style="font-size:var(--t-l);line-height:1.65">Du premier clic jusqu'au souvenir — quatre outils IA pour reprendre le contrôle de votre visibilité, vos revenus et l'expérience visiteur.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-p">Demander une démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+        <a href="#" class="btn btn-g">Découvrir les solutions</a>
+      </div>
+    </div>
+  </div>
+</section>
+<hr>
+
+
+<!-- ════ HERO C — anthracite, 2 cols ════════════════════════ -->
+<div id="bhero-c" class="blk">HERO C — Violet · 2 colonnes</div>
+<section class="px" style="background:var(--violet)">
+  <div class="cnt">
+    <div class="hero">
+      <div class="hero-text">
+        <div class="hero-eyebrow">
+          <div class="hero-badge hero-badge--dark"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7h10M7 2l5 5-5 5"/></svg>ITHAK</div>
+        </div>
+        <h1 class="h-xl" style="color:#fff;margin-bottom:22px">Vos visiteurs réservent chez vous. Pas sur Booking.</h1>
+        <p style="font-size:var(--t-l);line-height:1.65;color:rgba(255,255,255,.45);max-width:480px">ITHAK est votre plateforme de réservation directe — sans commission, sous votre marque.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-w">Voir la démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+          <a href="#" class="btn btn-ghost-w">En savoir plus</a>
+        </div>
+      </div>
+      <div class="hero-vis">
+        <div class="screen" style="background:rgba(255,255,255,.06)"><span style="color:rgba(255,255,255,.2)">Visuel produit</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════ LOGOS ═══════════════════════════════════════════════ -->
+<div id="blogos" class="blk">LOGOS / PARTENAIRES</div>
+<div class="logos px">
+  <p class="eyebrow mb-xs" style="margin-bottom:28px">Ils nous font confiance</p>
+  <div style="overflow:hidden">
+    <div class="logos-track">
+      <span class="logo-item">Sanctuaire de Lourdes</span>
+      <span class="logo-item">Office de Tourisme Paris</span>
+      <span class="logo-item">Palais des Congrès</span>
+      <span class="logo-item">Thermes de Saint-Galmier</span>
+      <span class="logo-item">Parc Astérix</span>
+      <span class="logo-item">Mont-Saint-Michel</span>
+      <span class="logo-item">Sanctuaire de Lourdes</span>
+      <span class="logo-item">Office de Tourisme Paris</span>
+      <span class="logo-item">Palais des Congrès</span>
+      <span class="logo-item">Thermes de Saint-Galmier</span>
+      <span class="logo-item">Parc Astérix</span>
+      <span class="logo-item">Mont-Saint-Michel</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════ STATS ════════════════════════════════════════════════ -->
+<!-- ════ STATS — fond blanc ══════════════════════════════════ -->
+<div id="bstats-w" class="blk">STATS — Fond blanc</div>
+<section class="px">
+  <div class="cnt">
+    <hr>
+    <div class="stats px" style="padding-left:0;padding-right:0">
+      <div class="stat"><div class="stat-n">80<span>%</span></div><p class="stat-l">des voyageurs utilisent l'IA pour planifier leur séjour</p></div>
+      <div class="stat"><div class="stat-n">70<span>%</span></div><p class="stat-l">des pages web touristiques sans trafic organique</p></div>
+      <div class="stat"><div class="stat-n">24<span>/7</span></div><p class="stat-l">disponibilité du guide sans interruption</p></div>
+      <div class="stat"><div class="stat-n">20<span>+</span></div><p class="stat-l">langues supportées nativement</p></div>
+    </div>
+    <hr>
+  </div>
+</section>
+
+<!-- ════ STATS — fond violet ════════════════════════════════ -->
+<div id="bstats-v" class="blk">STATS — Fond violet</div>
+<div class="stats dark-v px">
+  <div class="cnt" style="width:100%">
+    <div class="stats" style="background:transparent">
+      <div class="stat" style="border-right-color:rgba(255,255,255,.2)"><div class="stat-n" style="color:#fff">80<span style="color:rgba(255,255,255,.55)">%</span></div><p class="stat-l" style="color:rgba(255,255,255,.55)">des voyageurs utilisent l'IA pour planifier leur séjour</p></div>
+      <div class="stat" style="border-right-color:rgba(255,255,255,.2)"><div class="stat-n" style="color:#fff">70<span style="color:rgba(255,255,255,.55)">%</span></div><p class="stat-l" style="color:rgba(255,255,255,.55)">des pages web touristiques sans trafic organique</p></div>
+      <div class="stat" style="border-right-color:rgba(255,255,255,.2)"><div class="stat-n" style="color:#fff">24<span style="color:rgba(255,255,255,.55)">/7</span></div><p class="stat-l" style="color:rgba(255,255,255,.55)">disponibilité du guide sans interruption</p></div>
+      <div class="stat" style="border-right:none"><div class="stat-n" style="color:#fff">20<span style="color:rgba(255,255,255,.55)">+</span></div><p class="stat-l" style="color:rgba(255,255,255,.55)">langues supportées nativement</p></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════ SPLIT SECTION ═══════════════════════════════════════ -->
+<div id="bsplit" class="blk">SECTION TITLE PATTERN</div>
+<section class="px">
+  <div class="cnt">
+    <hr>
+    <div class="split">
+      <div class="split-a">
+        <p class="eyebrow mb-xs">Les attentes ont changé</p>
+        <h2 class="h-l">Votre destination doit suivre</h2>
+      </div>
+      <div class="split-b">
+        <p style="font-size:var(--t-l);color:var(--ink-60);line-height:1.7">40 % des Français utilisent l'IA pour organiser leur séjour. Une nouvelle façon de chercher — et de trouver, ou pas. Les acteurs qui s'adaptent aujourd'hui prendront une longueur d'avance décisive.</p>
+        <div style="margin-top:28px"><a href="#" class="link">En savoir plus <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════ SOLUTION CARDS ══════════════════════════════════════ -->
+<div id="bsol" class="blk">SOLUTION CARDS — hover reveal</div>
+<section class="px py">
+  <div class="cnt">
+    <hr class="mb-s">
+    <p class="eyebrow mb-xs">Nos solutions</p>
+    <h2 class="h-l" style="margin-bottom:var(--sp-s)">Quatre outils. Un seul objectif.</h2>
+    <div class="sol-grid">
+
+      <div class="sol">
+        <div class="sol-inner">
+          <div>
+            <span class="sol-tag">ITHAK</span>
+            <h3 class="sol-title">Réservation directe</h3>
+            <p class="sol-desc">Captez vos visiteurs au bon moment. Convertissez-les en réservations directes, sans commission aux OTA.</p>
+          </div>
+          <a href="#" class="sol-link">En savoir plus <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+          <span class="sol-n">01</span>
+        </div>
+      </div>
+
+      <div class="sol">
+        <div class="sol-inner">
+          <div>
+            <span class="sol-tag">ULYS</span>
+            <h3 class="sol-title">Guide IA 24/7</h3>
+            <p class="sol-desc">Un guide intelligent disponible à toute heure, en toutes langues, formé sur vos contenus destination.</p>
+          </div>
+          <a href="#" class="sol-link">En savoir plus <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+          <span class="sol-n">02</span>
+        </div>
+      </div>
+
+      <div class="sol">
+        <div class="sol-inner">
+          <div>
+            <span class="sol-tag">ECHO</span>
+            <h3 class="sol-title">SEO automatique</h3>
+            <p class="sol-desc">Des centaines de pages optimisées générées automatiquement pour dominer Google sur votre territoire.</p>
+          </div>
+          <a href="#" class="sol-link">En savoir plus <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+          <span class="sol-n">03</span>
+        </div>
+      </div>
+
+      <div class="sol">
+        <div class="sol-inner">
+          <div>
+            <span class="sol-tag">NEST</span>
+            <h3 class="sol-title">Expérience interactive</h3>
+            <p class="sol-desc">Parcours découverte géolocalisé. Audio, vidéo, archives animées par IA — aucune application à télécharger.</p>
+          </div>
+          <a href="#" class="sol-link">En savoir plus <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+          <span class="sol-n">04</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════ CHIFFRES CARDS — sable ═════════════════════════════ -->
+<div id="bnums-s" class="blk">CHIFFRES CARDS — Cards sable</div>
+<section class="px py">
+  <div class="cnt">
+    <h2 class="h-l" style="margin-bottom:var(--sp-s)">Des résultats mesurables</h2>
+    <div class="num-grid">
+      <div class="num-card num-card--sable">
+        <div class="num-n">80<span style="font-size:.55em">%</span></div>
+        <p class="num-l">des voyageurs utilisent l'IA pour planifier leur séjour</p>
+      </div>
+      <div class="num-card num-card--sable">
+        <div class="num-n">70<span style="font-size:.55em">%</span></div>
+        <p class="num-l">des pages web touristiques sans aucun trafic organique</p>
+      </div>
+      <div class="num-card num-card--sable">
+        <div class="num-n">24<span style="font-size:.55em">/7</span></div>
+        <p class="num-l">guide disponible sans interruption, en 20 langues</p>
+      </div>
+      <div class="num-card num-card--sable">
+        <div class="num-n">0<span style="font-size:.55em">%</span></div>
+        <p class="num-l">de commission reversée aux OTA sur vos réservations directes</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CHIFFRES CARDS — violet clair ══════════════════════ -->
+<div id="bnums-v" class="blk">CHIFFRES CARDS — Cards violet clair</div>
+<section class="px py">
+  <div class="cnt">
+    <h2 class="h-l" style="margin-bottom:var(--sp-s)">Des résultats mesurables</h2>
+    <div class="num-grid">
+      <div class="num-card num-card--violet">
+        <div class="num-n">80<span style="font-size:.55em">%</span></div>
+        <p class="num-l">des voyageurs utilisent l'IA pour planifier leur séjour</p>
+      </div>
+      <div class="num-card num-card--violet">
+        <div class="num-n">70<span style="font-size:.55em">%</span></div>
+        <p class="num-l">des pages web touristiques sans aucun trafic organique</p>
+      </div>
+      <div class="num-card num-card--violet">
+        <div class="num-n">24<span style="font-size:.55em">/7</span></div>
+        <p class="num-l">guide disponible sans interruption, en 20 langues</p>
+      </div>
+      <div class="num-card num-card--violet">
+        <div class="num-n">0<span style="font-size:.55em">%</span></div>
+        <p class="num-l">de commission reversée aux OTA sur vos réservations directes</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ ICONE CARDS — sable ════════════════════════════════ -->
+<div id="bicards-s" class="blk">ICONE CARDS — Fond sable</div>
+<section class="px py">
+  <div class="cnt">
+    <p class="eyebrow mb-xs">Pourquoi Odyssey</p>
+    <h2 class="h-l" style="margin-bottom:var(--sp-s)">Trois raisons de nous choisir</h2>
+    <div class="icard-grid">
+      <div class="icard icard--sable">
+        <div class="icard-icon"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M9 1.5S3 5.5 3 10a6 6 0 0012 0c0-4.5-6-8.5-6-8.5z"/></svg></div>
+        <h3>Visibilité retrouvée</h3>
+        <p>Votre destination apparaît là où vos futurs visiteurs cherchent — sur Google, dans les IA et sur les cartes. Sans dépendre des OTA.</p>
+      </div>
+      <div class="icard icard--sable">
+        <div class="icard-icon"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><rect x="2" y="4" width="14" height="11" rx="2"/><path d="M2 8h14M6 4V2M12 4V2"/></svg></div>
+        <h3>Revenus en direct</h3>
+        <p>Chaque réservation génère un revenu direct — sans commission, sous votre marque.</p>
+      </div>
+      <div class="icard icard--sable">
+        <div class="icard-icon"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="9" cy="9" r="7"/><path d="M9 5.5v3.5l2.5 2.5"/></svg></div>
+        <h3>Expérience mémorable</h3>
+        <p>Du premier clic jusqu'au souvenir — vos visiteurs vivent une odyssée pensée pour eux.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ ICONE CARDS — violet clair ═════════════════════════ -->
+<div id="bicards-v" class="blk">ICONE CARDS — Cards violet clair</div>
+<section class="px py">
+  <div class="cnt">
+    <p class="eyebrow mb-xs">Pourquoi Odyssey</p>
+    <h2 class="h-l" style="margin-bottom:var(--sp-s)">Trois raisons de nous choisir</h2>
+    <div class="icard-grid">
+      <div class="icard icard--violet">
+        <div class="icard-icon"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M9 1.5S3 5.5 3 10a6 6 0 0012 0c0-4.5-6-8.5-6-8.5z"/></svg></div>
+        <h3>Visibilité retrouvée</h3>
+        <p>Votre destination apparaît là où vos futurs visiteurs cherchent — sur Google, dans les IA et sur les cartes. Sans dépendre des OTA.</p>
+      </div>
+      <div class="icard icard--violet">
+        <div class="icard-icon"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><rect x="2" y="4" width="14" height="11" rx="2"/><path d="M2 8h14M6 4V2M12 4V2"/></svg></div>
+        <h3>Revenus en direct</h3>
+        <p>Chaque réservation génère un revenu direct — sans commission, sous votre marque.</p>
+      </div>
+      <div class="icard icard--violet">
+        <div class="icard-icon"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="9" cy="9" r="7"/><path d="M9 5.5v3.5l2.5 2.5"/></svg></div>
+        <h3>Expérience mémorable</h3>
+        <p>Du premier clic jusqu'au souvenir — vos visiteurs vivent une odyssée pensée pour eux.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FEATURES LIST ═══════════════════════════════════════ -->
+<div id="bfeat" class="blk">FEATURES LIST</div>
+<section class="px py">
+  <div class="cnt">
+    <div class="feat-grid">
+      <div>
+        <p class="eyebrow mb-xs">ULYS</p>
+        <h2 class="h-l" style="margin-bottom:20px">Pas un chatbot. Un vrai guide.</h2>
+        <p class="muted" style="font-size:var(--t-m);line-height:1.7">ULYS comprend le contexte, la météo, les horaires en temps réel. Il s'adapte à chaque visiteur et à chaque situation.</p>
+        <a href="#" class="btn btn-p" style="margin-top:32px">Découvrir ULYS <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+      </div>
+      <div class="feat-list">
+        <div class="feat-item">
+          <div class="feat-icon"><svg viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="13" height="11" rx="2"/><path d="M2 7h13"/></svg></div>
+          <div class="feat-text"><h3>Agenda temps réel</h3><p>Cet après-midi, ce soir, demain — adapté aux horaires d'ouverture actuels.</p></div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><svg viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8.5 1.5s-5 3.5-5 8a5 5 0 0010 0c0-4.5-5-8-5-8z"/></svg></div>
+          <div class="feat-text"><h3>Météo, trafic, marées</h3><p>Chaque suggestion ajustée aux conditions du moment.</p></div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><svg viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 13V8M8.5 13V3M13 13V9"/></svg></div>
+          <div class="feat-text"><h3>Restauration & activités</h3><p>Selon goûts, budgets et contraintes — avec avis vérifiés.</p></div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><svg viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8.5" cy="6.5" r="3"/><path d="M3 16c0-3 2.5-5.5 5.5-5.5S14 13 14 16"/></svg></div>
+          <div class="feat-text"><h3>Accessibilité PMR</h3><p>Adapter chaque parcours selon les besoins de chaque visiteur.</p></div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><svg viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8.5" cy="8.5" r="6.5"/><path d="M8.5 5.5v3l2.5 2"/></svg></div>
+          <div class="feat-text"><h3>Horaires en temps réel</h3><p>Musées, commerces, transports — toujours à jour.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════ TAGS ════════════════════════════════════════════════ -->
+<div id="bcapa-vl" class="blk">CAPACITÉS A — Fond violet clair · Cards blanches</div>
+<section class="px py bg-violet-l">
+  <div class="cnt">
+    <p class="eyebrow mb-xs">ULYS comprend</p>
+    <h2 class="h-l mb-s">Il répond à tout, vraiment.</h2>
+    <div class="capa-grid">
+
+      <div class="capa-card">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="4" y="6" width="24" height="22" rx="3"/><path d="M4 13h24M11 3v6M21 3v6"/></svg></div>
+        <h3>Agenda temps réel</h3>
+        <p>Cet après-midi, ce soir, demain…</p>
+      </div>
+
+      <div class="capa-card">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M16 4c-5 4-8 9-8 13a8 8 0 0016 0c0-4-3-9-8-13z"/><path d="M10 20c2-1 4-1.5 6-1s4 1.5 6 1"/></svg></div>
+        <h3>Météo, trafic, marées</h3>
+        <p>Ajuster chaque sortie, en temps réel</p>
+      </div>
+
+      <div class="capa-card">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 28V18M16 28V8M23 28V15"/></svg></div>
+        <h3>Top restos et activités</h3>
+        <p>Selon les goûts, les budgets et les contraintes</p>
+      </div>
+
+      <div class="capa-card">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="16" cy="10" r="4"/><path d="M8 28c0-4.4 3.6-8 8-8s8 3.6 8 8"/><path d="M24 17l4-3M27 22l-3-1"/></svg></div>
+        <h3>À pied, à vélo, en voiture</h3>
+        <p>Pour tous les modes de déplacement</p>
+      </div>
+
+      <div class="capa-card">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M16 3S5 10 5 18a11 11 0 0022 0C27 10 16 3 16 3z"/><path d="M11 21c1.5-1.5 3-2 5-2s3.5.5 5 2"/></svg></div>
+        <h3>Animaux acceptés</h3>
+        <p>Activités identifiées comme pet-friendly</p>
+      </div>
+
+      <div class="capa-card">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="16" cy="16" r="11"/><path d="M16 10v6l4 4"/></svg></div>
+        <h3>Affluence du moment</h3>
+        <p>Éviter la foule et se déplacer au bon moment</p>
+      </div>
+
+      <div class="capa-card">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="13" cy="10" r="4"/><path d="M5 28c0-4.4 3.6-8 8-8"/><path d="M22 19l5 4-5 4M27 23h-9"/></svg></div>
+        <h3>Accessibilité PMR</h3>
+        <p>Adapter chaque parcours aux besoins de chacun</p>
+      </div>
+
+      <div class="capa-card">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M16 6v5M10 8l3 4M22 8l-3 4"/><path d="M8 18c0 5.5 3.6 10 8 10s8-4.5 8-10"/><path d="M6 18h20"/></svg></div>
+        <h3>Temps pluvieux</h3>
+        <p>Des activités couvertes suggérées automatiquement</p>
+      </div>
+
+      <div class="capa-card">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="4" y="8" width="24" height="18" rx="3"/><path d="M16 14v8M12 18h8"/></svg></div>
+        <h3>Urgences</h3>
+        <p>Médecins, vétos, pharmacies et urgences</p>
+      </div>
+
+      <div class="capa-card">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="16" cy="16" r="11"/><path d="M10 16h12M16 10l6 6-6 6"/></svg></div>
+        <h3>Horaires temps réel</h3>
+        <p>Musées, commerces et activités à l'instant T</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════ CAPACITÉS B — fond blanc · cards sable ══════════════ -->
+<div id="bcapa-s" class="blk">CAPACITÉS B — Fond blanc · Cards sable</div>
+<section class="px py">
+  <div class="cnt">
+    <p class="eyebrow mb-xs">ULYS comprend</p>
+    <h2 class="h-l mb-s">Il répond à tout, vraiment.</h2>
+    <div class="capa-grid">
+      <div class="capa-card" style="background:var(--sable)">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="4" y="6" width="24" height="22" rx="3"/><path d="M4 13h24M11 3v6M21 3v6"/></svg></div>
+        <h3>Agenda temps réel</h3>
+        <p>Cet après-midi, ce soir, demain…</p>
+      </div>
+      <div class="capa-card" style="background:var(--sable)">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M16 4c-5 4-8 9-8 13a8 8 0 0016 0c0-4-3-9-8-13z"/><path d="M10 20c2-1 4-1.5 6-1s4 1.5 6 1"/></svg></div>
+        <h3>Météo, trafic, marées</h3>
+        <p>Ajuster chaque sortie, en temps réel</p>
+      </div>
+      <div class="capa-card" style="background:var(--sable)">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 28V18M16 28V8M23 28V15"/></svg></div>
+        <h3>Top restos et activités</h3>
+        <p>Selon les goûts, les budgets et les contraintes</p>
+      </div>
+      <div class="capa-card" style="background:var(--sable)">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="16" cy="10" r="4"/><path d="M8 28c0-4.4 3.6-8 8-8s8 3.6 8 8"/><path d="M24 17l4-3M27 22l-3-1"/></svg></div>
+        <h3>À pied, à vélo, en voiture</h3>
+        <p>Pour tous les modes de déplacement</p>
+      </div>
+      <div class="capa-card" style="background:var(--sable)">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M16 3S5 10 5 18a11 11 0 0022 0C27 10 16 3 16 3z"/><path d="M11 21c1.5-1.5 3-2 5-2s3.5.5 5 2"/></svg></div>
+        <h3>Animaux acceptés</h3>
+        <p>Activités identifiées comme pet-friendly</p>
+      </div>
+      <div class="capa-card" style="background:var(--sable)">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="16" cy="16" r="11"/><path d="M16 10v6l4 4"/></svg></div>
+        <h3>Affluence du moment</h3>
+        <p>Éviter la foule et se déplacer au bon moment</p>
+      </div>
+      <div class="capa-card" style="background:var(--sable)">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="13" cy="10" r="4"/><path d="M5 28c0-4.4 3.6-8 8-8"/><path d="M22 19l5 4-5 4M27 23h-9"/></svg></div>
+        <h3>Accessibilité PMR</h3>
+        <p>Adapter chaque parcours aux besoins de chacun</p>
+      </div>
+      <div class="capa-card" style="background:var(--sable)">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M16 6v5M10 8l3 4M22 8l-3 4"/><path d="M8 18c0 5.5 3.6 10 8 10s8-4.5 8-10"/><path d="M6 18h20"/></svg></div>
+        <h3>Temps pluvieux</h3>
+        <p>Des activités couvertes suggérées automatiquement</p>
+      </div>
+      <div class="capa-card" style="background:var(--sable)">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="4" y="8" width="24" height="18" rx="3"/><path d="M16 14v8M12 18h8"/></svg></div>
+        <h3>Urgences</h3>
+        <p>Médecins, vétos, pharmacies et urgences</p>
+      </div>
+      <div class="capa-card" style="background:var(--sable)">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="16" cy="16" r="11"/><path d="M10 16h12M16 10l6 6-6 6"/></svg></div>
+        <h3>Horaires temps réel</h3>
+        <p>Musées, commerces et activités à l'instant T</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CAPACITÉS C — fond blanc · cards violet clair ══════ -->
+<div id="bcapa-vv" class="blk">CAPACITÉS C — Fond blanc · Cards violet clair</div>
+<section class="px py">
+  <div class="cnt">
+    <p class="eyebrow mb-xs">ULYS comprend</p>
+    <h2 class="h-l mb-s">Il répond à tout, vraiment.</h2>
+    <div class="capa-grid">
+      <div class="capa-card" style="background:var(--violet-10)">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="4" y="6" width="24" height="22" rx="3"/><path d="M4 13h24M11 3v6M21 3v6"/></svg></div>
+        <h3>Agenda temps réel</h3>
+        <p>Cet après-midi, ce soir, demain…</p>
+      </div>
+      <div class="capa-card" style="background:var(--violet-10)">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M16 4c-5 4-8 9-8 13a8 8 0 0016 0c0-4-3-9-8-13z"/><path d="M10 20c2-1 4-1.5 6-1s4 1.5 6 1"/></svg></div>
+        <h3>Météo, trafic, marées</h3>
+        <p>Ajuster chaque sortie, en temps réel</p>
+      </div>
+      <div class="capa-card" style="background:var(--violet-10)">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 28V18M16 28V8M23 28V15"/></svg></div>
+        <h3>Top restos et activités</h3>
+        <p>Selon les goûts, les budgets et les contraintes</p>
+      </div>
+      <div class="capa-card" style="background:var(--violet-10)">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="16" cy="10" r="4"/><path d="M8 28c0-4.4 3.6-8 8-8s8 3.6 8 8"/><path d="M24 17l4-3M27 22l-3-1"/></svg></div>
+        <h3>À pied, à vélo, en voiture</h3>
+        <p>Pour tous les modes de déplacement</p>
+      </div>
+      <div class="capa-card" style="background:var(--violet-10)">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M16 3S5 10 5 18a11 11 0 0022 0C27 10 16 3 16 3z"/><path d="M11 21c1.5-1.5 3-2 5-2s3.5.5 5 2"/></svg></div>
+        <h3>Animaux acceptés</h3>
+        <p>Activités identifiées comme pet-friendly</p>
+      </div>
+      <div class="capa-card" style="background:var(--violet-10)">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="16" cy="16" r="11"/><path d="M16 10v6l4 4"/></svg></div>
+        <h3>Affluence du moment</h3>
+        <p>Éviter la foule et se déplacer au bon moment</p>
+      </div>
+      <div class="capa-card" style="background:var(--violet-10)">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="13" cy="10" r="4"/><path d="M5 28c0-4.4 3.6-8 8-8"/><path d="M22 19l5 4-5 4M27 23h-9"/></svg></div>
+        <h3>Accessibilité PMR</h3>
+        <p>Adapter chaque parcours aux besoins de chacun</p>
+      </div>
+      <div class="capa-card" style="background:var(--violet-10)">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M16 6v5M10 8l3 4M22 8l-3 4"/><path d="M8 18c0 5.5 3.6 10 8 10s8-4.5 8-10"/><path d="M6 18h20"/></svg></div>
+        <h3>Temps pluvieux</h3>
+        <p>Des activités couvertes suggérées automatiquement</p>
+      </div>
+      <div class="capa-card" style="background:var(--violet-10)">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="4" y="8" width="24" height="18" rx="3"/><path d="M16 14v8M12 18h8"/></svg></div>
+        <h3>Urgences</h3>
+        <p>Médecins, vétos, pharmacies et urgences</p>
+      </div>
+      <div class="capa-card" style="background:var(--violet-10)">
+        <div class="capa-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="16" cy="16" r="11"/><path d="M10 16h12M16 10l6 6-6 6"/></svg></div>
+        <h3>Horaires temps réel</h3>
+        <p>Musées, commerces et activités à l'instant T</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 2 COLS ═══════════════════════════════════════════════ -->
+<div id="btwocol" class="blk">2 COLONNES TEXTE + VISUEL</div>
+<section class="px py">
+  <div class="cnt">
+    <hr class="mb-s">
+    <div class="twocol">
+      <div>
+        <p class="eyebrow mb-xs">Réservation directe</p>
+        <h2 class="h-l" style="margin-bottom:20px">Vos visiteurs veulent réserver. Soyez là.</h2>
+        <p class="muted" style="font-size:var(--t-m);line-height:1.7">ITHAK s'intègre à votre parcours digital et capte les réservations au moment précis de l'intention d'achat.</p>
+        <ul class="check-list">
+          <li><span class="check-icon"><svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M1.5 5.5l2.5 2.5 5.5-5.5"/></svg></span>Aucune commission aux OTA</li>
+          <li><span class="check-icon"><svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M1.5 5.5l2.5 2.5 5.5-5.5"/></svg></span>Intégration en bouton, iframe ou sous-domaine</li>
+          <li><span class="check-icon"><svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M1.5 5.5l2.5 2.5 5.5-5.5"/></svg></span>Compatible hébergeurs, activités et packages</li>
+          <li><span class="check-icon"><svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M1.5 5.5l2.5 2.5 5.5-5.5"/></svg></span>Dashboard de conversions en temps réel</li>
+        </ul>
+        <a href="#" class="btn btn-p">Découvrir ITHAK <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+      </div>
+      <div class="vis"><span>Visuel produit</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="px py bg-sable">
+  <div class="cnt">
+    <div class="twocol">
+      <div class="vis"><span>Photo terrain</span></div>
+      <div>
+        <p class="eyebrow mb-xs">Expérience interactive</p>
+        <h2 class="h-l" style="margin-bottom:20px">Donnez vie à votre territoire, stop par stop.</h2>
+        <p class="muted" style="font-size:var(--t-m);line-height:1.7">NEST transforme votre destination en parcours découverte immersif. Audio, vidéo, archives animées — aucune application à télécharger.</p>
+        <a href="#" class="btn btn-p" style="margin-top:28px">Découvrir NEST <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════ SECTEURS ════════════════════════════════════════════ -->
+<!-- ════ ORBIT — intégrations ════════════════════════════════ -->
+<div id="borbit" class="blk">ORBIT — Intégrations</div>
+<section class="px py">
+  <div class="cnt--m">
+    <div class="orbit-card">
+
+      <div>
+        <p class="eyebrow mb-xs">Intégrations</p>
+        <h2 class="h-l" style="margin-bottom:20px">Connecté à tout votre écosystème</h2>
+        <p style="font-size:var(--t-m);color:var(--ink-60);line-height:1.7;margin-bottom:32px">Google, TripAdvisor, Instagram, Booking — ULYS s'intègre à vos outils existants sans friction et sans développement.</p>
+        <a href="#" class="btn btn-p">Voir les intégrations <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+      </div>
+
+      <div class="orbit-stage">
+        <!-- Anneaux décoratifs -->
+        <div class="orbit-ring-bg orbit-ring-bg--1"></div>
+        <div class="orbit-ring-bg orbit-ring-bg--2"></div>
+        <div class="orbit-ring-bg orbit-ring-bg--3"></div>
+
+        <!-- Icône centrale -->
+        <div class="orbit-center">
+          <svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+            <circle cx="15" cy="15" r="11"/>
+            <path d="M15 4v22M4 15h22"/>
+            <path d="M8 8l14 14M22 8L8 22"/>
+          </svg>
+        </div>
+
+        <!-- 8 icônes en orbite -->
+        <div class="oi oi--1"><div class="oi-inner" style="background:#fff;color:var(--violet)"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="20" height="20"><rect x="3" y="4" width="14" height="13" rx="2"/><path d="M3 8h14M7 2v4M13 2v4"/></svg></div></div>
+        <div class="oi oi--2"><div class="oi-inner" style="background:#fff;color:var(--violet)"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="20" height="20"><path d="M10 2c-4 3-6 7-6 9a6 6 0 0012 0c0-2-2-6-6-9z"/><path d="M7 13c1-1 2-1.5 3-1s2 1 3 1"/></svg></div></div>
+        <div class="oi oi--3"><div class="oi-inner" style="background:#fff;color:var(--violet)"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="20" height="20"><path d="M5 17V11M10 17V4M15 17V9"/></svg></div></div>
+        <div class="oi oi--4"><div class="oi-inner" style="background:#fff;color:var(--violet)"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="20" height="20"><circle cx="10" cy="7" r="3"/><path d="M4 18c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg></div></div>
+        <div class="oi oi--5"><div class="oi-inner" style="background:#fff;color:var(--violet)"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="20" height="20"><circle cx="10" cy="10" r="7"/><path d="M10 6v4l3 3"/></svg></div></div>
+        <div class="oi oi--6"><div class="oi-inner" style="background:#fff;color:var(--violet)"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="20" height="20"><path d="M3 5h14a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V6a1 1 0 011-1z"/><path d="M2 6l8 6 8-6"/></svg></div></div>
+        <div class="oi oi--7"><div class="oi-inner" style="background:#fff;color:var(--violet)"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="20" height="20"><circle cx="10" cy="10" r="7"/><path d="M10 3v14M3 10h14"/></svg></div></div>
+        <div class="oi oi--8"><div class="oi-inner" style="background:#fff;color:var(--violet)"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="20" height="20"><path d="M4 13l3 3 9-9"/></svg></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════ BENTO — cards sable ═════════════════════════════════ -->
+<div id="bbento-s" class="blk">BENTO — Fond blanc · Cards sable</div>
+<section class="px py">
+  <div class="cnt--m">
+    <div class="bento-header">
+      <h2 class="h-l">Chaque conversation devient une connaissance</h2>
+      <p>ULYS transforme chaque échange en données actionnables — saison après saison.</p>
+    </div>
+    <div class="bento-grid">
+
+      <div class="bento-card bento-card--wide">
+        <h3>Profils visiteurs</h3>
+        <p>Demandes récurrentes, budgets, centres d'intérêt, comportements de navigation — ULYS agrège et structure ces données pour construire une connaissance fine et exploitable de chaque profil visiteur.</p>
+      </div>
+
+      <div class="bento-card">
+        <h3>Collecte de contacts</h3>
+        <p>Emails et numéros collectés automatiquement, en conformité RGPD, à chaque conversation.</p>
+      </div>
+
+      <div class="bento-card">
+        <h3>Base de données enrichie</h3>
+        <p>Segmentation automatique de vos contacts pour des actions marketing précises et ciblées.</p>
+      </div>
+
+      <div class="bento-card">
+        <h3>Tendances émergentes</h3>
+        <p>Ce qui manque, ce qui revient, ce qui change — ULYS détecte les signaux avant vous.</p>
+      </div>
+
+      <div class="bento-card">
+        <h3>Enquêtes de satisfaction</h3>
+        <p>Sondages ciblés activés automatiquement selon le profil et le moment du séjour.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════ BENTO — cards violet clair ══════════════════════════ -->
+<div id="bbento-v" class="blk">BENTO — Fond blanc · Cards violet clair</div>
+<section class="px py">
+  <div class="cnt--m">
+    <div class="bento-header">
+      <h2 class="h-l">Chaque conversation devient une connaissance</h2>
+      <p>ULYS transforme chaque échange en données actionnables — saison après saison.</p>
+    </div>
+    <div class="bento-grid">
+
+      <div class="bento-card bento-card--wide" style="background:var(--violet-10)">
+        <h3>Profils visiteurs</h3>
+        <p>Demandes récurrentes, budgets, centres d'intérêt, comportements de navigation — ULYS agrège et structure ces données pour construire une connaissance fine et exploitable de chaque profil visiteur.</p>
+      </div>
+
+      <div class="bento-card" style="background:var(--violet-10)">
+        <h3>Collecte de contacts</h3>
+        <p>Emails et numéros collectés automatiquement, en conformité RGPD, à chaque conversation.</p>
+      </div>
+
+      <div class="bento-card" style="background:var(--violet-10)">
+        <h3>Base de données enrichie</h3>
+        <p>Segmentation automatique de vos contacts pour des actions marketing précises et ciblées.</p>
+      </div>
+
+      <div class="bento-card" style="background:var(--violet-10)">
+        <h3>Tendances émergentes</h3>
+        <p>Ce qui manque, ce qui revient, ce qui change — ULYS détecte les signaux avant vous.</p>
+      </div>
+
+      <div class="bento-card" style="background:var(--violet-10)">
+        <h3>Enquêtes de satisfaction</h3>
+        <p>Sondages ciblés activés automatiquement selon le profil et le moment du séjour.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div id="bsec" class="blk">SECTEURS</div>
+<section class="px py">
+  <div class="cnt">
+    <hr class="mb-s">
+    <p class="eyebrow mb-xs">Nos secteurs</p>
+    <h2 class="h-l" style="margin-bottom:var(--sp-s)">Fait pour votre secteur</h2>
+    <div class="sec-grid">
+
+      <a href="#" class="sec-item">
+        <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 12l3.5-6 3.5 4.5 2.5-2.5L13 12"/></svg></div>
+        <h3>Destinations & Territoires</h3>
+        <p>OT, agences de développement, régions — reprenez l'autorité digitale sur votre territoire.</p>
+        <span class="link" style="margin-top:6px;font-size:var(--t-xs)">En savoir plus <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5.5h7M6 2.5l3 3-3 3"/></svg></span>
+      </a>
+
+      <a href="#" class="sec-item">
+        <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 14V7l5.5-5 5.5 5v7M5.5 14v-4h4v4"/></svg></div>
+        <h3>Sites & Patrimoine</h3>
+        <p>Monuments, sanctuaires, musées — enrichissez la visite et générez des revenus directs.</p>
+        <span class="link" style="margin-top:6px;font-size:var(--t-xs)">En savoir plus <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5.5h7M6 2.5l3 3-3 3"/></svg></span>
+      </a>
+
+      <a href="#" class="sec-item">
+        <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7.5" cy="7.5" r="5.5"/><path d="M7.5 5v2.5l2 2"/></svg></div>
+        <h3>Complexes & Loisirs</h3>
+        <p>Parcs, campings, bases de loisirs — personnalisez chaque séjour en temps réel.</p>
+        <span class="link" style="margin-top:6px;font-size:var(--t-xs)">En savoir plus <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5.5h7M6 2.5l3 3-3 3"/></svg></span>
+      </a>
+
+      <a href="#" class="sec-item">
+        <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M7.5 1.5s-4 3-4 6.5a4 4 0 008 0c0-3.5-4-6.5-4-6.5z"/></svg></div>
+        <h3>Bien-être & Santé</h3>
+        <p>Thalassos, spas, établissements thermaux — guidez chaque client vers son soin idéal.</p>
+        <span class="link" style="margin-top:6px;font-size:var(--t-xs)">En savoir plus <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5.5h7M6 2.5l3 3-3 3"/></svg></span>
+      </a>
+
+      <a href="#" class="sec-item">
+        <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1.5" y="3.5" width="12" height="9" rx="2"/><path d="M4.5 3.5V2M10.5 3.5V2M1.5 7.5h12"/></svg></div>
+        <h3>Opérateurs & Médias</h3>
+        <p>Agences, TO, guides, éditeurs — monétisez votre audience avec des outils intégrés.</p>
+        <span class="link" style="margin-top:6px;font-size:var(--t-xs)">En savoir plus <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5.5h7M6 2.5l3 3-3 3"/></svg></span>
+      </a>
+
+      <a href="#" class="sec-item">
+        <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7.5" cy="4.5" r="2.5"/><path d="M2 14c0-3 2.5-5.5 5.5-5.5S13 11 13 14"/></svg></div>
+        <h3>Événementiel & MICE</h3>
+        <p>Congrès, incentives, salons — accueil premium multilingue sans mobiliser vos équipes.</p>
+        <span class="link" style="margin-top:6px;font-size:var(--t-xs)">En savoir plus <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5.5h7M6 2.5l3 3-3 3"/></svg></span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════ CTA BANDS ═══════════════════════════════════════════ -->
+<div id="bcta" class="blk">CTA BANDS</div>
+
+<section class="px bg-v">
+  <div class="cnt">
+    <div class="cta">
+      <div>
+        <h2 class="h-m">Prêt à reprendre le contrôle de votre destination ?</h2>
+        <p style="margin-top:12px;font-size:var(--t-s)">30 minutes suffisent pour voir ce qu'on peut faire ensemble.</p>
+      </div>
+      <div class="cta-acts">
+        <a href="#" class="btn" style="background:#fff;color:var(--ink)">Demander une démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+        <a href="#" class="btn" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,.25)">Nous écrire</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="px bg-d">
+  <div class="cnt">
+    <div class="cta">
+      <div>
+        <h2 class="h-l">Les destinations de demain ne sont pas les plus grandes.</h2>
+        <p style="margin-top:16px;font-size:var(--t-l);max-width:460px">Ce sont celles qui savent raconter leur histoire et créer des expériences inoubliables.</p>
+      </div>
+      <a href="#" class="btn btn-p">Commencer maintenant <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<section class="px bg-s">
+  <div class="cnt">
+    <div class="cta">
+      <div>
+        <p class="eyebrow mb-xs">Format visio · 30 min</p>
+        <h2 class="h-m">Une démo sur mesure pour votre projet</h2>
+        <p class="muted" style="margin-top:12px;font-size:var(--t-s)">On échange sur votre situation et vos objectifs. Sans engagement.</p>
+      </div>
+      <div class="cta-acts">
+        <a href="#" class="btn btn-p">Réserver une session <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+        <a href="#" class="btn btn-g">Nous écrire</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════ TÉMOIGNAGE ══════════════════════════════════════════ -->
+<div id="btemo" class="blk">TÉMOIGNAGE</div>
+<section class="px py">
+  <div class="cnt">
+    <hr class="mb-s">
+    <div class="temo">
+      <div class="vis" style="aspect-ratio:4/3"><span>Photo Sanctuaire de Lourdes</span></div>
+      <div>
+        <p class="eyebrow mb-xs">Étude de cas · Sanctuaire de Lourdes</p>
+        <p class="temo-quote">"Un service unique pour le pèlerin — moins cher et plus complet que les plateformes tierces."</p>
+        <div class="temo-src">
+          <div class="temo-av">SL</div>
+          <div>
+            <p class="temo-name">Sanctuaire Notre-Dame de Lourdes</p>
+            <p class="temo-role">2ème destination hôtelière de France · 6 médias nationaux</p>
+          </div>
+        </div>
+        <a href="#" class="btn btn-p" style="margin-top:32px">Lire l'étude de cas <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="px py bg-d" style="padding-top:var(--sp-l);padding-bottom:var(--sp-l)">
+  <div class="cnt tc">
+    <p class="eyebrow" style="color:rgba(255,255,255,.28);margin-bottom:28px">France 3 · Ouest-France · France Bleu · La Dépêche · NR Pyrénées</p>
+    <p class="temo-quote" style="color:#fff;max-width:680px;margin:0 auto">"Un service unique pour le pèlerin : moins cher, plus complet, et directement réservable sans passer par les plateformes."</p>
+  </div>
+</section>
+
+
+<!-- ════ PRESSE ═══════════════════════════════════════════════ -->
+<div id="bpress" class="blk">PRESSE</div>
+<section class="px py">
+  <div class="cnt">
+    <hr class="mb-s">
+    <p class="eyebrow mb-xs">Ils en parlent</p>
+    <h2 class="h-l" style="margin-bottom:var(--sp-s)">La presse parle d'Odyssey</h2>
+    <div class="press">
+      <div class="press-card">
+        <span class="press-src">France 3 Occitanie</span>
+        <p class="press-q">"Un service unique pour le pèlerin" : le Sanctuaire de Lourdes lance sa propre plateforme de réservation.</p>
+        <a href="#" class="link">Lire l'article <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg></a>
+      </div>
+      <div class="press-card">
+        <span class="press-src">Ouest-France</span>
+        <p class="press-q">Sanctuaire de Lourdes : "Une nouvelle plateforme pour aider les pèlerins à réserver leur séjour".</p>
+        <a href="#" class="link">Lire l'article <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg></a>
+      </div>
+      <div class="press-card">
+        <span class="press-src">La Dépêche</span>
+        <p class="press-q">"Moins chère et plus complète pour les pèlerins" : le Sanctuaire de Lourdes innove et lance sa propre plateforme.</p>
+        <a href="#" class="link">Lire l'article <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════ CONTACT ═════════════════════════════════════════════ -->
+<div id="bcnt" class="blk">CONTACT</div>
+<section class="px py">
+  <div class="cnt">
+    <div class="cnt-grid">
+      <div>
+        <p class="eyebrow mb-xs">Démo gratuite · 30 min</p>
+        <h2 class="h-l" style="margin-bottom:20px">30 minutes pour tout comprendre</h2>
+        <p class="muted" style="font-size:var(--t-l);line-height:1.7;margin-bottom:40px">On échange sur votre situation et vos objectifs. On vous montre les résultats obtenus. Sans engagement.</p>
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div style="display:flex;align-items:center;gap:16px">
+            <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1.5" y="3.5" width="12" height="8" rx="2"/><path d="M1.5 7l6 3 6-3"/></svg></div>
+            <div><p style="font-weight:600;font-size:var(--t-s)">Format visio-conférence</p><p class="muted" style="font-size:var(--t-xs)">À l'heure qui vous convient</p></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px">
+            <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7.5" cy="7.5" r="6"/><path d="M7.5 5v2.5l2 2"/></svg></div>
+            <div><p style="font-weight:600;font-size:var(--t-s)">Démo personnalisée</p><p class="muted" style="font-size:var(--t-xs)">Adaptée à votre secteur</p></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px">
+            <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7.5l3.5 3.5 7-7"/></svg></div>
+            <div><p style="font-weight:600;font-size:var(--t-s)">Sans engagement</p><p class="muted" style="font-size:var(--t-xs)">Pas de carte bleue, pas de contrat</p></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--violet-10);border-radius:14px;padding:40px;">
+        <h3 class="h-xs" style="margin-bottom:26px">Réserver une session</h3>
+        <form class="form">
+          <div class="f-row">
+            <div class="f"><label>Prénom</label><input type="text" placeholder="Jean"></div>
+            <div class="f"><label>Nom</label><input type="text" placeholder="Dupont"></div>
+          </div>
+          <div class="f"><label>Email professionnel</label><input type="email" placeholder="jean@votreorganisation.fr"></div>
+          <div class="f">
+            <label>Votre secteur</label>
+            <select>
+              <option>Destination & Territoire</option>
+              <option>Site & Patrimoine</option>
+              <option>Complexe & Loisirs</option>
+              <option>Bien-être & Santé</option>
+              <option>Événementiel & MICE</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-p" style="width:100%;justify-content:center;margin-top:6px">Réserver ma démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════ TARIFS ═══════════════════════════════════════════════ -->
+<div id="bprice" class="blk">TARIFS</div>
+<section class="px py">
+  <div class="cnt">
+    <hr class="mb-s">
+    <h2 class="h-l" style="margin-bottom:8px">Des formules claires, sans surprise</h2>
+    <p class="muted" style="font-size:var(--t-l);margin-bottom:var(--sp-s)">Chaque parcours est unique. Choisissez votre format.</p>
+    <div class="price-grid">
+
+      <div class="price">
+        <p class="price-plan">Essentiel</p>
+        <div class="price-amt">1 890 €</div>
+        <p class="price-per">mise en place · 1 totem</p>
+        <hr>
+        <ul class="price-feats">
+          <li><svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5l3 3 6-6"/></svg>10 points d'arrêt</li>
+          <li><svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5l3 3 6-6"/></svg>Audio + texte</li>
+          <li><svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5l3 3 6-6"/></svg>1 langue</li>
+          <li><svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5l3 3 6-6"/></svg>QR codes fournis</li>
+        </ul>
+        <a href="#" class="btn btn-g" style="width:100%;justify-content:center">Choisir Essentiel</a>
+      </div>
+
+      <div class="price feat">
+        <p class="price-plan">Standard · <span style="color:var(--violet)">Recommandé</span></p>
+        <div class="price-amt">2 890 €</div>
+        <p class="price-per">mise en place · 2 totems</p>
+        <hr>
+        <ul class="price-feats">
+          <li><svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5l3 3 6-6"/></svg>15 points d'arrêt</li>
+          <li><svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5l3 3 6-6"/></svg>Audio + vidéo + texte</li>
+          <li><svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5l3 3 6-6"/></svg>2 langues</li>
+          <li><svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5l3 3 6-6"/></svg>Archives animées IA</li>
+        </ul>
+        <a href="#" class="btn btn-p" style="width:100%;justify-content:center">Choisir Standard <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+      </div>
+
+      <div class="price">
+        <p class="price-plan">Premium</p>
+        <div class="price-amt">Sur devis</div>
+        <p class="price-per">projet sur mesure</p>
+        <hr>
+        <ul class="price-feats">
+          <li><svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5l3 3 6-6"/></svg>20+ points d'arrêt</li>
+          <li><svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5l3 3 6-6"/></svg>Tous formats</li>
+          <li><svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5l3 3 6-6"/></svg>Multilangue illimité</li>
+          <li><svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6.5l3 3 6-6"/></svg>Accompagnement dédié</li>
+        </ul>
+        <a href="#" class="btn btn-g" style="width:100%;justify-content:center">Nous contacter</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════ FOOTER ═══════════════════════════════════════════════ -->
+<div id="bfooter" class="blk">FOOTER</div>
+<footer class="footer px">
+  <div class="cnt">
+    <div class="ft-grid">
+      <div>
+        <div class="ft-logo">Odyssey<span>.</span></div>
+        <p class="ft-desc">La suite IA pour les acteurs du tourisme qui veulent reprendre le contrôle de leur visibilité, leurs revenus et l'expérience de leurs visiteurs.</p>
+      </div>
+      <div>
+        <p class="ft-head">Solutions</p>
+        <nav class="ft-links"><a href="#">ITHAK</a><a href="#">ULYS</a><a href="#">ECHO</a><a href="#">NEST</a></nav>
+      </div>
+      <div>
+        <p class="ft-head">Secteurs</p>
+        <nav class="ft-links"><a href="#">Destinations</a><a href="#">Sites & Patrimoine</a><a href="#">Loisirs</a><a href="#">Bien-être</a><a href="#">MICE</a></nav>
+      </div>
+      <div>
+        <p class="ft-head">Entreprise</p>
+        <nav class="ft-links"><a href="#">À propos</a><a href="#">Presse</a><a href="#">Étude de cas</a><a href="#">Contact</a></nav>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <span>© 2025 Odyssey Manager. Tous droits réservés.</span>
+      <div class="ft-legal"><a href="#">Mentions légales</a><a href="#">Confidentialité</a></div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
