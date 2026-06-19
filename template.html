@@ -410,6 +410,15 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 .tl-audio-ring--2 { animation-delay: .7s; }
 @keyframes tl-ring { 0% { transform: scale(1); opacity: .5; } 100% { transform: scale(2.4); opacity: 0; } }
 
+/* TIMELINE VERTICAL (mobile) */
+.tl-vertical { display: none; position: relative; padding: 16px 0 32px; }
+.tl-vertical::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: rgba(44,46,77,0.12); transform: translateX(-50%); border-radius: 2px; }
+.tl-v-item { display: grid; grid-template-columns: 1fr 44px 1fr; align-items: center; gap: 12px; margin-bottom: 32px; }
+.tl-v-item:last-child { margin-bottom: 0; }
+.tl-v-dot { width: 44px; height: 44px; border-radius: 50%; border: 3px solid #fff; position: relative; z-index: 1; box-shadow: 0 0 0 2px rgba(44,46,77,0.1); }
+.tl-v-left { display: flex; justify-content: flex-end; }
+.tl-v-right { display: flex; justify-content: flex-start; }
+
 /* TIMELINE DOTS */
 .tl-dot { animation: tl-pulse 3s ease-out infinite; }
 @keyframes tl-pulse {
@@ -582,14 +591,8 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
   .cnt-2cards { grid-template-columns: 1fr; }
 
   /* Timeline */
-  .tl-svg-wrap { display: none; }
-  .tl-row { display: flex; flex-direction: column; gap: 12px; margin: 0 !important; padding: 8px 0; }
-  .tl-row--top { padding-bottom: 0; }
-  .tl-row--bottom { padding-top: 0; }
-  .tl-cell--empty { display: none; }
-  .tl-cell { justify-content: flex-start; }
-  .tl-label-wrap { display: flex; flex-direction: row; align-items: center; gap: 12px; }
-  .tl-desc { position: static; opacity: 1; transform: none; width: auto; font-size: var(--t-xs); color: var(--ink-60); }
+  .tl-wrap { display: none; }
+  .tl-vertical { display: block; }
 
   /* Footer */
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
@@ -686,27 +689,6 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 </nav>
 
 
-<!-- ════ NAV ════════════════════════════════════════════════ -->
-<div id="bnav" class="blk">NAV</div>
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="#" class="nav-logo">Odyssey<span>.</span></a>
-    <div class="nav-menu">
-      <a href="#">Solutions</a>
-      <a href="#">Secteurs</a>
-      <a href="#">Objectifs</a>
-      <a href="#">À propos</a>
-      <a href="#">Presse</a>
-    </div>
-    <div class="nav-actions">
-      <a href="#" class="btn btn-g" style="padding:10px 20px;font-size:.8rem">Se connecter</a>
-      <a href="#" class="btn btn-p" style="padding:10px 20px;font-size:.8rem">
-        Demander une démo
-        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg>
-      </a>
-    </div>
-  </div>
-</nav>
 
 
 <!-- ════ HERO A — blanc, 2 cols ═════════════════════════════ -->
@@ -1444,6 +1426,31 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
     </div>
 
   </div>
+
+  <!-- Version mobile verticale -->
+  <div class="tl-vertical cnt">
+    <div class="tl-v-item">
+      <div class="tl-v-left"><span class="tl-badge tl-badge--eglise"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="m18 7 4 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9l4-2"/><path d="M14 22v-4a2 2 0 0 0-4 0v4"/><path d="M18 22V5l-6-3-6 3v17"/><path d="M12 7v5"/><path d="M10 9h4"/></svg>Place de l'église</span></div>
+      <div style="display:flex;justify-content:center"><div class="tl-v-dot" style="background:#C05000"></div></div>
+      <div class="tl-v-right"></div>
+    </div>
+    <div class="tl-v-item">
+      <div class="tl-v-left"></div>
+      <div style="display:flex;justify-content:center"><div class="tl-v-dot" style="background:#fff;border-color:var(--violet);box-shadow:0 0 0 2px var(--violet)"></div></div>
+      <div class="tl-v-right"><span class="tl-badge tl-badge--outline"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M22 20v-9H2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2Z"/><path d="M18 11V4H6v7"/><path d="M15 22v-4a3 3 0 0 0-6 0v4"/><path d="M22 11V6"/><path d="M2 11V6"/><path d="M6 4V2"/><path d="M18 4V2"/><path d="M10 4V2"/><path d="M14 4V2"/></svg>Château du Duc</span></div>
+    </div>
+    <div class="tl-v-item">
+      <div class="tl-v-left"><span class="tl-badge tl-badge--epicerie"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="m5 11 4-7"/><path d="m19 11-4-7"/><path d="M2 11h20"/><path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8a2 2 0 0 0 2-1.6l1.6-7.4"/><path d="m9 11 1 9"/><path d="M4.5 15.5h15"/><path d="m15 11-1 9"/></svg>Épicerie locale</span></div>
+      <div style="display:flex;justify-content:center"><div class="tl-v-dot" style="background:#F08020"></div></div>
+      <div class="tl-v-right"></div>
+    </div>
+    <div class="tl-v-item">
+      <div class="tl-v-left"></div>
+      <div style="display:flex;justify-content:center"><div class="tl-v-dot" style="background:#2D7A34"></div></div>
+      <div class="tl-v-right"><span class="tl-badge tl-badge--foret"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="m17 14 3 3.3a1 1 0 0 1-.7 1.7H4.7a1 1 0 0 1-.7-1.7L7 14"/><path d="m14 10 3 3.3a1 1 0 0 1-.7 1.7H7.7a1 1 0 0 1-.7-1.7L10 10"/><path d="M12 2 8.4 6.6A1 1 0 0 0 9.1 8h5.8a1 1 0 0 0 .7-1.7z"/><path d="M12 22v-3"/></svg>Forêt de châtaigner</span></div>
+    </div>
+  </div>
+
 </section>
 
 <!-- ════ TIMELINE COPY — test ════════════════════════════════ -->
@@ -1542,6 +1549,31 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
     </div>
 
   </div>
+
+  <!-- Version mobile verticale -->
+  <div class="tl-vertical cnt">
+    <div class="tl-v-item">
+      <div class="tl-v-left"><span class="tl-badge tl-badge--eglise"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="m18 7 4 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9l4-2"/><path d="M14 22v-4a2 2 0 0 0-4 0v4"/><path d="M18 22V5l-6-3-6 3v17"/><path d="M12 7v5"/><path d="M10 9h4"/></svg>Place de l'église</span></div>
+      <div style="display:flex;justify-content:center"><div class="tl-v-dot" style="background:#C05000"></div></div>
+      <div class="tl-v-right"></div>
+    </div>
+    <div class="tl-v-item">
+      <div class="tl-v-left"></div>
+      <div style="display:flex;justify-content:center"><div class="tl-v-dot" style="background:#fff;border-color:var(--violet);box-shadow:0 0 0 2px var(--violet)"></div></div>
+      <div class="tl-v-right"><span class="tl-badge tl-badge--outline"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M22 20v-9H2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2Z"/><path d="M18 11V4H6v7"/><path d="M15 22v-4a3 3 0 0 0-6 0v4"/><path d="M22 11V6"/><path d="M2 11V6"/><path d="M6 4V2"/><path d="M18 4V2"/><path d="M10 4V2"/><path d="M14 4V2"/></svg>Château du Duc</span></div>
+    </div>
+    <div class="tl-v-item">
+      <div class="tl-v-left"><span class="tl-badge tl-badge--epicerie"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="m5 11 4-7"/><path d="m19 11-4-7"/><path d="M2 11h20"/><path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8a2 2 0 0 0 2-1.6l1.6-7.4"/><path d="m9 11 1 9"/><path d="M4.5 15.5h15"/><path d="m15 11-1 9"/></svg>Épicerie locale</span></div>
+      <div style="display:flex;justify-content:center"><div class="tl-v-dot" style="background:#F08020"></div></div>
+      <div class="tl-v-right"></div>
+    </div>
+    <div class="tl-v-item">
+      <div class="tl-v-left"></div>
+      <div style="display:flex;justify-content:center"><div class="tl-v-dot" style="background:#2D7A34"></div></div>
+      <div class="tl-v-right"><span class="tl-badge tl-badge--foret"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="m17 14 3 3.3a1 1 0 0 1-.7 1.7H4.7a1 1 0 0 1-.7-1.7L7 14"/><path d="m14 10 3 3.3a1 1 0 0 1-.7 1.7H7.7a1 1 0 0 1-.7-1.7L10 10"/><path d="M12 2 8.4 6.6A1 1 0 0 0 9.1 8h5.8a1 1 0 0 0 .7-1.7z"/><path d="M12 22v-3"/></svg>Forêt de châtaigner</span></div>
+    </div>
+  </div>
+
 </section>
 
 <!-- ════ BENTO — cards sable ═════════════════════════════════ -->
@@ -1875,34 +1907,6 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 
 
 
-<!-- ════ FOOTER ═══════════════════════════════════════════════ -->
-<div id="bfooter" class="blk">FOOTER</div>
-<footer class="footer px">
-  <div class="cnt">
-    <div class="ft-grid">
-      <div>
-        <div class="ft-logo">Odyssey<span>.</span></div>
-        <p class="ft-desc">La suite IA pour les acteurs du tourisme qui veulent reprendre le contrôle de leur visibilité, leurs revenus et l'expérience de leurs visiteurs.</p>
-      </div>
-      <div>
-        <p class="ft-head">Solutions</p>
-        <nav class="ft-links"><a href="#">ITHAK</a><a href="#">ULYS</a><a href="#">ECHO</a><a href="#">NEST</a></nav>
-      </div>
-      <div>
-        <p class="ft-head">Secteurs</p>
-        <nav class="ft-links"><a href="#">Destinations</a><a href="#">Sites & Patrimoine</a><a href="#">Loisirs</a><a href="#">Bien-être</a><a href="#">MICE</a></nav>
-      </div>
-      <div>
-        <p class="ft-head">Entreprise</p>
-        <nav class="ft-links"><a href="#">À propos</a><a href="#">Presse</a><a href="#">Étude de cas</a><a href="#">Contact</a></nav>
-      </div>
-    </div>
-    <div class="ft-bottom">
-      <span>© 2025 Odyssey Manager. Tous droits réservés.</span>
-      <div class="ft-legal"><a href="#">Mentions légales</a><a href="#">Confidentialité</a></div>
-    </div>
-  </div>
-</footer>
 
 <script>
 function toggleCsel2() {
