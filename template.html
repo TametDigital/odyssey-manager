@@ -237,8 +237,8 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 .caro-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; -webkit-user-drag: none; }
 .caro-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.72) 0%, rgba(0,0,0,.15) 55%, transparent 100%); pointer-events: none; }
 .caro-card-text { position: absolute; top: 0; left: 0; right: 0; padding: 26px 26px 20px; z-index: 1; }
-.caro-card-text h3 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 10px; line-height: 1.25; }
-.caro-card-text p { font-size: .875rem; color: rgba(255,255,255,.6); line-height: 1.65; }
+.caro-card-text h3 { font-size: var(--t-m); font-weight: 700; color: #fff; margin-bottom: 10px; line-height: 1.25; }
+.caro-card-text p { font-size: var(--t-s); color: rgba(255,255,255,.65); line-height: 1.65; }
 .caro-footer { display: flex; align-items: center; justify-content: center; padding: 24px var(--px) 0; gap: 8px; }
 .caro-dot { width: 8px; height: 8px; border-radius: 4px; background: rgba(44,46,77,.18); cursor: pointer; transition: background .3s, width .3s; flex-shrink: 0; }
 .caro-dot.active { background: var(--violet); width: 28px; }
@@ -976,7 +976,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 
 <!-- ════ CAROUSEL ════════════════════════════════════════════ -->
 <div id="bcaro" class="blk">CAROUSEL — Drag to scroll</div>
-<section class="px" style="background:#fff;padding-bottom:32px">
+<section class="px" style="background:#fff;padding-bottom:52px">
   <div class="cnt">
     <p class="eyebrow mb-xs">Nos solutions</p>
     <h2 class="h-l">Un écosystème complet</h2>
