@@ -201,9 +201,13 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 .xcard:hover .xcard-arrow { opacity: 1; transform: scale(1); }
 @media (max-width: 768px) {
   .xsect { grid-template-columns: 1fr; gap: 28px; padding: 48px 0; }
-  .xsect-cards { height: 220px; gap: 8px; }
-  .xcard { border-radius: 12px; }
-  .xcard-name { font-size: .8rem; }
+  .xsect-cards { flex-direction: column; height: auto; gap: 8px; }
+  .xcard { flex: none; height: 90px; border-radius: 12px; transition: height .45s cubic-bezier(.4,0,.2,1); }
+  .xcard:first-child { height: 240px; }
+  .xcard:hover { height: 240px; flex: none; }
+  .xsect-cards:has(.xcard:hover) .xcard:first-child { height: 90px; }
+  .xsect-cards:has(.xcard:first-child:hover) .xcard:first-child { height: 240px; }
+  .xcard-name { font-size: .85rem; }
   .xcard-arrow { display: none; }
 }
 
