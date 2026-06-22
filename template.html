@@ -229,7 +229,8 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 
 /* ── CAROUSEL ───────────────────────────────────────── */
 .caro-wrap { padding: 64px 0 52px; background: #fff; }
-.caro-track { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding: 0; cursor: grab; user-select: none; scrollbar-width: none; }
+.caro-track { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x proximity; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding: 0; cursor: grab; user-select: none; scrollbar-width: none; }
+.caro-card { scroll-snap-stop: normal; }
 .caro-track::-webkit-scrollbar { display: none; }
 .caro-track.is-dragging { cursor: grabbing; scroll-behavior: auto; }
 .caro-card { flex-shrink: 0; width: calc(31% - 12px); min-width: 280px; aspect-ratio: 1 / 1; scroll-snap-align: start; border-radius: 20px; overflow: hidden; position: relative; }
@@ -1044,11 +1045,35 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
   const dots = document.querySelectorAll('#caroDots .caro-dot');
   if(!track) return;
 
-  // Drag to scroll
-  let isDown = false, startX, scrollLeft, moved = false;
-  track.addEventListener('mousedown', e => { e.preventDefault(); isDown = true; moved = false; track.classList.add('is-dragging'); startX = e.pageX - track.offsetLeft; scrollLeft = track.scrollLeft; });
-  document.addEventListener('mouseup', () => { isDown = false; track.classList.remove('is-dragging'); });
-  track.addEventListener('mousemove', e => { if(!isDown) return; moved = true; const x = e.pageX - track.offsetLeft; track.scrollLeft = scrollLeft - (x - startX) * 1.5; });
+  // Drag to scroll avec inertie
+  let isDown = false, startX, scrollLeft, velX = 0, lastX = 0, rafId;
+  track.addEventListener('mousedown', e => {
+    e.preventDefault(); isDown = true; velX = 0;
+    track.classList.add('is-dragging');
+    startX = e.pageX - track.offsetLeft;
+    scrollLeft = track.scrollLeft;
+    lastX = e.pageX;
+    cancelAnimationFrame(rafId);
+  });
+  document.addEventListener('mouseup', () => {
+    if(!isDown) return; isDown = false;
+    track.classList.remove('is-dragging');
+    // Inertie après relâchement
+    const momentum = () => {
+      if(Math.abs(velX) < 0.5) return;
+      track.scrollLeft += velX;
+      velX *= 0.92;
+      rafId = requestAnimationFrame(momentum);
+    };
+    rafId = requestAnimationFrame(momentum);
+  });
+  track.addEventListener('mousemove', e => {
+    if(!isDown) return;
+    const x = e.pageX - track.offsetLeft;
+    track.scrollLeft = scrollLeft - (x - startX);
+    velX = e.pageX - lastX;
+    lastX = e.pageX;
+  });
   track.addEventListener('dragstart', e => e.preventDefault());
 
   // Dots — 1 par carte
