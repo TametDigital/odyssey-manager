@@ -180,6 +180,27 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
   .hnotif-icon { width: 30px; height: 30px; }
 }
 
+/* ── EXPAND CARDS — secteurs ────────────────────────── */
+.xsect { display: grid; grid-template-columns: 280px 1fr; gap: 60px; align-items: center; padding: 80px 0; }
+.xsect-label { font-size: var(--t-xl); font-weight: 700; color: var(--ink); line-height: 1.2; }
+.xsect-cards { display: flex; gap: 12px; height: 480px; }
+.xcard { flex: 1; border-radius: 18px; overflow: hidden; position: relative; cursor: pointer; transition: flex .55s cubic-bezier(.4,0,.2,1); }
+.xcard:hover { flex: 2.8; }
+.xcard img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .55s ease; }
+.xcard:hover img { transform: scale(1.04); }
+.xcard::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,.08) 55%, transparent 100%); }
+.xcard-info { position: absolute; bottom: 22px; left: 22px; z-index: 1; }
+.xcard-name { color: #fff; font-size: 1rem; font-weight: 700; letter-spacing: .01em; }
+.xcard-arrow { position: absolute; top: 18px; right: 18px; z-index: 1; width: 36px; height: 36px; background: rgba(255,255,255,.18); backdrop-filter: blur(6px); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; opacity: 0; transform: scale(.7); transition: opacity .35s, transform .35s; }
+.xcard:hover .xcard-arrow { opacity: 1; transform: scale(1); }
+@media (max-width: 768px) {
+  .xsect { grid-template-columns: 1fr; gap: 28px; padding: 48px 0; }
+  .xsect-cards { height: 220px; gap: 8px; }
+  .xcard { border-radius: 12px; }
+  .xcard-name { font-size: .8rem; }
+  .xcard-arrow { display: none; }
+}
+
 /* ── HERO B — sable centré ──────────────────────────── */
 .hero-c { padding: var(--sp-xl) 0; text-align: center; }
 .hero-c .h-xl, .hero-c p { max-width: 760px; margin-left: auto; margin-right: auto; }
@@ -856,6 +877,50 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
         </div><!-- /hnotify-img-wrap -->
       </div>
 
+    </div>
+  </div>
+</section>
+<hr>
+
+<!-- ════ EXPAND CARDS — secteurs ════════════════════════════ -->
+<div id="bxsect" class="blk">EXPAND CARDS — Secteurs hover</div>
+<section class="px" style="background:#fff">
+  <div class="cnt">
+    <div class="xsect">
+      <div class="xsect-label">Des solutions adaptées à chaque industrie</div>
+      <div class="xsect-cards">
+
+        <div class="xcard">
+          <img src="images/nest-4.jpg" alt="Destinations & Territoires">
+          <div class="xcard-arrow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </div>
+          <div class="xcard-info">
+            <div class="xcard-name">Destinations &amp; Territoires</div>
+          </div>
+        </div>
+
+        <div class="xcard">
+          <img src="images/nest-5.jpg" alt="Sites & Patrimoine">
+          <div class="xcard-arrow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </div>
+          <div class="xcard-info">
+            <div class="xcard-name">Sites &amp; Patrimoine</div>
+          </div>
+        </div>
+
+        <div class="xcard">
+          <img src="images/nest-3.jpg" alt="Complexes & Loisirs">
+          <div class="xcard-arrow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </div>
+          <div class="xcard-info">
+            <div class="xcard-name">Complexes &amp; Loisirs</div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>
