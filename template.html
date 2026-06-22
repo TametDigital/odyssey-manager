@@ -185,6 +185,10 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 .xsect-label { font-size: var(--t-xl); font-weight: 700; color: var(--ink); line-height: 1.2; }
 .xsect-cards { display: flex; gap: 12px; height: 480px; }
 .xcard { flex: 1; border-radius: 18px; overflow: hidden; position: relative; cursor: pointer; transition: flex .55s cubic-bezier(.4,0,.2,1); }
+.xcard:first-child { flex: 2.8; }
+.xcard:first-child .xcard-arrow { opacity: 1; transform: scale(1); }
+.xsect-cards:has(.xcard:hover) .xcard:first-child { flex: 1; }
+.xsect-cards:has(.xcard:hover) .xcard:first-child .xcard-arrow { opacity: 0; transform: scale(.7); }
 .xcard:hover { flex: 2.8; }
 .xcard img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .55s ease; }
 .xcard:hover img { transform: scale(1.04); }
