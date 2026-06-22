@@ -227,6 +227,25 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
   .faq-title { position: static; font-size: var(--t-l); }
 }
 
+/* ── CAROUSEL ───────────────────────────────────────── */
+.caro-wrap { padding: 64px 0 48px; }
+.caro-head { padding: 0 var(--sp-l) 32px; }
+.caro-track { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding: 0 var(--sp-l) 20px; cursor: grab; user-select: none; scrollbar-width: none; }
+.caro-track::-webkit-scrollbar { display: none; }
+.caro-track.is-dragging { cursor: grabbing; scroll-behavior: auto; }
+.caro-card { flex-shrink: 0; width: calc(32% - 8px); min-width: 300px; scroll-snap-align: start; background: #1c1c1e; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; }
+.caro-card-text { padding: 26px 26px 20px; }
+.caro-card-text h3 { font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 10px; line-height: 1.25; }
+.caro-card-text p { font-size: .875rem; color: rgba(255,255,255,.55); line-height: 1.65; }
+.caro-card-img { flex: 1; min-height: 200px; overflow: hidden; }
+.caro-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.caro-dots { display: flex; justify-content: center; gap: 8px; padding-top: 8px; }
+.caro-dot { width: 28px; height: 6px; border-radius: 3px; background: rgba(44,46,77,.15); cursor: pointer; transition: background .3s, width .3s; }
+.caro-dot.active { background: var(--violet); width: 40px; }
+@media (max-width: 768px) {
+  .caro-card { width: calc(80vw); min-width: 0; }
+}
+
 /* ── HERO B — sable centré ──────────────────────────── */
 .hero-c { padding: var(--sp-xl) 0; text-align: center; }
 .hero-c .h-xl, .hero-c p { max-width: 760px; margin-left: auto; margin-right: auto; }
@@ -954,6 +973,86 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
   </div>
 </section>
 <hr>
+
+<!-- ════ CAROUSEL ════════════════════════════════════════════ -->
+<div id="bcaro" class="blk">CAROUSEL — Drag to scroll</div>
+<section style="background:#fff">
+  <div class="caro-wrap">
+    <div class="caro-head cnt">
+      <p class="eyebrow mb-xs">Nos solutions</p>
+      <h2 class="h-l">Un écosystème complet</h2>
+    </div>
+    <div class="caro-track" id="caroTrack">
+
+      <div class="caro-card">
+        <div class="caro-card-text">
+          <h3>ULYS · Guide local IA</h3>
+          <p>Un assistant intelligent qui répond aux questions des visiteurs en temps réel, dans leur langue, 24h/24.</p>
+        </div>
+        <div class="caro-card-img"><img src="images/nest-1.jpg" alt="ULYS"></div>
+      </div>
+
+      <div class="caro-card">
+        <div class="caro-card-text">
+          <h3>NEST · Parcours interactif</h3>
+          <p>Un parcours découverte immersif déclenché par QR code — audio, vidéo, archives — sans application.</p>
+        </div>
+        <div class="caro-card-img"><img src="images/nest-2.jpg" alt="NEST"></div>
+      </div>
+
+      <div class="caro-card">
+        <div class="caro-card-text">
+          <h3>ITHAK · Réservation en ligne</h3>
+          <p>Une plateforme de réservation clé en main, intégrée à votre site, sans commission cachée.</p>
+        </div>
+        <div class="caro-card-img"><img src="images/nest-3.jpg" alt="ITHAK"></div>
+      </div>
+
+      <div class="caro-card">
+        <div class="caro-card-text">
+          <h3>ECHO · Visibilité Google</h3>
+          <p>Optimisez votre présence sur Google et captez les voyageurs qui cherchent votre destination.</p>
+        </div>
+        <div class="caro-card-img"><img src="images/nest-4.jpg" alt="ECHO"></div>
+      </div>
+
+      <div class="caro-card">
+        <div class="caro-card-text">
+          <h3>ODYSSEY · Tableau de bord</h3>
+          <p>Centralisez vos données visiteurs, vos statistiques et vos contenus dans un seul espace unifié.</p>
+        </div>
+        <div class="caro-card-img"><img src="images/nest-5.jpg" alt="ODYSSEY"></div>
+      </div>
+
+    </div>
+    <div class="caro-dots" id="caroDots">
+      <div class="caro-dot active"></div>
+      <div class="caro-dot"></div>
+    </div>
+  </div>
+</section>
+<hr>
+
+<script>
+(function(){
+  const track = document.getElementById('caroTrack');
+  const dots = document.querySelectorAll('#caroDots .caro-dot');
+  if(!track) return;
+
+  // Drag to scroll
+  let isDown = false, startX, scrollLeft;
+  track.addEventListener('mousedown', e => { isDown = true; track.classList.add('is-dragging'); startX = e.pageX - track.offsetLeft; scrollLeft = track.scrollLeft; });
+  document.addEventListener('mouseup', () => { isDown = false; track.classList.remove('is-dragging'); });
+  track.addEventListener('mousemove', e => { if(!isDown) return; e.preventDefault(); const x = e.pageX - track.offsetLeft; track.scrollLeft = scrollLeft - (x - startX) * 1.5; });
+
+  // Dots
+  track.addEventListener('scroll', () => {
+    const pct = track.scrollLeft / (track.scrollWidth - track.clientWidth);
+    const idx = pct < 0.5 ? 0 : 1;
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  });
+})();
+</script>
 
 <!-- ════ FAQ ═════════════════════════════════════════════════ -->
 <div id="bfaq" class="blk">FAQ — Accordion</div>
