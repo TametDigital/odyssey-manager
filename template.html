@@ -228,23 +228,28 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 }
 
 /* ── CAROUSEL ───────────────────────────────────────── */
-.caro-wrap { padding: 64px 0 48px; }
-.caro-head { padding: 0 var(--sp-l) 32px; }
-.caro-track { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding: 0 var(--sp-l) 20px; cursor: grab; user-select: none; scrollbar-width: none; }
+.caro-wrap { padding: 64px 0 52px; background: #111; }
+.caro-head { padding: 0 60px 32px; }
+.caro-head .eyebrow { color: rgba(255,255,255,.45); }
+.caro-head .h-l { color: #fff; }
+.caro-track { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding: 0 60px 0; cursor: grab; user-select: none; scrollbar-width: none; }
 .caro-track::-webkit-scrollbar { display: none; }
 .caro-track.is-dragging { cursor: grabbing; scroll-behavior: auto; }
-.caro-card { flex-shrink: 0; width: calc(32% - 8px); min-width: 300px; height: 440px; scroll-snap-align: start; border-radius: 20px; overflow: hidden; position: relative; }
+.caro-card { flex-shrink: 0; width: calc(32% - 8px); min-width: 280px; aspect-ratio: 1 / 1; scroll-snap-align: start; border-radius: 20px; overflow: hidden; position: relative; }
 .caro-card-img { position: absolute; inset: 0; }
 .caro-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; -webkit-user-drag: none; }
-.caro-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.7) 0%, rgba(0,0,0,.15) 55%, transparent 100%); pointer-events: none; }
+.caro-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.72) 0%, rgba(0,0,0,.15) 55%, transparent 100%); pointer-events: none; }
 .caro-card-text { position: absolute; top: 0; left: 0; right: 0; padding: 26px 26px 20px; z-index: 1; }
-.caro-card-text h3 { font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 10px; line-height: 1.25; }
-.caro-card-text p { font-size: .875rem; color: rgba(255,255,255,.65); line-height: 1.65; }
-.caro-dots { display: flex; justify-content: center; gap: 8px; padding-top: 8px; }
-.caro-dot { width: 28px; height: 6px; border-radius: 3px; background: rgba(44,46,77,.15); cursor: pointer; transition: background .3s, width .3s; }
-.caro-dot.active { background: var(--violet); width: 40px; }
+.caro-card-text h3 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 10px; line-height: 1.25; }
+.caro-card-text p { font-size: .875rem; color: rgba(255,255,255,.6); line-height: 1.65; }
+.caro-footer { display: flex; align-items: center; padding: 24px 60px 0; gap: 8px; }
+.caro-dot { width: 8px; height: 8px; border-radius: 4px; background: rgba(255,255,255,.3); cursor: pointer; transition: background .3s, width .3s; flex-shrink: 0; }
+.caro-dot.active { background: #fff; width: 28px; }
 @media (max-width: 768px) {
-  .caro-card { width: 80vw; min-width: 0; height: 360px; }
+  .caro-track { padding: 0 20px; }
+  .caro-head { padding: 0 20px 28px; }
+  .caro-footer { padding: 20px 20px 0; }
+  .caro-card { width: 78vw; min-width: 0; }
 }
 
 /* ── HERO B — sable centré ──────────────────────────── */
@@ -977,7 +982,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 
 <!-- ════ CAROUSEL ════════════════════════════════════════════ -->
 <div id="bcaro" class="blk">CAROUSEL — Drag to scroll</div>
-<section style="background:#fff">
+<section style="background:#111">
   <div class="caro-wrap">
     <div class="caro-head cnt">
       <p class="eyebrow mb-xs">Nos solutions</p>
@@ -1026,8 +1031,11 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
       </div>
 
     </div>
-    <div class="caro-dots" id="caroDots">
+    <div class="caro-footer" id="caroDots">
       <div class="caro-dot active"></div>
+      <div class="caro-dot"></div>
+      <div class="caro-dot"></div>
+      <div class="caro-dot"></div>
       <div class="caro-dot"></div>
     </div>
   </div>
@@ -1047,10 +1055,10 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
   track.addEventListener('mousemove', e => { if(!isDown) return; moved = true; const x = e.pageX - track.offsetLeft; track.scrollLeft = scrollLeft - (x - startX) * 1.5; });
   track.addEventListener('dragstart', e => e.preventDefault());
 
-  // Dots
+  // Dots — 1 par carte
   track.addEventListener('scroll', () => {
     const pct = track.scrollLeft / (track.scrollWidth - track.clientWidth);
-    const idx = pct < 0.5 ? 0 : 1;
+    const idx = Math.round(pct * (dots.length - 1));
     dots.forEach((d, i) => d.classList.toggle('active', i === idx));
   });
 })();
