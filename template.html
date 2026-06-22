@@ -228,10 +228,10 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 }
 
 /* ── CAROUSEL ───────────────────────────────────────── */
-.caro-wrap { padding: 64px 0 52px; background: #111; }
+.caro-wrap { padding: 64px 0 52px; background: #fff; }
 .caro-head { padding: 0 60px 32px; }
-.caro-head .eyebrow { color: rgba(255,255,255,.45); }
-.caro-head .h-l { color: #fff; }
+.caro-head .eyebrow { color: var(--violet); }
+.caro-head .h-l { color: var(--ink); }
 .caro-track { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding: 0 60px 0; cursor: grab; user-select: none; scrollbar-width: none; }
 .caro-track::-webkit-scrollbar { display: none; }
 .caro-track.is-dragging { cursor: grabbing; scroll-behavior: auto; }
@@ -243,8 +243,8 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 .caro-card-text h3 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 10px; line-height: 1.25; }
 .caro-card-text p { font-size: .875rem; color: rgba(255,255,255,.6); line-height: 1.65; }
 .caro-footer { display: flex; align-items: center; padding: 24px 60px 0; gap: 8px; }
-.caro-dot { width: 8px; height: 8px; border-radius: 4px; background: rgba(255,255,255,.3); cursor: pointer; transition: background .3s, width .3s; flex-shrink: 0; }
-.caro-dot.active { background: #fff; width: 28px; }
+.caro-dot { width: 8px; height: 8px; border-radius: 4px; background: rgba(44,46,77,.18); cursor: pointer; transition: background .3s, width .3s; flex-shrink: 0; }
+.caro-dot.active { background: var(--violet); width: 28px; }
 @media (max-width: 768px) {
   .caro-track { padding: 0 20px; }
   .caro-head { padding: 0 20px 28px; }
@@ -982,7 +982,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 
 <!-- ════ CAROUSEL ════════════════════════════════════════════ -->
 <div id="bcaro" class="blk">CAROUSEL — Drag to scroll</div>
-<section style="background:#111">
+<section style="background:#fff">
   <div class="caro-wrap">
     <div class="caro-head cnt">
       <p class="eyebrow mb-xs">Nos solutions</p>
