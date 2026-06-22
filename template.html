@@ -229,7 +229,9 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 
 /* ── CAROUSEL ───────────────────────────────────────── */
 .caro-wrap { padding: 64px 0 52px; background: #fff; }
-.caro-track { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding: 0 80px 0 80px; cursor: grab; user-select: none; scrollbar-width: none; }
+.caro-track { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding: 0; cursor: grab; user-select: none; scrollbar-width: none; }
+.caro-card:first-child { margin-left: 80px; }
+.caro-card:last-child { margin-right: 80px; }
 .caro-track::-webkit-scrollbar { display: none; }
 .caro-track.is-dragging { cursor: grabbing; scroll-behavior: auto; }
 .caro-card { flex-shrink: 0; width: calc(31% - 12px); min-width: 280px; aspect-ratio: 1 / 1; scroll-snap-align: start; border-radius: 20px; overflow: hidden; position: relative; }
