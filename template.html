@@ -204,9 +204,10 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
   transition: background .35s;
 }
 .sol:hover .sol-inner { background: var(--violet); }
-.sol-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--violet); background: #fff; padding: 5px 12px; border-radius: 999px; border: 1.5px solid rgba(110,91,255,.25); transition: all .35s; }
-.sol-tag::before { content: '→'; font-size: 11px; }
-.sol:hover .sol-tag { color: rgba(255,255,255,.85); background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.2); }
+.sol-tag { display: inline-flex; align-items: center; gap: 8px; background: #fff; border-radius: 999px; padding: 7px 16px 7px 10px; font-size: .8125rem; font-weight: 600; color: var(--ink); letter-spacing: .06em; text-transform: uppercase; transition: all .35s; }
+.sol-tag svg { width: 14px; height: 14px; color: var(--violet); flex-shrink: 0; transition: color .35s; }
+.sol:hover .sol-tag { background: rgba(255,255,255,.18); color: rgba(255,255,255,.9); }
+.sol:hover .sol-tag svg { color: rgba(255,255,255,.9); }
 .sol-title { font-family: var(--f-serif); font-size: 1.35rem; line-height: 1.2; font-weight: 700; margin-top: 16px; transition: color .35s; }
 .sol:hover .sol-title { color: #fff; }
 .sol-desc { font-size: var(--t-xs); color: var(--ink-60); line-height: 1.65; margin-top: 12px; max-height: 0; overflow: hidden; opacity: 0; transition: max-height .4s ease, opacity .3s; }
@@ -877,7 +878,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
       <div class="sol">
         <div class="sol-inner">
           <div>
-            <span class="sol-tag">ITHAK</span>
+            <span class="sol-tag"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7h10M7 2l5 5-5 5"/></svg>ITHAK</span>
             <h3 class="sol-title">Réservation directe</h3>
             <p class="sol-desc">Captez vos visiteurs au bon moment. Convertissez-les en réservations directes, sans commission aux OTA.</p>
           </div>
@@ -889,7 +890,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
       <div class="sol">
         <div class="sol-inner">
           <div>
-            <span class="sol-tag">ULYS</span>
+            <span class="sol-tag"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7h10M7 2l5 5-5 5"/></svg>ULYS</span>
             <h3 class="sol-title">Guide IA 24/7</h3>
             <p class="sol-desc">Un guide intelligent disponible à toute heure, en toutes langues, formé sur vos contenus destination.</p>
           </div>
@@ -901,7 +902,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
       <div class="sol">
         <div class="sol-inner">
           <div>
-            <span class="sol-tag">ECHO</span>
+            <span class="sol-tag"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7h10M7 2l5 5-5 5"/></svg>ECHO</span>
             <h3 class="sol-title">SEO automatique</h3>
             <p class="sol-desc">Des centaines de pages optimisées générées automatiquement pour dominer Google sur votre territoire.</p>
           </div>
@@ -913,7 +914,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
       <div class="sol">
         <div class="sol-inner">
           <div>
-            <span class="sol-tag">NEST</span>
+            <span class="sol-tag"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 7h10M7 2l5 5-5 5"/></svg>NEST</span>
             <h3 class="sol-title">Expérience interactive</h3>
             <p class="sol-desc">Parcours découverte géolocalisé. Audio, vidéo, archives animées par IA — aucune application à télécharger.</p>
           </div>
