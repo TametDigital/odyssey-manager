@@ -146,8 +146,9 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 .hnotify-text { display: flex; flex-direction: column; gap: 0; }
 .hnotify-trust { display: flex; align-items: center; gap: 6px; font-size: var(--t-xs); color: var(--ink-60); margin-top: 24px; }
 .hnotify-trust svg { color: var(--violet); }
-.hnotify-vis { position: relative; border-radius: 20px; overflow: hidden; }
-.hnotify-img { width: 100%; height: 560px; object-fit: cover; object-position: center; display: block; border-radius: 20px; }
+.hnotify-vis { position: relative; }
+.hnotify-img-wrap { border-radius: 20px; overflow: hidden; }
+.hnotify-img { width: 100%; height: 560px; object-fit: cover; object-position: center; display: block; }
 .hnotif-card { position: absolute; left: 24px; width: 75%; background: #fff; border-radius: 14px; padding: 14px 18px; box-shadow: 0 12px 40px rgba(0,0,0,.15); }
 .hnotif-card--1 { bottom: 200px; animation: notif-in 7s ease-in-out infinite; }
 .hnotif-card--2 { bottom: 110px; animation: notif-in 7s ease-in-out 1.2s infinite; }
@@ -808,7 +809,9 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
       </div>
 
       <div class="hnotify-vis">
-        <img src="images/nest-1.jpg" alt="" class="hnotify-img">
+        <div class="hnotify-img-wrap">
+          <img src="images/nest-1.jpg" alt="" class="hnotify-img">
+        </div>
         <!-- Notification 1 -->
         <div class="hnotif-card hnotif-card--1">
           <div class="hnotif-row">
