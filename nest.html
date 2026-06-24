@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NEST — Gestion hôtelière IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --violet:    #6E5BFF;
+  --violet-10: rgba(110,91,255,.10);
+  --sable:     #FFEAD5;
+  --ink:       #2C2E4D;
+  --ink-60:    rgba(44,46,77,.60);
+  --ink-14:    rgba(44,46,77,.14);
+  --ink-08:    rgba(44,46,77,.08);
+  --f-serif: 'Libre Baskerville', Georgia, serif;
+  --f-sans:  'Inter', system-ui, sans-serif;
+  --container: 83rem;
+  --px: clamp(24px,5vw,80px);
+  --sp-xxl: 96px;
+  --sp-m:   48px;
+  --sp-s:   32px;
+  --sp-xs:  16px;
+  --t-xl: 1.375rem;
+  --t-l:  1.25rem;
+  --t-m:  1.125rem;
+  --t-s:  1.0625rem;
+  --t-xs: 1rem;
+  --white: #ffffff;
+  --h-xl: 3.8rem;
+  --h-l:  2.25rem;
+  --btn-shadow: 0 12px 26px -12px rgba(110,91,255,.70);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
+/* Layout */
+.px  { padding-left: var(--px); padding-right: var(--px); }
+.py  { padding-top: 64px; padding-bottom: 64px; }
+.cnt { max-width: var(--container); margin: 0 auto; }
+.bg-sable { background: var(--sable); }
+/* Buttons */
+@keyframes breathe {
+  0%       { box-shadow: 0 0 0 0   rgba(110,91,255,.45), var(--btn-shadow); }
+  70%,100% { box-shadow: 0 0 0 12px rgba(110,91,255,0),  var(--btn-shadow); }
+}
+.btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 26px; border-radius: 12px; font-family: var(--f-sans); font-size: var(--t-s); font-weight: 600; cursor: pointer; border: none; transition: background .2s, box-shadow .2s, color .2s; white-space: nowrap; text-decoration: none; }
+.btn svg { transition: transform .2s; flex-shrink: 0; }
+.btn:hover svg { transform: translateX(4px); }
+.btn-p { background: var(--violet); color: #fff; animation: breathe 3s ease-out infinite; }
+.btn-p:hover { background: #5a48e8; box-shadow: 0 16px 34px -12px rgba(110,91,255,.7); animation: none; }
+.btn-g { background: var(--white); color: var(--ink); border: 1px solid var(--ink-14); }
+.btn-g:hover { border-color: var(--violet); color: var(--violet); background: var(--violet-10); }
+@keyframes hello-bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+.hero-badge { display:inline-flex; align-items:center; gap:8px; background:var(--sable); border-radius:999px; padding:7px 16px 7px 10px; font-size:.8125rem; font-weight:600; color:var(--ink); letter-spacing:.06em; text-transform:uppercase; }
+.h-xl { font-family:var(--f-serif); font-size:var(--h-xl); line-height:1.06; font-weight:700; letter-spacing:-.025em; }
+.h-l  { font-family:var(--f-serif); font-size:var(--h-l);  line-height:1.1;  font-weight:700; letter-spacing:-.02em; }
+.muted { color:var(--ink-60); line-height:1.65; }
+.link { display:inline-flex; align-items:center; gap:6px; color:var(--violet); font-size:var(--t-s); font-weight:600; text-decoration:none; }
+.link svg { transition:transform .2s ease; }
+.link:hover svg { transform:translateX(4px); }
+.check-list { display:flex; flex-direction:column; gap:14px; margin:24px 0; }
+.check-list li { display:flex; align-items:center; gap:12px; font-size:var(--t-s); color:var(--ink-60); line-height:1.5; }
+.check-icon { width:18px; height:18px; border-radius:6px; background:var(--violet); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.check-icon svg { width:9px; height:9px; color:#fff; stroke-width:2.2; }
+.check-list--round .check-icon { border-radius:50%; }
+.stat-quote { background:var(--sable); border-radius:12px; padding:20px 24px; display:flex; align-items:center; gap:16px; }
+.stat-quote-icon { width:36px; height:36px; flex-shrink:0; color:var(--violet); opacity:.15; align-self:center; }
+.stat-quote-icon svg { width:36px; height:36px; fill:currentColor !important; stroke:none !important; }
+.stat-quote-icon svg * { fill:currentColor !important; stroke:none !important; }
+.stat-quote-src { font-size:var(--t-s); color:var(--violet); font-weight:600; letter-spacing:.05em; margin-bottom:6px; line-height:1.3; }
+.stat-quote-n { font-size:var(--t-s); font-weight:700; color:var(--violet); line-height:1.3; margin-bottom:6px; }
+.stat-quote-txt { font-size:var(--t-s); color:var(--ink-60); font-style:italic; line-height:1.3; }
+.eyebrow { font-size: var(--t-xs); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--violet); }
+.mb-xs { margin-bottom: var(--sp-xs); }
+.mb-s  { margin-bottom: var(--sp-s); }
+/* Hero layout */
+.hnotify       { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; padding:80px 0; }
+.hnotify-text  { display:flex; flex-direction:column; gap:0; align-items:flex-start; }
+.hnotify-trust { display:flex; align-items:center; gap:6px; font-size:var(--t-xs); color:var(--ink-60); margin-top:24px; }
+.hnotify-trust svg { color:var(--violet); }
+.hnotify-vis   { position:relative; }
+.hero-actions  { display:flex; gap:12px; flex-wrap:wrap; margin-top:36px; }
+/* Anim wrap */
+.ulys-anim-wrap { position:relative; width:420px; aspect-ratio:1/1; border-radius:20px; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+.ulys-anim-wrap > img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.ulys-anim-wrap::after { content:''; position:absolute; inset:0; background:rgba(44,46,77,.35); }
+.ulys-anim-wrap.no-overlay::after { display:none; }
+/* Hero chat window */
+.hcw { position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; overflow:hidden; padding:20px 36px 0; }
+.hcw-head { background:var(--sable); padding:10px 14px; display:inline-flex; align-items:center; gap:10px; border-radius:14px; align-self:flex-start; box-shadow:0 4px 16px rgba(0,0,0,.1); flex-shrink:0; }
+.hcw-av { width:28px; height:28px; border-radius:50%; background:var(--violet); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.hcw-name { font-size:.74em; font-weight:600; color:var(--ink); }
+.hcw-status { font-size:.65em; color:var(--ink-60); display:flex; align-items:center; gap:5px; margin-top:2px; }
+.hcw-dot { width:6px; height:6px; border-radius:50%; background:#1a9e4a; flex-shrink:0; }
+.hcw-body { flex:1; overflow-y:auto; padding:14px 36px; display:flex; flex-direction:column; gap:8px; scroll-behavior:smooth; }
+.hcw-body::-webkit-scrollbar { display:none; }
+/* Messages */
+.hc-msg { opacity:0; transform:translateY(6px); transition:opacity .3s ease, transform .3s ease; flex-shrink:0; }
+.hc-msg.show { opacity:1; transform:translateY(0); }
+.hc-user { display:flex; justify-content:flex-end; }
+.hc-user span { background:var(--sable); color:var(--ink); padding:8px 12px; border-radius:14px 14px 4px 14px; font-size:.75em; font-weight:500; max-width:82%; line-height:1.4; display:inline-block; }
+.hc-ai-row { display:flex; gap:7px; align-items:flex-start; }
+.hc-avatar { width:24px; height:24px; border-radius:50%; background:var(--violet); display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+.hc-bubble { background:var(--sable); padding:8px 12px; border-radius:14px 14px 14px 4px; font-size:.75em; color:var(--ink); line-height:1.45; max-width:82%; }
+/* Suggestions */
+.hcw-sugg-wrap { background:var(--sable); border-radius:16px; padding:10px; margin-left:31px; box-shadow:0 4px 20px rgba(0,0,0,.08); }
+.hcw-sugg { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+.hcw-sugg-btn { border-radius:10px; padding:9px 10px; font-size:.71em; color:var(--ink); font-weight:500; cursor:default; display:flex; align-items:center; gap:7px; line-height:1.3; border:none; }
+.hcw-sugg-btn i { flex-shrink:0; width:13px; height:13px; }
+/* Cards */
+.hcw-cards { display:flex; gap:8px; padding-left:31px; overflow-x:auto; padding-bottom:4px; }
+.hcw-cards::-webkit-scrollbar { display:none; }
+.hcw-card { background:var(--sable); border-radius:12px; min-width:130px; flex-shrink:0; overflow:hidden; }
+.hcw-card-visual { height:52px; overflow:hidden; }
+.hcw-card-visual img { width:100%; height:100%; object-fit:cover; display:block; }
+.hcw-card-body { padding:8px 10px 10px; }
+.hcw-card-status { font-size:.6em; font-weight:600; padding:2px 7px; border-radius:20px; background:var(--violet-10); color:var(--violet); display:inline-block; margin-bottom:5px; }
+.hcw-card-status--green { background:#e6f9ed; color:#1a9e4a; }
+.hcw-card-status--orange { background:var(--sable)3ec; color:#E05A3A; }
+.hcw-card-title { font-size:.72em; font-weight:600; color:var(--ink); line-height:1.3; margin-bottom:6px; }
+.hcw-card-tags { display:flex; flex-direction:column; gap:6px; }
+.hcw-card-info { display:flex; align-items:center; gap:5px; font-size:.68em; color:var(--ink-60); }
+/* Recap card */
+.hcw-recap-card { background:var(--sable); border-radius:12px; padding:12px 14px; display:flex; flex-direction:column; gap:10px; max-width:92%; }
+.hcw-recap-title { font-size:.72em; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:5px; padding-bottom:8px; border-bottom:1px solid var(--ink-08); }
+.hcw-recap-bottom { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.hcw-recap-qr { background:var(--violet); border-radius:10px; padding:10px 8px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; }
+.hcw-recap-qr-label { font-size:.62em; font-weight:600; color:rgba(255,255,255,.85); text-align:center; line-height:1.3; }
+.hcw-recap-wa { background:#25D366; border-radius:10px; padding:10px 8px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; cursor:default; }
+.hcw-recap-wa-text { font-size:.62em; font-weight:600; color:#fff; text-align:center; line-height:1.3; }
+/* Typing dots */
+.chat-typing { display:flex; gap:4px; align-items:center; padding:9px 14px; background:var(--ink-08); border-radius:14px 14px 14px 4px; width:fit-content; }
+.chat-typing span { width:5px; height:5px; background:#bbb; border-radius:50%; animation:chat-dot 1s ease-in-out infinite; }
+.chat-typing span:nth-child(2){animation-delay:.2s}
+.chat-typing span:nth-child(3){animation-delay:.4s}
+@keyframes chat-dot { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 960px) {
+  :root { --px: clamp(20px, 5vw, 48px); --h-xl: 2.8rem; --h-l: 1.875rem; }
+  .py { padding-top: 48px; padding-bottom: 48px; }
+  .hnotify { grid-template-columns: 1fr; gap: 40px; padding: 48px 0; }
+  .hnotify-vis { order: -1; }
+  .ulys-anim-wrap { max-width: 540px; margin: 0 auto; }
+}
+@media (max-width: 600px) {
+  :root { --px: 20px; --h-xl: 2.2rem; --h-l: 1.6rem; }
+  .py { padding-top: 40px; padding-bottom: 40px; }
+  .hnotify { padding: 32px 0; gap: 28px; }
+  .hero-actions { flex-direction: column; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+  .hcw { padding: 12px 16px 0; }
+  .hcw-body { padding: 10px 16px; }
+  .hcw-sugg { grid-template-columns: 1fr; }
+}
+
+/* CAROUSEL */
+.caro-wrap { padding: 64px 0 52px; background: var(--sable); }
+.caro-track { display: flex; gap: 24px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 0 40px 0 0; cursor: grab; user-select: none; scrollbar-width: none; }
+.caro-track::-webkit-scrollbar { display: none; }
+.caro-track.is-dragging { cursor: grabbing; scroll-behavior: auto; }
+.caro-card { flex-shrink: 0; width: calc(31% - 12px); min-width: 280px; aspect-ratio: 1 / 1; scroll-snap-align: start; border-radius: 20px; overflow: hidden; position: relative; }
+.caro-card-img { position: absolute; inset: 0; }
+.caro-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; -webkit-user-drag: none; }
+.caro-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.78) 0%, rgba(0,0,0,.4) 25%, transparent 50%); pointer-events: none; }
+.caro-card-text { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px 26px 26px; z-index: 1; }
+.caro-tag { display: inline-flex; align-items: center; gap: 5px; font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #fff; background: var(--violet); border-radius: 20px; padding: 4px 10px; margin-bottom: 10px; }
+.caro-tag svg { width: 11px; height: 11px; flex-shrink: 0; }
+.caro-card-text h3 { font-size: var(--t-m); font-weight: 700; color: #fff; margin-bottom: 10px; line-height: 1.25; }
+.caro-card-text p { font-size: var(--t-s); color: rgba(255,255,255,.65); line-height: 1.2; }
+.caro-footer { display: flex; align-items: center; justify-content: center; padding: 24px var(--px) 0; gap: 8px; }
+.caro-dot { width: 8px; height: 8px; border-radius: 4px; background: rgba(44,46,77,.18); cursor: pointer; transition: background .3s, width .3s; flex-shrink: 0; }
+.caro-dot.active { background: var(--violet); width: 28px; }
+@media (max-width: 768px) { .caro-card { width: 78vw; min-width: 0; } }
+
+/* FEAT LIST */
+.feat-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 80px; align-items: start; }
+.feat-list { display: flex; flex-direction: column; }
+.feat-item { display: flex; align-items: flex-start; gap: 18px; padding: 22px 0; border-bottom: 1px solid var(--ink-08); }
+.feat-item:first-child { border-top: 1px solid var(--ink-08); }
+.feat-icon { width: 38px; height: 38px; flex-shrink: 0; background: var(--violet-10); border-radius: 9px; display: flex; align-items: center; justify-content: center; transition: background .2s ease; }
+.feat-icon svg { width: 21px; height: 21px; color: var(--violet); transition: color .2s ease; }
+.feat-item:hover .feat-icon { background: var(--violet); }
+.feat-item:hover .feat-icon svg { color: #fff !important; }
+.feat-text h3 { font-size: var(--t-s); font-weight: 600; margin-bottom: 3px; transition: color .2s ease; }
+.feat-item:hover .feat-text h3 { color: var(--violet); }
+.feat-text p  { font-size: var(--t-xs); color: var(--ink-60); line-height: 1.6; }
+@media (max-width: 960px) { .feat-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+/* BENTO */
+.bento-header { text-align: center; margin: 0 0 var(--sp-m); }
+.bento-header h2 { color: var(--violet); }
+.bento-header p  { font-size: var(--t-m); color: var(--ink-60); margin-top: 10px; line-height: 1.7; }
+.bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.bento-card { background: var(--sable); border-radius: 16px; padding: 48px 36px; display: flex; flex-direction: column; gap: 14px; transition: transform .25s ease, box-shadow .25s ease; }
+.bento-card:hover { transform: translateY(-5px); box-shadow: 0 14px 36px -10px rgba(110,91,255,.15); }
+.bento-card--wide { grid-column: span 2; }
+.bento-card h3 { font-family: var(--f-serif); font-size: var(--h-xs); font-weight: 700; line-height: 1.25; color: var(--ink); }
+.bento-card p  { font-size: var(--t-s); color: var(--ink-60); line-height: 1.7; }
+@media (max-width: 960px) { .bento-grid { grid-template-columns: repeat(2, 1fr); } .bento-card--wide { grid-column: span 2; } }
+@media (max-width: 600px) { .bento-grid { grid-template-columns: 1fr; } .bento-card--wide { grid-column: span 1; } }
+
+/* TWOCOL */
+.twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+.vis { background: var(--sable); border-radius: 16px; height: 380px; display: flex; align-items: center; justify-content: center; color: var(--ink-60); font-size: var(--t-s); }
+@media (max-width: 960px) { .twocol { grid-template-columns: 1fr; gap: 40px; } }
+
+/* PHOTO MOSAIC */
+.cnt--m { max-width: 68rem; margin: 0 auto; }
+.photo-mosaic { display: grid; grid-template-columns: 3fr 2fr; gap: 14px; }
+.photo-mosaic__left { display: flex; flex-direction: column; gap: 14px; }
+.photo-mosaic__left-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.photo-mosaic__right { display: flex; flex-direction: column; gap: 14px; height: 574px; }
+.photo-mosaic__right .photo-block { flex: 1; min-height: 0; }
+.photo-block { border-radius: 14px; overflow: hidden; width: 100%; background: var(--sable); }
+.photo-block img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (max-width: 960px) {
+  .photo-mosaic { grid-template-columns: 1fr; }
+  .photo-mosaic__right { height: auto; flex-direction: row; }
+  .photo-mosaic__right .photo-block { height: 200px; }
+}
+
+/* TIMELINE */
+.tl-wrap { width: 100%; }
+.tl-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+.tl-row--top { align-items: end; margin-bottom: -52px; }
+.tl-row--bottom { align-items: start; margin-top: -16px; }
+.tl-cell { display: flex; justify-content: center; }
+.tl-cell--empty { display: block; }
+.tl-svg-wrap { max-width: 83rem; margin: 0 auto; overflow: visible; }
+.tl-svg { width: 100%; display: block; overflow: visible; }
+.tl-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; background: var(--violet); color: #fff; border-radius: 999px; font-size: var(--t-xs); font-weight: 600; letter-spacing:.04em; cursor: default; }
+.tl-badge svg { width:14px!important; height:14px!important; }
+.tl-badge--outline { background: #fff; color: var(--violet); border: 1.5px solid var(--violet); }
+.tl-badge--eglise { background: #C05000; }
+.tl-badge--foret { background: #2D7A34; }
+.tl-badge--epicerie { background: #F08020; }
+.tl-label-wrap { position: relative; display: inline-block; }
+.tl-desc { position: absolute; left: 0; top: calc(100% + 10px); width: 220px; font-size: var(--t-xs); color: var(--ink-60); line-height: 1.65; background: #fff; border-radius: 10px; padding: 14px 16px; box-shadow: 0 8px 24px -6px rgba(44,46,77,.14); z-index: 20; opacity: 0; pointer-events: none; transform: translateY(-4px); transition: opacity .25s ease, transform .25s ease; }
+.tl-label-wrap:hover .tl-desc { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.tl-dot { animation: tl-pulse 3s ease-out infinite; }
+@keyframes tl-pulse { 0% { filter: drop-shadow(0 0 0px rgba(110,91,255,.6)); } 70%,100% { filter: drop-shadow(0 0 16px rgba(110,91,255,0)); } }
+.tl-audio-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
+.tl-audio { width: 36px; height: 36px; border-radius: 50%; background: var(--violet); color: #fff; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
+.tl-audio-ring { position: absolute; inset: 0; border-radius: 50%; background: var(--violet); opacity: 0; animation: tl-ring 2s ease-out infinite; }
+.tl-audio-ring--2 { animation-delay: .7s; }
+@keyframes tl-ring { 0% { transform: scale(1); opacity: .5; } 100% { transform: scale(2.4); opacity: 0; } }
+.tl-vertical { display: none; position: relative; padding: 16px 0 32px; }
+.tl-vertical::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: rgba(44,46,77,0.12); transform: translateX(-50%); border-radius: 2px; }
+.tl-v-item { display: grid; grid-template-columns: 1fr 44px 1fr; align-items: center; gap: 12px; margin-bottom: 32px; }
+.tl-v-item:last-child { margin-bottom: 0; }
+.tl-v-dot { width: 44px; height: 44px; border-radius: 50%; border: 3px solid #fff; position: relative; z-index: 1; box-shadow: 0 0 0 2px rgba(44,46,77,0.1); }
+.tl-v-left { display: flex; justify-content: flex-end; }
+.tl-v-right { display: flex; justify-content: flex-start; }
+@media (max-width: 768px) {
+  .tl-wrap .tl-row, .tl-svg-wrap { display: none; }
+  .tl-vertical { display: block; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="px bg-sable" style="min-height:85vh;display:flex;align-items:center">
+  <div class="cnt">
+    <div class="hnotify">
+      <div class="hnotify-text">
+        <span class="hero-badge" style="margin-bottom:12px;color:var(--violet);background:var(--sable);letter-spacing:.25em;font-weight:600;font-size:var(--t-s)"><span style="display:inline-flex;animation:hello-bounce 2s ease-in-out infinite"><i data-lucide="compass" style="width:1.4em;height:1.4em;color:var(--violet);display:inline-flex"></i></span>NEST</span>
+        <h1 class="h-xl" style="margin-bottom:22px">Votre parcours découverte interactif</h1>
+        <p class="muted" style="font-size:var(--t-l);line-height:1.65;max-width:480px">Offrez à vos visiteurs une balade immersive : patrimoine vivant, archives animées par l'IA, étapes et carte sur smartphone.<br>Sans application. Sans infrastructure lourde.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-p">Demander une démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+          <a href="#" class="btn btn-g">Voir comment ça marche</a>
+        </div>
+        <div class="hnotify-trust">
+          <i data-lucide="sparkles" style="width:15px;height:15px;flex-shrink:0"></i> Captive &nbsp;&nbsp;
+          <i data-lucide="send-to-back" style="width:15px;height:15px;flex-shrink:0"></i> Immerge &nbsp;&nbsp;
+          <i data-lucide="clapperboard" style="width:15px;height:15px;flex-shrink:0"></i> Raconte &nbsp;&nbsp;
+          <i data-lucide="flame" style="width:15px;height:15px;flex-shrink:0"></i> Inspire
+        </div>
+      </div>
+      <div class="hnotify-vis">
+        <div class="ulys-anim-wrap no-overlay" style="width:100%">
+          <img src="images/ulys_illu.png" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="py" style="overflow:hidden;background:var(--sable)">
+
+  <div class="tl-wrap">
+    <div class="cnt tl-row tl-row--top">
+      <div class="tl-cell tl-cell--empty"></div>
+      <div class="tl-cell" style="margin-bottom:-14px">
+        <div class="tl-label-wrap" style="display:flex;align-items:center;gap:8px">
+          <span class="tl-badge tl-badge--outline"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M22 20v-9H2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2Z"/><path d="M18 11V4H6v7"/><path d="M15 22v-4a3 3 0 0 0-6 0v4"/><path d="M22 11V6"/><path d="M2 11V6"/><path d="M6 4V2"/><path d="M18 4V2"/><path d="M10 4V2"/><path d="M14 4V2"/></svg>Château du Duc</span>
+          <div class="tl-audio-wrap">
+            <span class="tl-audio-ring tl-audio-ring--1"></span>
+            <span class="tl-audio-ring tl-audio-ring--2"></span>
+            <div class="tl-audio"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" width="16" height="16"><polygon points="3,5 7,5 11,2 11,16 7,13 3,13" fill="currentColor" stroke="none"/><path d="M13 6.5a3 3 0 010 5"/><path d="M14.5 4.5a5.5 5.5 0 010 9"/></svg></div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-cell tl-cell--empty"></div>
+      <div class="tl-cell">
+        <div class="tl-label-wrap">
+          <span class="tl-badge tl-badge--foret"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="m17 14 3 3.3a1 1 0 0 1-.7 1.7H4.7a1 1 0 0 1-.7-1.7L7 14"/><path d="m14 10 3 3.3a1 1 0 0 1-.7 1.7H7.7a1 1 0 0 1-.7-1.7L10 10"/><path d="M12 2 8.4 6.6A1 1 0 0 0 9.1 8h5.8a1 1 0 0 0 .7-1.7z"/><path d="M12 22v-3"/></svg>Forêt de châtaigner</span>
+          <p class="tl-desc">Plusieurs chemins permettront aux randonneurs de découvrir le massif.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-svg-wrap">
+      <svg class="tl-svg" viewBox="0 0 1200 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+        <defs>
+          <linearGradient id="tl-grad-nest" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="rgba(176,216,122,0.9)"/>
+            <stop offset="100%" stop-color="rgba(176,216,122,0.9)"/>
+          </linearGradient>
+        </defs>
+        <path d="M-400,80 C-200,80 -50,160 150,160 C260,160 340,80 450,80 C560,80 640,155 750,155 C860,155 940,70 1050,70 C1160,70 1350,155 1600,160 L1600,800 L-400,800 Z" fill="url(#tl-grad-nest)"/>
+        <path id="road-path-nest" d="M-400,80 C-200,80 -50,160 150,160 C260,160 340,80 450,80 C560,80 640,155 750,155 C860,155 940,70 1050,70 C1160,70 1350,155 1600,160" fill="none" stroke="#ffffff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Branches secondaires -->
+        <path d="M 290,131 C 295,148 370,145 440,132" fill="none" stroke="#ffffff" stroke-width="14" stroke-linecap="round"/>
+        <path d="M 880,112 C 870,78 825,78 792,94" fill="none" stroke="#ffffff" stroke-width="14" stroke-linecap="round"/>
+        <path d="M 1150,84 C 1250,42 1400,-10 1600,-35" fill="none" stroke="#ffffff" stroke-width="14" stroke-linecap="round"/>
+        <g>
+          <animateMotion dur="10s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+            <mpath href="#road-path-nest"/>
+          </animateMotion>
+          <circle r="0" fill="var(--violet)" opacity="0"><animate attributeName="r" values="0;28" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.25;0" dur="2s" repeatCount="indefinite"/></circle>
+          <circle r="0" fill="var(--violet)" opacity="0"><animate attributeName="r" values="0;16" dur="2s" begin="0.4s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.35;0" dur="2s" begin="0.4s" repeatCount="indefinite"/></circle>
+          <circle r="8" fill="var(--violet)" stroke="#fff" stroke-width="2.5"/>
+        </g>
+        <circle cx="150" cy="160" r="11" fill="#C05000" stroke="#fff" stroke-width="2.5" class="tl-dot"/>
+        <g class="tl-dot" style="animation-delay:.4s">
+          <circle cx="450" cy="80" r="15" fill="#fff" stroke="var(--violet)" stroke-width="1.5"/>
+          <svg x="441" y="71" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" overflow="visible"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg>
+        </g>
+        <circle cx="750" cy="155" r="11" fill="#F08020" stroke="#fff" stroke-width="2.5" class="tl-dot" style="animation-delay:.8s"/>
+        <circle cx="1050" cy="70" r="11" fill="#2D7A34" stroke="#fff" stroke-width="2.5" class="tl-dot" style="animation-delay:1.2s"/>
+      </svg>
+    </div>
+
+    <div class="cnt tl-row tl-row--bottom">
+      <div class="tl-cell">
+        <div class="tl-label-wrap">
+          <span class="tl-badge tl-badge--eglise"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="m18 7 4 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9l4-2"/><path d="M14 22v-4a2 2 0 0 0-4 0v4"/><path d="M18 22V5l-6-3-6 3v17"/><path d="M12 7v5"/><path d="M10 9h4"/></svg>Place de l'église</span>
+          <p class="tl-desc">Construite au XIe siècle à l'extrémité d'un promontoire rocheux, jouxtant la motte féodale des Comtes d'Anjou, elle est classée monument historique depuis 1909.</p>
+        </div>
+      </div>
+      <div class="tl-cell tl-cell--empty"></div>
+      <div class="tl-cell">
+        <div class="tl-label-wrap">
+          <span class="tl-badge tl-badge--epicerie"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="m5 11 4-7"/><path d="m19 11-4-7"/><path d="M2 11h20"/><path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8a2 2 0 0 0 2-1.6l1.6-7.4"/><path d="m9 11 1 9"/><path d="M4.5 15.5h15"/><path d="m15 11-1 9"/></svg>Épicerie locale</span>
+          <p class="tl-desc">Pour découvrir les produits locaux : rillettes, asperges, miel, escargots, jus de pomme…</p>
+        </div>
+      </div>
+      <div class="tl-cell tl-cell--empty"></div>
+    </div>
+  </div>
+
+  <!-- Titre centré dans la zone verte -->
+  <div class="cnt px" style="text-align:center;padding-top:120px;padding-bottom:0;margin-bottom:-40px">
+    <p style="color:#fff;font-size:1.4rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px">Votre territoire a une histoire</p>
+    <h2 style="font-family:var(--f-serif);font-size:calc(var(--h-l) * 1.15);font-weight:700;line-height:1.1;letter-spacing:-.02em;color:var(--ink)">Vos visiteurs veulent la vivre !</h2>
+  </div>
+
+  <!-- Version mobile verticale -->
+  <div class="tl-vertical cnt">
+    <div class="tl-v-item">
+      <div class="tl-v-left"><span class="tl-badge tl-badge--eglise"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="m18 7 4 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9l4-2"/><path d="M14 22v-4a2 2 0 0 0-4 0v4"/><path d="M18 22V5l-6-3-6 3v17"/><path d="M12 7v5"/><path d="M10 9h4"/></svg>Place de l'église</span></div>
+      <div style="display:flex;justify-content:center"><div class="tl-v-dot" style="background:#C05000"></div></div>
+      <div class="tl-v-right"></div>
+    </div>
+    <div class="tl-v-item">
+      <div class="tl-v-left"></div>
+      <div style="display:flex;justify-content:center"><div class="tl-v-dot" style="background:var(--sable);border-color:var(--violet);box-shadow:0 0 0 2px var(--violet)"></div></div>
+      <div class="tl-v-right"><span class="tl-badge tl-badge--outline"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M22 20v-9H2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2Z"/><path d="M18 11V4H6v7"/><path d="M15 22v-4a3 3 0 0 0-6 0v4"/><path d="M22 11V6"/><path d="M2 11V6"/><path d="M6 4V2"/><path d="M18 4V2"/><path d="M10 4V2"/><path d="M14 4V2"/></svg>Château du Duc</span></div>
+    </div>
+    <div class="tl-v-item">
+      <div class="tl-v-left"><span class="tl-badge tl-badge--epicerie"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="m5 11 4-7"/><path d="m19 11-4-7"/><path d="M2 11h20"/><path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8a2 2 0 0 0 2-1.6l1.6-7.4"/><path d="m9 11 1 9"/><path d="M4.5 15.5h15"/><path d="m15 11-1 9"/></svg>Épicerie locale</span></div>
+      <div style="display:flex;justify-content:center"><div class="tl-v-dot" style="background:#F08020"></div></div>
+      <div class="tl-v-right"></div>
+    </div>
+    <div class="tl-v-item">
+      <div class="tl-v-left"></div>
+      <div style="display:flex;justify-content:center"><div class="tl-v-dot" style="background:#2D7A34"></div></div>
+      <div class="tl-v-right"><span class="tl-badge tl-badge--foret"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="m17 14 3 3.3a1 1 0 0 1-.7 1.7H4.7a1 1 0 0 1-.7-1.7L7 14"/><path d="m14 10 3 3.3a1 1 0 0 1-.7 1.7H7.7a1 1 0 0 1-.7-1.7L10 10"/><path d="M12 2 8.4 6.6A1 1 0 0 0 9.1 8h5.8a1 1 0 0 0 .7-1.7z"/><path d="M12 22v-3"/></svg>Forêt de châtaigner</span></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- GALERIE PHOTOS -->
+<section class="px py" style="background:linear-gradient(to bottom, #B8DA83 100px, #ffffff 100px);padding-top:40px;position:relative;overflow:hidden;padding-bottom:48px">
+  <div class="cnt">
+    <div class="photo-mosaic">
+      <div class="photo-mosaic__left">
+        <div class="photo-block" style="height:340px">
+          <img src="images/nest-5.jpg" alt="">
+        </div>
+        <div class="photo-mosaic__left-bottom">
+          <div class="photo-block" style="height:220px">
+            <img src="images/nest-4.jpg" alt="" style="object-position:bottom">
+          </div>
+          <div class="photo-block" style="height:220px">
+            <img src="images/nest-3.jpeg" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="photo-mosaic__right">
+        <div class="photo-block">
+          <img src="images/nest-1.jpg" alt="">
+        </div>
+        <div class="photo-block" style="background:url('images/nest-2.jpg') center bottom/cover no-repeat"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES LIST -->
+<section class="px py">
+  <div class="cnt">
+    <div class="feat-grid">
+      <div>
+        <p class="eyebrow mb-xs">Le parcours en pratique</p>
+        <h2 class="h-l" style="margin-bottom:20px">Du totem à la dernière étape : une balade guidée par le digital</h2>
+        <p class="muted" style="font-size:var(--t-m);line-height:1.7">Deux façons de vivre le parcours : suivre le fil étape par étape, ou se balader librement et scanner les arrêts qui attirent.</p>
+      </div>
+      <div class="feat-list">
+        <div class="feat-item">
+          <div class="feat-icon"><i data-lucide="signpost-big" style="width:17px;height:17px;color:var(--violet)"></i></div>
+          <div class="feat-text"><h3>Le totem de départ</h3><p>Installé à l'entrée du village ou à l'office, il présente l'histoire globale de la commune et lance le parcours. Premier QR code, premier contenu.</p></div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i data-lucide="qr-code" style="width:17px;height:17px;color:var(--violet)"></i></div>
+          <div class="feat-text"><h3>Les étapes jalonnent le territoire</h3><p>Chaque point clé — bâtiment, place, vue — est signalé par un QR code. À chaque scan : texte, audio, vidéo d'archive animée, carte de progression.</p></div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i data-lucide="map-pinned" style="width:17px;height:17px;color:var(--violet)"></i></div>
+          <div class="feat-text"><h3>Approche physique ou physique-digital</h3><p>Certains visiteurs suivent le parcours digital complet. D'autres apprécient simplement la balade et scannent quand quelque chose les retient.</p></div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i data-lucide="hand-coins" style="width:17px;height:17px;color:var(--violet)"></i></div>
+          <div class="feat-text"><h3>Aller plus loin</h3><p>En fin de parcours, un mot du maire, un mur du souvenir collaboratif, ou un appel à contribution patrimoniale — pour que la balade crée un lien durable.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAROUSEL -->
+<section class="px" style="background:var(--sable);padding-bottom:16px">
+  <div class="cnt">
+    <p class="eyebrow mb-xs">Votre territoire enrichi par le digital</p>
+    <h2 class="h-l">Transformez votre patrimoine en attraction vivante</h2>
+    <p style="margin-top:16px;font-size:var(--t-m);line-height:1.7;color:var(--ink-60);max-width:640px">Votre territoire a des histoires qui méritent d'être vécues.<br>Nous les mettons en mouvement pour que chaque visiteur reparte avec une expérience et des souvenirs uniques.</p>
+  </div>
+</section>
+<section style="background:var(--sable);padding-left:40px;overflow:visible">
+  <div class="caro-wrap" style="padding-top:24px">
+    <div class="caro-track" id="caroTrack">
+      <div class="caro-card">
+        <div class="caro-card-text">
+          <span class="caro-tag"><i data-lucide="clapperboard" style="width:11px;height:11px"></i>Photo → Film vivant</span>
+          <h3>Reconstitution depuis les photos actuelles</h3>
+          <p>Vos lieux se mettent en scène en partant de vos clichés pour les reconstituer à l'époque choisie : Moyen Âge, Renaissance, XIXe siècle…</p>
+        </div>
+        <div class="caro-card-img"><video autoplay muted loop playsinline preload="none" style="width:100%;height:100%;object-fit:cover;pointer-events:none"><source src="images/nest_carousel_1.mp4" type="video/mp4"></video></div>
+      </div>
+      <div class="caro-card">
+        <div class="caro-card-text">
+          <span class="caro-tag"><i data-lucide="film" style="width:11px;height:11px"></i>Archive → Vidéo animée</span>
+          <h3>Animation des archives anciennes</h3>
+          <p>L'IA remet en mouvement vos archives : la place du village telle qu'elle était, les gens marchent, les charrettes avancent, le passé reprend vie.</p>
+        </div>
+        <div class="caro-card-img"><video autoplay muted loop playsinline preload="none" style="width:100%;height:100%;object-fit:cover;pointer-events:none"><source src="images/nest_carousel_2.mp4" type="video/mp4"></video></div>
+      </div>
+      <div class="caro-card">
+        <div class="caro-card-text">
+          <span class="caro-tag"><i data-lucide="landmark" style="width:11px;height:11px"></i>Mise en scène historique</span>
+          <h3>Personnages d'époque incrustés</h3>
+          <p>Des personnages historiques ou locaux surgissent dans les décors actuels pour contextualiser le lieu et ancrer le visiteur dans le temps.</p>
+        </div>
+        <div class="caro-card-img"><img src="images/nest-3.jpeg" alt=""></div>
+      </div>
+      <div class="caro-card">
+        <div class="caro-card-text">
+          <span class="caro-tag"><i data-lucide="headphones" style="width:11px;height:11px"></i>Expérience immersive</span>
+          <h3>Narration audio et vidéo</h3>
+          <p>Chaque étape s'accompagne d'une voix, d'ambiance sonore d'époque, de témoignages, d'un plan ou d'un épisode vidéo dédié.</p>
+        </div>
+        <div class="caro-card-img"><img src="images/nest-4.jpg" alt=""></div>
+      </div>
+      <div class="caro-card">
+        <div class="caro-card-text">
+          <span class="caro-tag"><i data-lucide="map-pin" style="width:11px;height:11px"></i>Géolocalisation</span>
+          <h3>Carte interactive & valorisation des acteurs locaux</h3>
+          <p>Le visiteur suit sa progression sur une carte en temps réel. Chaque étape met en lumière votre patrimoine mais aussi valorise vos acteurs locaux.</p>
+        </div>
+        <div class="caro-card-img"><img src="images/nest-5.jpg" alt=""></div>
+      </div>
+    </div>
+    <div class="caro-footer" id="caroDots">
+      <div class="caro-dot active"></div>
+      <div class="caro-dot"></div>
+      <div class="caro-dot"></div>
+      <div class="caro-dot"></div>
+      <div class="caro-dot"></div>
+    </div>
+  </div>
+</section>
+
+<!-- BENTO — Fond blanc · Cards sable -->
+<section class="px py">
+  <div class="cnt--m">
+    <div class="bento-header">
+      <h2 class="h-l">Chaque étape devient une expérience mémorable</h2>
+      <p>NEST transforme chaque point d'intérêt en contenu vivant — audio, vidéo, archives animées.</p>
+    </div>
+    <div class="bento-grid">
+      <div class="bento-card bento-card--wide">
+        <h3>Parcours sur mesure</h3>
+        <p>Créez des itinéraires thématiques adaptés à chaque public : familles, randonneurs, passionnés d'histoire — chaque parcours raconte une histoire différente.</p>
+      </div>
+      <div class="bento-card">
+        <h3>Guide audio intégré</h3>
+        <p>Des voix professionnelles ou synthétiques pour narrer chaque étape, disponibles en plusieurs langues.</p>
+      </div>
+      <div class="bento-card">
+        <h3>QR codes intelligents</h3>
+        <p>Placés sur le terrain, ils déclenchent le bon contenu au bon endroit — sans application à télécharger.</p>
+      </div>
+      <div class="bento-card">
+        <h3>Contenus enrichis</h3>
+        <p>Photos d'archives, vidéos courtes, anecdotes locales — chaque stop devient un moment de découverte.</p>
+      </div>
+      <div class="bento-card">
+        <h3>Statistiques de visite</h3>
+        <p>Suivez quels stops captivent le plus, combien de temps les visiteurs s'y attardent et optimisez vos parcours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 COLONNES TEXTE + VISUEL — fond sable -->
+<section class="px py bg-sable">
+  <div class="cnt">
+    <div class="twocol">
+      <div class="vis"><span>Photo terrain</span></div>
+      <div>
+        <p class="eyebrow mb-xs">Expérience interactive</p>
+        <h2 class="h-l" style="margin-bottom:20px">Donnez vie à votre territoire, stop par stop.</h2>
+        <p class="muted" style="font-size:var(--t-m);line-height:1.7">NEST transforme votre destination en parcours découverte immersif. Audio, vidéo, archives animées — aucune application à télécharger.</p>
+        <a href="#" class="btn btn-p" style="margin-top:28px">Découvrir NEST <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  const track = document.getElementById('caroTrack');
+  const dots = document.querySelectorAll('#caroDots .caro-dot');
+  if(!track) return;
+  let isDown = false, startX, scrollLeft, velX = 0, lastX = 0, rafId;
+  track.addEventListener('mousedown', e => {
+    e.preventDefault(); isDown = true; velX = 0;
+    track.classList.add('is-dragging');
+    startX = e.pageX - track.offsetLeft;
+    scrollLeft = track.scrollLeft;
+    lastX = e.pageX;
+    cancelAnimationFrame(rafId);
+  });
+  document.addEventListener('mouseup', () => {
+    if(!isDown) return; isDown = false;
+    track.classList.remove('is-dragging');
+    const momentum = () => {
+      if(Math.abs(velX) < 0.5) return;
+      track.scrollLeft += velX;
+      velX *= 0.92;
+      rafId = requestAnimationFrame(momentum);
+    };
+    rafId = requestAnimationFrame(momentum);
+  });
+  track.addEventListener('mousemove', e => {
+    if(!isDown) return;
+    const x = e.pageX - track.offsetLeft;
+    track.scrollLeft = scrollLeft - (x - startX);
+    velX = e.pageX - lastX;
+    lastX = e.pageX;
+  });
+  track.addEventListener('dragstart', e => e.preventDefault());
+  track.addEventListener('scroll', () => {
+    const pct = track.scrollLeft / (track.scrollWidth - track.clientWidth);
+    const idx = Math.round(pct * (dots.length - 1));
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  });
+})();
+</script>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+lucide.createIcons();
+
+</script>
+
+</body>
+</html>

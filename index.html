@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Odyssey Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --violet:     #6E5BFF;
+  --violet-10:  rgba(110,91,255,.10);
+  --violet-20:  rgba(110,91,255,.20);
+  --sable:      #FFEAD5;
+  --sable-dark: #F5D9B8;
+  --ink:        #2C2E4D;
+  --ink-60:     rgba(44,46,77,.60);
+  --ink-14:     rgba(44,46,77,.14);
+  --ink-08:     rgba(44,46,77,.08);
+  --white:      #ffffff;
+  --off:        #FAFAF8;
+  --f-serif: 'Libre Baskerville', Georgia, serif;
+  --f-sans:  'Inter', system-ui, sans-serif;
+  --h-xl:  3.6rem;
+  --h-l:   2.25rem;
+  --h-m:   1.75rem;
+  --h-s:   1.35rem;
+  --h-xs:  1.125rem;
+  --t-xl: 1.375rem;
+  --t-l:  1.25rem;
+  --t-m:  1.125rem;
+  --t-s:  1.0625rem;
+  --t-xs: 1rem;
+  --sp-xxl: 96px;
+  --sp-xl:  80px;
+  --sp-l:   64px;
+  --sp-m:   48px;
+  --sp-s:   32px;
+  --sp-xs:  16px;
+  --container: 83rem;
+  --px: clamp(24px, 5vw, 80px);
+  --btn-shadow: 0 12px 26px -12px rgba(110,91,255,.70);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--f-sans); font-size: var(--t-m); line-height: 1.2; color: var(--ink); background: var(--white); -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+.px  { padding-left: var(--px); padding-right: var(--px); }
+.cnt { max-width: var(--container); margin: 0 auto; }
+.py  { padding-top: var(--sp-xxl); padding-bottom: var(--sp-xxl); }
+hr { border: none; border-top: 1px solid var(--ink-14); }
+
+.h-xl { font-family: var(--f-serif); font-size: var(--h-xl); line-height: 1.06; font-weight: 700; letter-spacing: -.025em; }
+.h-l  { font-family: var(--f-serif); font-size: var(--h-l);  line-height: 1.1;  font-weight: 700; letter-spacing: -.02em; }
+.h-m  { font-family: var(--f-serif); font-size: var(--h-m);  line-height: 1.18; font-weight: 700; }
+.h-s  { font-family: var(--f-serif); font-size: var(--h-s);  line-height: 1.25; font-weight: 700; }
+.h-xs { font-family: var(--f-sans);  font-size: var(--h-xs); line-height: 1.35; font-weight: 600; }
+.muted { color: var(--ink-60); }
+
+@keyframes breathe {
+  0%       { box-shadow: 0 0 0 0   rgba(110,91,255,.45), var(--btn-shadow); }
+  70%,100% { box-shadow: 0 0 0 12px rgba(110,91,255,0),  var(--btn-shadow); }
+}
+.btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 26px; border-radius: 12px; font-family: var(--f-sans); font-size: var(--t-s); font-weight: 600; cursor: pointer; border: none; transition: background .2s, box-shadow .2s, color .2s; white-space: nowrap; }
+.btn svg { transition: transform .2s; flex-shrink: 0; }
+.btn:hover svg { transform: translateX(4px); }
+.btn-p { background: var(--violet); color: #fff; animation: breathe 3s ease-out infinite; }
+.btn-p:hover { background: #5a48e8; box-shadow: 0 16px 34px -12px rgba(110,91,255,.7); animation: none; }
+.btn-g { background: var(--white); color: var(--ink); border: 1px solid var(--ink-14); }
+.btn-g:hover { border-color: var(--violet); color: var(--violet); background: var(--violet-10); }
+.link { display: inline-flex; align-items: center; gap: 6px; color: var(--violet); font-size: var(--t-s); font-weight: 600; }
+.link svg { transition: transform .2s ease; }
+.link:hover svg { transform: translateX(4px); }
+.toggle-list { display: flex; flex-direction: column; gap: 14px; margin: 24px 0 28px; }
+.toggle-list li { display: flex; align-items: center; gap: 12px; font-size: var(--t-s); color: var(--ink-60); line-height: 1.5; }
+.toggle-icon { flex-shrink: 0; color: var(--violet); display: flex; width: 24px; height: 24px; }
+.check-list { display: flex; flex-direction: column; gap: 14px; margin: 24px 0; }
+.check-list li { display: flex; align-items: center; gap: 12px; font-size: var(--t-s); color: var(--ink-60); line-height: 1.5; }
+.check-icon { width: 18px; height: 18px; border-radius: 6px; background: var(--violet); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.check-icon svg { width: 9px; height: 9px; color: #fff; stroke-width: 2.2; }
+.check-list--round .check-icon { border-radius: 50%; }
+.stat-quote { background: #fff; border-radius: 12px; padding: 20px 24px; display: flex; align-items: center; gap: 16px; }
+.stat-quote-icon { width: 36px; height: 36px; flex-shrink: 0; color: var(--violet); opacity: .15; align-self: center; }
+.stat-quote-src { font-size: var(--t-s); color: var(--violet); font-weight: 600; letter-spacing: .05em; margin-bottom: 6px; line-height: 1.3; }
+.stat-quote-n { font-size: var(--t-s); font-weight: 700; color: var(--violet); line-height: 1.3; margin-bottom: 6px; }
+.stat-quote-txt { font-size: var(--t-s); color: var(--ink-60); font-style: italic; line-height: 1.3; }
+
+/* NAV */
+.nav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--ink-08); }
+.nav-inner { display: flex; align-items: center; height: 68px; gap: 40px; padding: 0 var(--px); max-width: var(--container); margin: 0 auto; }
+.nav-logo { font-family: var(--f-serif); font-size: 1.1rem; font-weight: 700; }
+.nav-logo span { color: var(--violet); }
+.nav-actions { display: flex; gap: 10px; margin-left: auto; }
+
+/* HERO NOTIFY */
+.hnotify { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; padding: 80px 0; }
+.hnotify-text { display: flex; flex-direction: column; gap: 0; }
+.hnotify-trust { display: flex; align-items: center; gap: 6px; font-size: var(--t-xs); color: var(--ink-60); margin-top: 24px; }
+.hnotify-trust svg { color: var(--violet); }
+.hnotify-vis { position: relative; }
+.hnotify-img-wrap { border-radius: 20px; overflow: hidden; position: relative; aspect-ratio: 1/1; }
+.hnotify-img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+.hnotif-group { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); display: flex; flex-direction: column; align-items: flex-start; gap: 12px; width: max-content; max-width: calc(100% - 32px); }
+.hnotif-card { background: #fff; border-radius: 14px; padding: 14px 18px; box-shadow: 0 12px 40px rgba(0,0,0,.18); opacity: 0; transform: translateY(14px); transition: opacity .4s ease, transform .4s ease; }
+.hnotif-card--show { opacity: 1 !important; transform: translateY(0) !important; }
+.hnotif-card--3 { width: fit-content; padding: 10px 18px; border-radius: 999px; background: #1a9e4a; }
+.hnotif-card--1 { min-width:300px; }
+.hnotif-card--2 { min-width:300px; }
+.hnotif-card--3 .hnotif-row { gap: 8px; }
+.hnotif-card--3 .hnotif-name { color: #fff; font-size: var(--t-xs); font-weight: 700; letter-spacing: .03em; }
+.hnotif-card--3 .hnotif-icon--check { width: 20px; height: 20px; color: #fff; display: flex; align-items: center; justify-content: center; }
+.hnotif-row { display: flex; align-items: center; gap: 12px; }
+.hnotif-icon { width: 38px; height: 38px; flex-shrink: 0; background: var(--violet-10); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--violet); }
+.hnotif-icon--green { background: #e6f9ee; color: #1a9e4a; }
+.hnotif-player { margin-top:10px; padding-top:10px; border-top:0.5px solid rgba(0,0,0,.07); }
+.hnotif-player-row { display:flex; align-items:center; gap:8px; }
+.hnotif-player-time { font-size:10px; color:#999; font-variant-numeric:tabular-nums; }
+.hnotif-player-bar { flex:1; height:4px; background:#e0e0e0; border-radius:2px; position:relative; }
+.hnotif-player-fill { height:100%; background:#1a9e4a; border-radius:2px; }
+.hnotif-player-thumb { position:absolute; top:50%; transform:translate(-50%,-50%); width:12px; height:12px; background:#1a9e4a; border-radius:50%; }
+.hnotif-name { font-size: var(--t-s); font-weight: 600; color: var(--ink); }
+.hnotif-sub { font-size: var(--t-xs); color: var(--ink-60); margin-top: 2px; }
+.hnotif-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--violet); flex-shrink: 0; margin-left: auto; }
+@keyframes hello-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-5px); }
+}
+@keyframes notif-in {
+  0%   { opacity: 0; transform: translateY(14px); }
+  12%  { opacity: 1; transform: translateY(0); }
+  78%  { opacity: 1; transform: translateY(0); }
+  90%  { opacity: 0; transform: translateY(-8px); }
+  100% { opacity: 0; transform: translateY(14px); }
+}
+
+.hero-eyebrow { display: flex; align-items: center; margin-bottom: 28px; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; background: #fff; border-radius: 999px; padding: 7px 16px 7px 10px; font-size: .8125rem; font-weight: 600; color: var(--ink); letter-spacing: .06em; text-transform: uppercase; }
+.hero-badge svg { width: 14px; height: 14px; color: var(--violet); flex-shrink: 0; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 36px; }
+
+.bg-sable { background: var(--sable); }
+.bg-v { background: var(--violet); }
+
+/* 2 COLS */
+.twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+.vis { background: var(--sable); border-radius: 14px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; }
+.vis span { font-size: var(--t-xs); color: var(--ink-60); }
+.eyebrow { font-size: var(--t-xs); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--violet); }
+.mb-xs { margin-bottom: var(--sp-xs); }
+.mb-s  { margin-bottom: var(--sp-s); }
+
+@media (max-width: 768px) {
+  .twocol { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* TÉMOIGNAGE */
+.temo { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.temo-quote { font-family: var(--f-serif); font-size: 1.2em; line-height: 1.75; color: var(--ink); margin-bottom: 28px; }
+.temo-src { display: flex; align-items: center; gap: 14px; }
+.temo-av { width: 44px; height: 44px; border-radius: 50%; background: var(--sable); display: flex; align-items: center; justify-content: center; font-family: var(--f-serif); font-weight: 700; font-size: .85rem; flex-shrink: 0; }
+.temo-name { font-weight: 600; font-size: var(--t-s); }
+.temo-role { font-size: var(--t-xs); color: var(--ink-60); margin-top: 2px; }
+/* PRESSE */
+.press { display: grid; grid-template-columns: repeat(3, 1fr); }
+.press-card { padding: 36px 32px; border-right: 1px solid var(--ink-08); display: flex; flex-direction: column; gap: 14px; }
+.press-card:last-child { border-right: none; }
+.press-src { font-size: var(--t-xs); font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-60); }
+.press-q { font-size: var(--t-s); line-height: 1.65; color: var(--ink); flex: 1; }
+/* CONTACT */
+.form { display: flex; flex-direction: column; gap: 14px; }
+.f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.f { display: flex; flex-direction: column; gap: 6px; }
+.f input, .f select, .f textarea { padding: 12px 16px; border: 1px solid var(--ink-14); border-radius: 10px; font-family: var(--f-sans); font-size: var(--t-s); color: var(--ink); background: #fff; outline: none; transition: border-color .2s; appearance: none; }
+.f input:focus, .f select:focus, .f textarea:focus { border-color: var(--violet); }
+.f textarea { resize: vertical; min-height: 110px; }
+.cnt-2cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; }
+.contact-avatar { width: 80px; height: 80px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+.hello-icon { width: 48px; height: 48px; border-radius: 50%; background: var(--violet-10); display: flex; align-items: center; justify-content: center; color: var(--violet); flex-shrink: 0; animation: hello-bounce 2s ease-in-out infinite; }
+.sec-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--violet-10); display: flex; align-items: center; justify-content: center; color: var(--violet); flex-shrink: 0; }
+.sec-icon svg { width: 15px; height: 15px; }
+.csel { position: relative; }
+.csel-trigger { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border: 1px solid var(--ink-14); border-radius: 10px; font-family: var(--f-sans); font-size: var(--t-s); color: var(--ink); background: #fff; cursor: pointer; transition: border-color .2s; }
+.csel-trigger:hover, .csel.open .csel-trigger { border-color: var(--violet); }
+.csel-val { color: var(--ink-60); }
+.csel-drop { display: none; position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #fff; border: 1px solid var(--ink-14); border-radius: 12px; box-shadow: 0 12px 32px -8px rgba(44,46,77,.12); z-index: 100; overflow: hidden; }
+.csel.open .csel-drop { display: block; }
+.csel-opt { padding: 14px 16px; cursor: pointer; display: flex; flex-direction: column; gap: 2px; border-bottom: 1px solid var(--ink-08); transition: background .15s; }
+.csel-opt:last-child { border-bottom: none; }
+.csel-opt:hover { background: var(--violet-10); }
+.csel-opt strong { font-size: var(--t-s); font-weight: 600; color: var(--violet); }
+.csel-opt span { font-size: var(--t-xs); color: var(--ink-60); }
+.bg-d { background: var(--ink); }
+
+/* ORBIT */
+.orbit-stage { position: relative; width: 360px; height: 360px; margin: 0 auto; flex-shrink: 0; }
+.orbit-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 72px; height: 72px; border-radius: 50%; background: var(--violet); display: flex; align-items: center; justify-content: center; z-index: 2; animation: orbit-breathe 3s ease-in-out infinite; }
+.orbit-center svg { width: 28px; height: 28px; color: #fff; }
+@keyframes orbit-breathe {
+  0%,100% { box-shadow: 0 0 0 14px rgba(255,255,255,.20), 0 0 0 32px rgba(255,255,255,.10), 0 0 0 60px rgba(255,255,255,.05); }
+  50%      { box-shadow: 0 0 0 22px rgba(255,255,255,.16), 0 0 0 50px rgba(255,255,255,.08), 0 0 0 88px rgba(255,255,255,.03); }
+}
+.oi { position: absolute; top: 50%; left: 50%; width: 48px; height: 48px; margin: -24px 0 0 -24px; z-index: 4; }
+.oi-inner { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,.14); }
+.oi--1 { animation: oi1 24s linear infinite; }
+.oi--2 { animation: oi2 24s linear infinite; }
+.oi--3 { animation: oi3 24s linear infinite; }
+.oi--4 { animation: oi4 24s linear infinite; }
+.oi--5 { animation: oi5 24s linear infinite; }
+.oi--6 { animation: oi6 24s linear infinite; }
+.oi--7 { animation: oi7 24s linear infinite; }
+.oi--8 { animation: oi8 24s linear infinite; }
+@keyframes oi1 { from{transform:rotate(0deg)   translateX(150px) rotate(0deg);}   to{transform:rotate(360deg)  translateX(150px) rotate(-360deg);} }
+@keyframes oi2 { from{transform:rotate(45deg)  translateX(150px) rotate(-45deg);}  to{transform:rotate(405deg)  translateX(150px) rotate(-405deg);} }
+@keyframes oi3 { from{transform:rotate(90deg)  translateX(150px) rotate(-90deg);}  to{transform:rotate(450deg)  translateX(150px) rotate(-450deg);} }
+@keyframes oi4 { from{transform:rotate(135deg) translateX(150px) rotate(-135deg);} to{transform:rotate(495deg)  translateX(150px) rotate(-495deg);} }
+@keyframes oi5 { from{transform:rotate(180deg) translateX(150px) rotate(-180deg);} to{transform:rotate(540deg)  translateX(150px) rotate(-540deg);} }
+@keyframes oi6 { from{transform:rotate(225deg) translateX(150px) rotate(-225deg);} to{transform:rotate(585deg)  translateX(150px) rotate(-585deg);} }
+@keyframes oi7 { from{transform:rotate(270deg) translateX(150px) rotate(-270deg);} to{transform:rotate(630deg)  translateX(150px) rotate(-630deg);} }
+@keyframes oi8 { from{transform:rotate(315deg) translateX(150px) rotate(-315deg);} to{transform:rotate(675deg)  translateX(150px) rotate(-675deg);} }
+
+/* ULYS ANIMATION */
+.ulys-anim-wrap { position:relative; aspect-ratio:1/1; border-radius:20px; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+.ulys-anim-wrap > img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.ulys-anim-wrap::after { content:''; position:absolute; inset:0; background:rgba(44,46,77,.35); }
+.ulys-phone { position:relative; z-index:2; background:#fff; border-radius:20px; padding:28px 24px 20px; width:320px; box-shadow:0 20px 60px -10px rgba(44,46,77,.25); }
+.ulys-screens { overflow:hidden; }
+.ulys-screen { display:none; animation:ulys-fadein .5s ease; }
+.ulys-screen.active { display:block; }
+@keyframes ulys-fadein { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+.ulys-label { font-size:.65rem; font-weight:700; letter-spacing:.18em; color:var(--ink-60); margin-bottom:14px; font-family:var(--f-sans); }
+.ulys-pills { display:flex; flex-wrap:wrap; gap:8px; }
+.ulys-pill { display:inline-flex; align-items:center; gap:6px; padding:8px 14px; border-radius:99px; border:1.5px solid var(--ink-14); font-size:.8rem; font-weight:500; color:var(--ink); cursor:pointer; transition:all .2s; font-family:var(--f-sans); }
+.ulys-pill--active { border-color:var(--violet); color:var(--violet); background:rgba(110,91,255,.06); }
+.ulys-pill-icon { width:13px; height:13px; }
+.ulys-counters { display:flex; flex-direction:column; gap:14px; margin-bottom:18px; }
+.ulys-counter-row { display:flex; align-items:center; justify-content:space-between; background:var(--violet-10); border-radius:12px; padding:14px 16px; }
+.ulys-counter-label { font-size:.85rem; font-weight:500; color:var(--ink); font-family:var(--f-sans); }
+.ulys-counter { display:flex; align-items:center; gap:14px; }
+.ulys-btn-count { width:30px; height:30px; border-radius:50%; border:none; background:var(--ink-08); color:var(--ink); font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.ulys-btn-count--active { background:var(--violet); color:#fff; }
+.ulys-count { font-size:1rem; font-weight:700; color:var(--ink); min-width:16px; text-align:center; font-family:var(--f-sans); }
+.ulys-checks { display:flex; flex-direction:column; gap:10px; }
+.ulys-check { display:flex; align-items:center; gap:10px; font-size:.85rem; color:var(--ink); font-family:var(--f-sans); cursor:pointer; }
+.ulys-check-box { width:18px; height:18px; border-radius:5px; border:1.5px solid var(--ink-14); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.ulys-check-box--checked { background:var(--violet); border-color:var(--violet); }
+.ulys-check-box svg { display:none; }
+.ulys-check-box--checked svg { display:block; }
+
+@keyframes nest-wave { 0%{box-shadow:0 0 0 0 rgba(110,91,255,.6);} 70%{box-shadow:0 0 0 18px rgba(110,91,255,0);} 100%{box-shadow:0 0 0 0 rgba(110,91,255,0);} }
+.nest-wave { animation: nest-wave .7s ease-out; border-radius:14px; }
+@keyframes nest-wave-green { 0%{box-shadow:0 0 0 0 rgba(26,158,74,.6);} 70%{box-shadow:0 0 0 14px rgba(26,158,74,0);} 100%{box-shadow:0 0 0 0 rgba(26,158,74,0);} }
+.nest-wave-green { animation: nest-wave-green .7s ease-out; border-radius:50%; }
+/* PORTRAIT BAND */
+.portrait-band { display:flex; margin-top:28px; }
+.portrait-av { width:44px; height:44px; border-radius:50%; overflow:hidden; border:3px solid #fff; margin-left:-12px; flex-shrink:0; box-shadow:0 2px 10px rgba(0,0,0,.15); }
+.portrait-av:first-child { margin-left:0; }
+.portrait-av img { width:100%; height:100%; object-fit:cover; object-position:center top; display:block; }
+/* CONSTAT stepper */
+.cst-stepper { display:flex; align-items:flex-start; gap:10px; }
+.cst-node { display:flex; flex-direction:column; align-items:center; gap:8px; flex-shrink:0; }
+.cst-connector { flex:1; max-width:60px; height:2px; background:rgba(110,91,255,.15); align-self:flex-start; margin-top:19px; position:relative; overflow:hidden; }
+.cst-connector-fill { position:absolute; left:0; top:0; height:100%; width:0%; background:rgba(110,91,255,.7); transition:width .7s ease; }
+.cst-connector--done .cst-connector-fill { width:100%; }
+.cst-stepper--sm .cst-label { font-size:10px; }
+.cst-stepper--sm { justify-content:center; }
+.cst-circle { width:40px; height:40px; border-radius:50%; background:var(--violet-10); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:background .4s ease; }
+.cst-node--done .cst-circle { background:var(--violet); box-shadow:0 0 0 4px rgba(110,91,255,.15); }
+.cst-icon-n { color:var(--violet); display:flex; }
+.cst-icon-d { color:#fff; display:none; }
+.cst-node--done .cst-icon-n { display:none; }
+.cst-node--done .cst-icon-d { display:flex; }
+.cst-label { font-size:11px; font-weight:600; color:rgba(110,91,255,.4); white-space:nowrap; text-align:center; transition:color .4s ease; }
+.cst-node--done .cst-label { color:var(--ink); }
+/* ÉCHO dashboard animation */
+.echo-dash { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); display:flex; flex-direction:column; gap:8px; width:280px; max-width:calc(100% - 24px); }
+.echo-google-card { background:#fff; border-radius:14px; padding:14px 16px; box-shadow:0 12px 40px rgba(0,0,0,.18); opacity:0; transform:translateY(12px); transition:opacity .4s ease,transform .4s ease; }
+.echo-google-card.show { opacity:1; transform:translateY(0); }
+.echo-gc-header { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
+.echo-glogo { font-size:13px; font-weight:700; letter-spacing:.3px; }
+.echo-gc-traffic { font-size:9px; font-weight:700; letter-spacing:.08em; color:var(--ink); background:rgba(110,91,255,.08); border-radius:6px; padding:3px 7px; display:flex; align-items:center; gap:4px; }
+.echo-gc-target { font-size:9px; font-weight:700; letter-spacing:.08em; color:var(--ink); background:rgba(110,91,255,.08); border-radius:6px; padding:3px 7px; display:flex; align-items:center; gap:4px; margin-left:auto; white-space:nowrap; }
+.echo-gc-sub { font-weight:400; opacity:.5; font-size:.9em; }
+.echo-gc-body { display:flex; gap:14px; }
+.echo-gc-left { display:flex; flex-direction:column; gap:8px; }
+.echo-gc-num { font-size:26px; font-weight:700; color:var(--ink); letter-spacing:-1px; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.echo-gc-tags { display:flex; flex-direction:column; gap:4px; }
+.echo-gc-tag { font-size:9px; font-weight:600; border-radius:20px; padding:2px 8px; display:inline-block; opacity:0; transform:translateX(-6px); transition:opacity .3s ease,transform .3s ease; }
+.echo-gc-tag.show { opacity:1; transform:translateX(0); }
+.echo-gc-tag--green { background:#e6f9ee; color:#1a9e4a; }
+.echo-gc-tag--pink { background:#fdecea; color:#d93025; }
+.echo-gc-tag--blue { background:var(--violet-10); color:var(--violet); }
+.echo-gc-right { flex:1; min-width:0; }
+.echo-gc-acq-title { font-size:8px; font-weight:700; letter-spacing:.07em; color:var(--ink); opacity:.6; display:flex; align-items:center; gap:4px; margin-bottom:8px; white-space:nowrap; }
+.echo-gc-acq-content { display:flex; gap:10px; align-items:center; }
+.echo-donut-wrap { width:48px; height:48px; flex-shrink:0; }
+.echo-donut-svg { width:100%; height:100%; }
+.echo-bars-col { flex:1; display:flex; flex-direction:column; gap:4px; }
+.echo-bar-bg { background:#f0f0f0; border-radius:3px; height:6px; overflow:hidden; }
+.echo-bar-val { height:100%; background:var(--violet); border-radius:3px; }
+.echo-legend-row { display:flex; gap:5px; margin-top:3px; }
+.echo-legend-dot { width:7px; height:7px; border-radius:50%; display:inline-block; }
+.echo-stats-row { display:flex; gap:8px; }
+.echo-stat { flex:1; border-radius:12px; padding:10px 12px; opacity:0; transform:translateY(8px); transition:opacity .4s ease,transform .4s ease; }
+.echo-stat.show { opacity:1; transform:translateY(0); }
+.echo-stat--light { background:#f5f5f5; }
+.echo-stat--dark { background:var(--ink); }
+.echo-stat-num { font-size:18px; font-weight:700; color:var(--ink); letter-spacing:-0.5px; font-variant-numeric:tabular-nums; }
+.echo-stat--dark .echo-stat-num { color:#fff; }
+.echo-stat-lbl { font-size:8.5px; color:var(--ink); opacity:.55; margin-top:2px; font-weight:500; line-height:1.2; }
+.echo-stat--dark .echo-stat-lbl { color:#fff; opacity:.6; }
+.echo-news-card { background:#fff; border-radius:12px; padding:12px 14px; box-shadow:0 8px 30px rgba(0,0,0,.12); opacity:0; transform:translateY(8px); transition:opacity .4s ease,transform .4s ease; }
+.echo-news-card.show { opacity:1; transform:translateY(0); }
+.echo-news-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.echo-news-lbl { font-size:10px; font-weight:700; color:var(--ink); letter-spacing:.06em; }
+.echo-news-date { font-size:9px; color:var(--ink); opacity:.4; font-weight:500; }
+.echo-skel { height:8px; background:#eee; border-radius:4px; margin-bottom:5px; }
+.echo-skel--sm { width:60%; }
+.echo-news-img-box { height:48px; background:#5B8AF5; border-radius:8px; display:flex; align-items:center; justify-content:center; margin:8px 0; }
+.echo-news-footer { display:flex; justify-content:space-between; align-items:center; }
+.echo-news-tag { font-size:8px; font-weight:600; border-radius:20px; padding:2px 7px; }
+.echo-news-tag--blue { background:#e8f0fe; color:#1a73e8; }
+.echo-news-tag--orange { background:#fef3e2; color:#e37400; }
+.echo-news-time { font-size:8px; color:var(--ink); opacity:.5; background:#fff3e0; padding:2px 7px; border-radius:20px; font-weight:500; }
+@keyframes ulys-wave {
+  0%   { box-shadow: 0 0 0 0 rgba(110,91,255,.5); }
+  70%  { box-shadow: 0 0 0 10px rgba(110,91,255,0); }
+  100% { box-shadow: 0 0 0 0 rgba(110,91,255,0); }
+}
+.ulys-wave { animation: ulys-wave .5s ease-out; }
+.ulys-check--checked { color:var(--violet); }
+.ulys-budget { display:flex; gap:10px; }
+.ulys-budget-card { flex:1; display:flex; flex-direction:column; align-items:center; gap:8px; padding:18px 10px; border-radius:14px; border:1.5px solid var(--ink-08); font-size:.78rem; font-weight:500; color:var(--ink); font-family:var(--f-sans); }
+.ulys-budget-card--active { border-color:var(--violet); color:var(--violet); background:rgba(110,91,255,.05); }
+.ulys-budget-icon { width:20px; height:20px; }
+.ulys-budget-card--active .ulys-budget-icon { color:var(--violet); }
+.ulys-dots { display:flex; justify-content:center; gap:6px; margin-top:18px; }
+.ulys-dot { width:6px; height:6px; border-radius:50%; background:var(--ink-14); transition:all .3s; cursor:pointer; }
+.ulys-dot--active { background:var(--violet); width:18px; border-radius:3px; }
+
+/* ULYS PREP SCREEN */
+.ulys-prep-card { background:var(--violet-10); border-radius:14px; padding:18px 16px; }
+.ithak-phone { position:relative; z-index:2; background:#fff; border-radius:20px; padding:24px 20px 20px; width:300px; box-shadow:0 20px 60px -10px rgba(44,46,77,.25); }
+.ithak-screen { display:none; animation:ulys-fadein .5s ease; }
+.ithak-screen.active { display:block; }
+.ithak-datebox { background:var(--violet-10); border-radius:10px; padding:10px 12px; }
+.ithak-datelabel { font-size:.65em; color:#aaa; text-transform:uppercase; letter-spacing:.06em; margin-bottom:2px; }
+.ithak-datevalue { font-size:.8em; font-weight:700; color:var(--violet); }
+.ithak-cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; text-align:center; }
+.ithak-cal-head { font-size:.6em; color:#bbb; font-weight:600; padding:3px 0; }
+.ithak-cal-day { font-size:.72em; padding:5px 2px; border-radius:50%; display:flex; align-items:center; justify-content:center; aspect-ratio:1/1; color:var(--ink); }
+.ithak-day--start { background:var(--violet); color:#fff !important; font-weight:700; }
+.ithak-day--end { background:var(--ink); color:#fff !important; font-weight:700; }
+.ithak-day--range { background:var(--violet-10); color:var(--violet) !important; border-radius:0; }
+.ithak-pill { border:1.5px solid #e0e0e0; border-radius:999px; padding:8px 14px; font-size:.75em; display:inline-flex; align-items:center; gap:6px; color:var(--ink); cursor:pointer; transition:border-color .2s,color .2s; }
+.ithak-pill--active { border-color:var(--violet); color:var(--violet); background:var(--violet-10); }
+.ulys-prep-title { font-size:.85rem; font-weight:600; color:var(--ink); font-family:var(--f-sans); margin-bottom:16px; }
+.ulys-steps { display:flex; flex-direction:column; gap:12px; margin-bottom:16px; }
+.ulys-step { display:flex; align-items:center; gap:10px; }
+.ulys-step--pending .ulys-step-label { color:var(--ink-60); }
+.ulys-step-label { font-size:.82rem; font-family:var(--f-sans); color:var(--ink); font-weight:500; transition:color .3s; }
+.ulys-step-icon { width:22px; height:22px; border-radius:50%; background:var(--violet); display:flex; align-items:center; justify-content:center; color:#fff; flex-shrink:0; transition:background .3s; }
+.ulys-step-icon--pending { background:var(--ink-08); color:var(--ink-60); }
+@keyframes ulys-spin { to { transform:rotate(360deg); } }
+.ulys-step-icon--spinning svg { animation:ulys-spin 1s linear infinite; }
+.ulys-progress-wrap { background:var(--ink-08); border-radius:99px; height:4px; margin-bottom:10px; overflow:hidden; }
+.ulys-progress-bar { height:4px; background:var(--violet); border-radius:99px; width:0%; transition:width .4s ease; }
+.ulys-prep-hint { font-size:.72rem; color:var(--ink-60); font-family:var(--f-sans); font-style:italic; }
+
+/* ULYS CHAT */
+.chat-wrap { position:relative; z-index:2; background:#fff; border-radius:20px; width:300px; height:400px; box-shadow:0 20px 60px -10px rgba(44,46,77,.25); overflow:hidden; display:flex; flex-direction:column; }
+.chat-header { padding:12px 16px; border-bottom:1px solid var(--ink-08); display:flex; align-items:center; gap:9px; flex-shrink:0; background:#fff; }
+.chat-ai-avatar { width:28px; height:28px; border-radius:50%; background:var(--violet); display:flex; align-items:center; justify-content:center; color:#fff; flex-shrink:0; }
+.chat-body { flex:1; overflow-y:auto; padding:14px 14px; display:flex; flex-direction:column; gap:8px; scroll-behavior:smooth; }
+.chat-body::-webkit-scrollbar { display:none; }
+.chat-msg { opacity:0; transform:translateY(8px); transition:opacity .35s ease, transform .35s ease; flex-shrink:0; }
+.chat-msg.show { opacity:1; transform:translateY(0); }
+.chat-user-bubble { align-self:flex-end; background:var(--sable); color:var(--ink); padding:8px 12px; border-radius:14px 14px 4px 14px; font-size:.76em; font-weight:500; max-width:85%; line-height:1.4; display:inline-block; float:right; clear:both; }
+.chat-ai-row { display:flex; gap:7px; align-items:flex-start; clear:both; }
+.chat-ai-ic { width:24px; height:24px; border-radius:50%; background:var(--violet); display:flex; align-items:center; justify-content:center; color:#fff; flex-shrink:0; margin-top:2px; }
+.chat-ai-ic svg { width:12px; height:12px; }
+.chat-ai-content { display:flex; flex-direction:column; gap:6px; max-width:82%; }
+.chat-bubble { background:var(--ink-08); padding:8px 12px; border-radius:14px 14px 14px 4px; font-size:.76em; color:var(--ink); line-height:1.4; }
+.chat-typing { display:flex; gap:4px; align-items:center; padding:9px 14px; background:var(--ink-08); border-radius:14px 14px 14px 4px; width:fit-content; }
+.chat-typing span { width:5px; height:5px; background:#bbb; border-radius:50%; animation:chat-dot 1s ease-in-out infinite; }
+.chat-typing span:nth-child(2){animation-delay:.2s}
+.chat-typing span:nth-child(3){animation-delay:.4s}
+@keyframes chat-dot { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
+.chat-card { background:#fff; border-radius:12px; border:1px solid var(--ink-08); padding:12px; font-size:.76em; box-shadow:0 2px 8px rgba(44,46,77,.06); }
+.chat-ferry-row { display:flex; justify-content:space-between; align-items:center; padding:5px 0; border-bottom:1px solid var(--ink-08); }
+.chat-ferry-row:last-child { border-bottom:none; }
+.chat-badge { border-radius:999px; padding:3px 9px; font-size:.85em; font-weight:600; }
+.chat-badge--full { background:var(--ink-08); color:var(--ink-60); }
+.chat-badge--next { background:#E05A3A; color:#fff; }
+.chat-badge--ok { background:#E8F5ED; color:#1a9e4a; }
+.chat-ferry-next { background:#FFF0EE; border-radius:8px; padding:6px 8px; margin:2px 0; display:flex; justify-content:space-between; align-items:center; }
+.chat-ferry-next span:first-child { font-weight:700; color:#E05A3A; }
+.qr-scan-wrap { position:relative; width:fit-content; margin:0 auto 10px; }
+.qr-scan-line { position:absolute; left:0; right:0; height:2px; background:rgba(224,90,58,.75); top:0; box-shadow:0 0 8px rgba(224,90,58,.6); }
+.qr-scan-line--active { animation: qr-scan 2s linear infinite; }
+@keyframes qr-scan { 0%{top:0} 50%{top:108px} 100%{top:0} }
+/* SOLUTION CARDS */
+.sol-grid { display: flex; gap: 14px; }
+.sol { flex: 1; cursor: default; transition: flex .4s ease; }
+.sol:hover { flex: 1.5; }
+.sol-inner { background: var(--sable); border-radius: 14px; padding: 28px 24px; height: 340px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; position: relative; transition: background .35s; }
+.sol:hover .sol-inner { background: var(--violet); }
+.sol-tag { display: inline-flex; align-items: center; gap: 8px; background: #fff; border-radius: 999px; padding: 7px 16px 7px 10px; font-size: .8125rem; font-weight: 600; color: var(--violet); letter-spacing: .06em; text-transform: uppercase; transition: all .35s; }
+.sol-tag i { width: 14px; height: 14px; color: var(--violet); flex-shrink: 0; transition: color .35s; display: inline-flex; }
+.sol:hover .sol-tag { background: rgba(255,255,255,.18); color: rgba(255,255,255,.9); }
+.sol:hover .sol-tag i { color: rgba(255,255,255,.9); }
+.sol-title { font-family: var(--f-serif); font-size: var(--t-xl); line-height: 1.2; font-weight: 700; margin-top: 16px; transition: color .35s; }
+.sol:hover .sol-title { color: #fff; }
+.sol-link { display: inline-flex; align-items: center; gap: 6px; font-size: var(--t-xs); font-weight: 600; color: var(--violet); margin-top: auto; padding-top: 20px; transition: color .35s; }
+.sol:hover .sol-link { color: #fff; }
+.sol-n { position: absolute; bottom: 20px; right: 20px; font-family: var(--f-serif); font-size: 3.5rem; font-weight: 700; color: var(--ink); opacity: .05; transition: opacity .35s, color .35s; }
+.sol:hover .sol-n { opacity: .09; color: #fff; }
+@media (max-width: 768px) { .sol-grid { flex-direction: column; } }
+
+/* EXPAND CARDS — Secteurs */
+.xsect { display: grid; grid-template-columns: 280px 1fr; gap: 60px; align-items: center; padding: 80px 0; }
+.xsect-cards { display: flex; gap: 12px; height: 480px; }
+.xcard { flex: 1; border-radius: 18px; overflow: hidden; position: relative; cursor: pointer; transition: flex .55s cubic-bezier(.4,0,.2,1); }
+.xcard:first-child { flex: 2.8; }
+.xcard:first-child .xcard-arrow { opacity: 1; transform: scale(1); }
+.xsect-cards:has(.xcard:hover) .xcard:first-child { flex: 1; }
+.xsect-cards:has(.xcard:hover) .xcard:first-child .xcard-arrow { opacity: 0; transform: scale(.7); }
+.xcard:hover { flex: 2.8; }
+.xsect-cards:has(.xcard:first-child:hover) .xcard:first-child { flex: 2.8; }
+.xsect-cards:has(.xcard:first-child:hover) .xcard:first-child .xcard-arrow { opacity: 1; transform: scale(1); }
+.xcard img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .55s ease; }
+.xcard:hover img { transform: scale(1.04); }
+.xcard::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,.08) 55%, transparent 100%); }
+.xcard-info { position: absolute; bottom: 22px; left: 22px; z-index: 1; }
+.xcard-name { color: #fff; font-size: var(--t-xs); font-weight: 700; letter-spacing: .01em; }
+.xcard-arrow { position: absolute; top: 18px; right: 18px; z-index: 1; width: 36px; height: 36px; background: rgba(255,255,255,.18); backdrop-filter: blur(6px); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; opacity: 0; transform: scale(.7); transition: opacity .35s, transform .35s; }
+.xcard:hover .xcard-arrow { opacity: 1; transform: scale(1); }
+@media (max-width: 768px) {
+  .xsect { grid-template-columns: 1fr; gap: 28px; padding: 48px 0; }
+  .xsect-cards { flex-direction: column; height: auto; gap: 8px; }
+  .xcard { flex: none; height: 90px; border-radius: 12px; transition: height .45s cubic-bezier(.4,0,.2,1); }
+  .xcard:first-child { height: 240px; }
+  .xcard:hover { height: 240px; flex: none; }
+  .xsect-cards:has(.xcard:hover) .xcard:first-child { height: 90px; }
+  .xsect-cards:has(.xcard:first-child:hover) .xcard:first-child { height: 240px; }
+  .xcard-name { font-size: .85rem; }
+  .xcard-arrow { display: none; }
+}
+
+/* CHIFFRES CARDS */
+.num-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.num-card { border-radius: 14px; padding: 28px 24px; display: flex; flex-direction: column; justify-content: space-between; min-height: 220px; }
+.num-card--sable { background: var(--sable); transition: background .25s ease; }
+.num-card--sable:hover { background: var(--violet); }
+.num-n { font-family: var(--f-serif); font-size: clamp(2.8rem, 5vw, 4rem); font-weight: 700; line-height: 1; letter-spacing: -.03em; color: var(--ink); transition: color .25s ease; }
+.num-n span { font-size: .55em; transition: color .25s ease; color: var(--violet); }
+.num-card--sable:hover .num-n { color: #fff !important; }
+.num-card--sable:hover .num-n span { color: rgba(255,255,255,.55); }
+.num-card--sable:hover .icons-active svg { color: #fff !important; }
+.num-l { font-size: var(--t-xs); color: var(--ink-60); line-height: 1.2; max-width: 180px; transition: color .25s ease; }
+.num-card--sable:hover .num-l { color: rgba(255,255,255,.7); }
+
+@media (max-width: 768px) { .num-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .num-grid { grid-template-columns: 1fr; } }
+
+@media (max-width: 768px) {
+  :root { --h-xl: 2.8rem; --h-l: 1.9rem; --h-m: 1.55rem; --h-s: 1.2rem; }
+  .px { padding-left: 24px; padding-right: 24px; }
+  .hnotify { grid-template-columns: 1fr; gap: 32px; padding: 48px 0; }
+  .hnotify-img { height: 380px; }
+  .hnotif-group { left: 14px; right: 14px; gap: 8px; }
+  .hnotif-card { padding: 11px 14px; }
+  .hnotif-name { font-size: .8rem; }
+  .hnotif-sub { font-size: .7rem; }
+  .hnotif-icon { width: 30px; height: 30px; }
+  .hero-actions { flex-direction: column; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+  /* Sections manquantes */
+  .py { padding-top: 56px; padding-bottom: 56px; }
+  .temo { grid-template-columns: 1fr; gap: 40px; }
+  .press { grid-template-columns: 1fr; }
+  .press-card { border-right: none; border-bottom: 1px solid var(--ink-08); }
+  .press-card:last-child { border-bottom: none; }
+  .cnt-2cards { grid-template-columns: 1fr; }
+  .f-row { grid-template-columns: 1fr; }
+  .orbit-stage { width: 280px; height: 280px; }
+}
+@media (max-width: 480px) {
+  :root { --h-xl: 2.2rem; }
+  .px { padding-left: 16px; padding-right: 16px; }
+  .py { padding-top: 40px; padding-bottom: 40px; }
+  .sol-inner { height: auto; min-height: 240px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">Odyssey<span>.</span></div>
+    <div class="nav-actions">
+      <a href="#" class="btn btn-g">Se connecter</a>
+      <a href="#" class="btn btn-p">Demander une démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO — Sable · Notifs animées -->
+<section class="px bg-sable" style="min-height:85vh;display:flex;align-items:center">
+  <div class="cnt">
+    <div class="hnotify">
+
+      <div class="hnotify-text">
+        <h1 class="h-xl" style="margin-bottom:22px;font-size:4.2rem">Devenez manager de l'odyssée de vos visiteurs</h1>
+        <p class="muted" style="font-size:var(--t-l);line-height:1.65;max-width:480px">Offrez à vos visiteurs une expérience mémorable du premier clic jusqu'au souvenir.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-p">Demander une démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+          <a href="#" class="btn btn-g">Voir comment ça marche</a>
+        </div>
+        <div class="hnotify-trust">
+          <i data-lucide="target" style="width:15px;height:15px;flex-shrink:0"></i> Rayonner &nbsp;&nbsp;
+          <i data-lucide="heart-handshake" style="width:15px;height:15px;flex-shrink:0"></i> Accueillir &nbsp;&nbsp;
+          <i data-lucide="compass" style="width:15px;height:15px;flex-shrink:0"></i> Guider &nbsp;&nbsp;
+          <i data-lucide="line-chart" style="width:15px;height:15px;flex-shrink:0"></i> Anticiper
+        </div>
+      </div>
+
+      <div class="hnotify-vis">
+        <div style="border-radius:20px;overflow:hidden;aspect-ratio:1/1;background:#000">
+          <video src="images/home_video.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;display:block"></video>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 2 COLONNES — Notre constat -->
+<section class="px py">
+  <div class="cnt">
+    <div class="twocol">
+      <div class="vis" style="aspect-ratio:1/1;padding:0;overflow:hidden;position:relative">
+        <img src="images/constat.webp" alt="Notre constat" style="width:100%;height:100%;object-fit:cover;display:block">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2">
+          <div style="background:rgba(255,255,255,0.93);border-radius:16px;padding:22px 32px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 8px 40px rgba(0,0,0,.18);width:calc(100% - 48px)">
+            <div class="cst-stepper cst-stepper--sm">
+              <div class="cst-node" id="cstn2-0">
+                <div class="cst-circle">
+                  <i data-lucide="search" class="cst-icon-n" style="width:22px;height:22px;stroke-width:2"></i>
+                  <i data-lucide="search-check" class="cst-icon-d" style="width:22px;height:22px;stroke-width:2"></i>
+                </div>
+                <span class="cst-label">Inspiration</span>
+              </div>
+              <div class="cst-connector" id="cstl2-0"><div class="cst-connector-fill"></div></div>
+              <div class="cst-node" id="cstn2-1">
+                <div class="cst-circle">
+                  <i data-lucide="calendar-days" class="cst-icon-n" style="width:22px;height:22px;stroke-width:2"></i>
+                  <i data-lucide="calendar-check" class="cst-icon-d" style="width:22px;height:22px;stroke-width:2"></i>
+                </div>
+                <span class="cst-label">Planification</span>
+              </div>
+              <div class="cst-connector" id="cstl2-1"><div class="cst-connector-fill"></div></div>
+              <div class="cst-node" id="cstn2-2">
+                <div class="cst-circle">
+                  <i data-lucide="ticket" class="cst-icon-n" style="width:22px;height:22px;stroke-width:2"></i>
+                  <i data-lucide="ticket-check" class="cst-icon-d" style="width:22px;height:22px;stroke-width:2"></i>
+                </div>
+                <span class="cst-label">Réservation</span>
+              </div>
+              <div class="cst-connector" id="cstl2-2"><div class="cst-connector-fill"></div></div>
+              <div class="cst-node" id="cstn2-3">
+                <div class="cst-circle">
+                  <i data-lucide="tv-minimal" class="cst-icon-n" style="width:22px;height:22px;stroke-width:2"></i>
+                  <i data-lucide="tv-minimal-play" class="cst-icon-d" style="width:22px;height:22px;stroke-width:2"></i>
+                </div>
+                <span class="cst-label">Immersion</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="eyebrow mb-xs">Notre constat</p>
+        <h2 class="h-l" style="margin-bottom:20px">Le tourisme digital a changé.<br><span style="color:var(--violet)">Votre destination le doit aussi.</span></h2>
+        <p class="muted" style="font-size:var(--t-m);line-height:1.7;margin-bottom:16px">Avant de partir, vos visiteurs rêvent sur Instagram, s'inspirent sur Pinterest, comparent sur Google et réservent sur Booking.</p>
+        <p class="muted" style="font-size:var(--t-m);line-height:1.7;margin-bottom:16px">Sur place, ils veulent conserver leur smartphone pour visiter, un guide qui réponde à tout et tout de suite, et pourquoi pas voir un chevalier en réalité augmentée traverser le château.</p>
+        <div style="background:var(--violet-10);border-radius:14px;padding:24px 28px;margin-top:8px">
+          <p style="font-size:var(--t-m);line-height:1.7;color:var(--violet);font-weight:500">À chaque étape, un acteur capte leur attention.<br>Ce n'est pas toujours vous.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- CHIFFRES CARDS — sable (dupliqué) -->
+<section class="px py" style="padding-top:var(--sp-m)">
+  <div class="cnt">
+    <p class="eyebrow mb-xs">Vos visiteurs en 2026</p>
+    <h2 class="h-l" style="margin-bottom:var(--sp-s)">Connectés, exigeants, et déjà en avance.</h2>
+    <div class="num-grid">
+      <div class="num-card num-card--sable">
+        <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:16px">
+          <div style="display:flex;gap:6px">
+            <div class="icons-active" style="display:flex;gap:6px">
+              <i data-lucide="user-round" style="width:28px;height:28px;color:var(--violet);stroke-width:1.5"></i>
+              <i data-lucide="user-round" style="width:28px;height:28px;color:var(--violet);stroke-width:1.5"></i>
+              <i data-lucide="user-round" style="width:28px;height:28px;color:var(--violet);stroke-width:1.5"></i>
+              <i data-lucide="user-round" style="width:28px;height:28px;color:var(--violet);stroke-width:1.5"></i>
+            </div>
+            <i data-lucide="user-round" style="width:28px;height:28px;color:#C8C8D0;stroke-width:1.5"></i>
+          </div>
+          <div style="display:flex;gap:6px">
+            <i data-lucide="user-round" style="width:28px;height:28px;color:#C8C8D0;stroke-width:1.5"></i>
+            <i data-lucide="user-round" style="width:28px;height:28px;color:#C8C8D0;stroke-width:1.5"></i>
+            <i data-lucide="user-round" style="width:28px;height:28px;color:#C8C8D0;stroke-width:1.5"></i>
+            <i data-lucide="user-round" style="width:28px;height:28px;color:#C8C8D0;stroke-width:1.5"></i>
+            <i data-lucide="user-round" style="width:28px;height:28px;color:#C8C8D0;stroke-width:1.5"></i>
+          </div>
+        </div>
+        <p class="num-l">utilisent déjà l'IA pour réserver et planifier leur voyage</p>
+      </div>
+      <div class="num-card num-card--sable">
+        <div class="num-n">70<span>%</span></div>
+        <p class="num-l">des recherches de voyage commencent sur Google</p>
+      </div>
+      <div class="num-card num-card--sable">
+        <div class="num-n">8<span>/10</span></div>
+        <p class="num-l">veulent désormais avoir du contenu interactif audio/vidéo</p>
+      </div>
+      <div class="num-card num-card--sable">
+        <div class="num-n" style="color:var(--violet)">100<span>%</span></div>
+        <p class="num-l">souhaitent une expérience personnalisée</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 COLONNES — Notre mission -->
+<section class="px py bg-sable">
+  <div class="cnt">
+    <div class="twocol">
+      <div>
+        <p class="eyebrow mb-xs">Notre mission</p>
+        <h2 class="h-l" style="margin-bottom:20px">Nous donnons aux acteurs du tourisme les moyens de séduire, convertir et fidéliser leurs visiteurs.</h2>
+        <p class="muted" style="font-size:var(--t-s);margin-bottom:10px">Nous ne sommes pas une agence.</p>
+        <p class="muted" style="font-size:var(--t-s);margin-bottom:10px">Nous regroupons des experts en intelligence artificielle, en technologie et en créativité pour repenser le tourisme digital de bout en bout.</p>
+        <p class="muted" style="font-size:var(--t-s);margin-bottom:10px">Nous construisons les outils qui manquaient au tourisme pour se confronter aux géants.</p>
+        <p class="muted" style="font-size:var(--t-s);margin-bottom:28px">Nous transformons chaque destination en une véritable odyssée, de la recherche à la recommandation.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a href="#" class="btn btn-p"><i data-lucide="monitor-smartphone" style="width:16px;height:16px;stroke-width:2;flex-shrink:0"></i> Parlons-nous</a>
+          <a href="#" class="btn btn-g"><i data-lucide="circle-chevron-right" style="width:16px;height:16px;stroke-width:2;flex-shrink:0"></i> À propos</a>
+        </div>
+        <div class="portrait-band">
+          <div class="portrait-av"><img src="images/portrait-1.png" alt=""></div>
+          <div class="portrait-av"><img src="images/portrait-2.png" alt=""></div>
+          <div class="portrait-av"><img src="images/portrait-3.png" alt=""></div>
+          <div class="portrait-av"><img src="images/portrait-4.png" alt=""></div>
+          <div class="portrait-av"><img src="images/portrait-5.png" alt=""></div>
+          <div class="portrait-av"><img src="images/portrait-6.png" alt=""></div>
+          <div class="portrait-av"><img src="images/portrait-7.png" alt=""></div>
+          <div class="portrait-av"><img src="images/portrait-8.png" alt=""></div>
+          <div class="portrait-av"><img src="images/portrait-9.jpg" alt=""></div>
+          <div class="portrait-av"><img src="images/portrait-10.jpeg" alt=""></div>
+          <span style="margin-left:16px;font-size:var(--t-xs);color:var(--ink-60);align-self:center">À bientôt !</span>
+        </div>
+      </div>
+      <div style="position:relative;border-radius:20px;overflow:hidden;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center">
+        <img src="images/mission2.jpeg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+        <div class="orbit-stage" style="position:relative;z-index:2">
+          <div class="orbit-center" style="background:rgba(255,255,255,.5)"><svg viewBox="0 0 30 30" width="32" height="32"><circle cx="15" cy="15" r="6" fill="#fff"/></svg></div>
+          <div class="oi oi--1"><div class="oi-inner" style="background:#fff;color:var(--violet)"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="20" height="20"><rect x="3" y="4" width="14" height="13" rx="2"/><path d="M3 8h14M7 2v4M13 2v4"/></svg></div></div>
+          <div class="oi oi--2"><div class="oi-inner" style="background:#fff;color:var(--violet)"><svg viewBox="0 0 20 20" fill="currentColor" stroke="none" width="20" height="20"><polygon points="7,4 16,10 7,16"/></svg></div></div>
+          <div class="oi oi--3"><div class="oi-inner" style="background:#fff;color:var(--violet)"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="20" height="20"><path d="M5 17V11M10 17V4M15 17V9"/></svg></div></div>
+          <div class="oi oi--4"><div class="oi-inner" style="background:#fff;color:var(--violet)"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="20" height="20"><circle cx="10" cy="7" r="3"/><path d="M4 18c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg></div></div>
+          <div class="oi oi--5"><div class="oi-inner" style="background:#fff;color:var(--violet)"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="20" height="20"><path d="M10 2.5a5 5 0 00-5 5c0 5.5-2 7-2 7h14s-2-1.5-2-7a5 5 0 00-5-5z"/><path d="M8.5 16.5a1.5 1.5 0 003 0"/></svg></div></div>
+          <div class="oi oi--6"><div class="oi-inner" style="background:#fff;color:var(--violet)"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="20" height="20"><path d="M3 5h14a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V6a1 1 0 011-1z"/><path d="M2 6l8 6 8-6"/></svg></div></div>
+          <div class="oi oi--7"><div class="oi-inner" style="background:#fff;color:var(--violet)"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="20" height="20"><path d="M8 17V8l8-2v9"/><circle cx="5.5" cy="17" r="2.5"/><circle cx="15.5" cy="15" r="2.5"/></svg></div></div>
+          <div class="oi oi--8"><div class="oi-inner" style="background:#fff;color:var(--violet)"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="20" height="20"><path d="M17.5 10.5a7.5 7.5 0 11-3.5-6.3L17.5 3l-1.2 3.5A7.5 7.5 0 0117.5 10.5z"/><path d="M8 10.5s.8 1 2 1 2-1 2-1"/></svg></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION CARDS -->
+<section class="px py">
+  <div class="cnt">
+    <p class="eyebrow mb-xs">Nos solutions</p>
+    <h2 class="h-l" style="margin-bottom:var(--sp-s);color:var(--ink)">Quatre outils. Un seul objectif.</h2>
+    <div class="sol-grid">
+      <div class="sol">
+        <div class="sol-inner">
+          <div>
+            <span class="sol-tag"><i data-lucide="bot"></i>ULYS</span>
+            <p class="sol-title">Votre guide local en intelligence artificielle</p>
+          </div>
+          <a href="#" class="sol-link">En savoir plus <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+          <span class="sol-n">01</span>
+        </div>
+      </div>
+      <div class="sol">
+        <div class="sol-inner">
+          <div>
+            <span class="sol-tag"><i data-lucide="compass"></i>NEST</span>
+            <p class="sol-title">Votre parcours découverte interactif</p>
+          </div>
+          <a href="#" class="sol-link">En savoir plus <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+          <span class="sol-n">02</span>
+        </div>
+      </div>
+      <div class="sol">
+        <div class="sol-inner">
+          <div>
+            <span class="sol-tag"><i data-lucide="calendar-check"></i>ITHAK</span>
+            <p class="sol-title">Votre plateforme de réservation</p>
+          </div>
+          <a href="#" class="sol-link">En savoir plus <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+          <span class="sol-n">03</span>
+        </div>
+      </div>
+      <div class="sol">
+        <div class="sol-inner">
+          <div>
+            <span class="sol-tag"><i data-lucide="search"></i>ÉCHO</span>
+            <p class="sol-title">Votre destination en tête sur Google</p>
+          </div>
+          <a href="#" class="sol-link">En savoir plus <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+          <span class="sol-n">04</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPAND CARDS — Secteurs -->
+<section class="px bg-sable">
+  <div class="cnt">
+    <div class="xsect">
+      <div>
+        <p class="eyebrow mb-xs">Secteurs &amp; Activités</p>
+        <h2 class="h-l">Des solutions pensées pour votre réalité terrain</h2>
+      </div>
+      <div class="xsect-cards">
+        <div class="xcard">
+          <img src="images/nest-4.jpg" alt="Destinations & Territoires">
+          <div class="xcard-arrow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </div>
+          <div class="xcard-info">
+            <div class="xcard-name">Destinations &amp; Territoires</div>
+          </div>
+        </div>
+        <div class="xcard">
+          <img src="images/nest-5.jpg" alt="Sites & Patrimoine">
+          <div class="xcard-arrow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </div>
+          <div class="xcard-info">
+            <div class="xcard-name">Sites &amp; Patrimoine</div>
+          </div>
+        </div>
+        <div class="xcard">
+          <img src="images/nest-3.jpg" alt="Complexes & Loisirs">
+          <div class="xcard-arrow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </div>
+          <div class="xcard-info">
+            <div class="xcard-name">Complexes &amp; Loisirs</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HERO VIOLET — Citation + vidéo pleine largeur -->
+<section style="position:relative;text-align:center;overflow:hidden;min-height:60vh">
+  <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0">
+    <source src="images/video_bandeau_vivent.mp4" type="video/mp4">
+  </video>
+  <div style="position:absolute;inset:0;background:rgba(110,91,255,.90);z-index:1"></div>
+  <div class="px" style="position:relative;z-index:2;display:flex;align-items:center;justify-content:center;min-height:60vh">
+    <div class="cnt" style="text-align:center">
+      <p style="font-size:var(--t-s);color:rgba(255,255,255,.8);font-weight:600;font-family:var(--f-sans);letter-spacing:.25em;text-transform:uppercase;margin-bottom:16px">Les plus belles destinations ne se visitent pas seulement.</p>
+      <p style="font-size:var(--h-xl);color:#fff;font-weight:700;font-family:var(--f-serif);margin-bottom:40px">Elles se vivent.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+        <a href="#" class="btn btn-p" style="background:#fff;color:var(--violet)">Demander une démo <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="flex-shrink:0"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></a>
+        <a href="#" class="btn btn-g" style="border-color:#fff;color:#fff;background:transparent">Contactez-nous <svg class="mail-icon" style="display:inline-block;transition:transform .2s ease" onmouseover="this.style.transform='translateX(4px)'" onmouseout="this.style.transform='translateX(0)'" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ULYS DETAIL — 2 cols texte + notifs animées -->
+<section class="px py bg-sable">
+  <div class="cnt">
+    <div class="twocol">
+      <div>
+        <span class="hero-badge" style="margin-bottom:12px;color:var(--violet);background:var(--violet-10);letter-spacing:.25em;font-weight:600;font-size:var(--t-s);background:#fff"><span style="display:inline-flex;animation:hello-bounce 2s ease-in-out infinite"><i data-lucide="bot" style="width:1.4em;height:1.4em;color:var(--violet);display:inline-flex"></i></span>ULYS</span>
+        <h2 class="h-l" style="margin-bottom:10px">Votre guide local IA</h2>
+        <p class="muted" style="font-size:var(--t-s);line-height:1.3">Accompagnez vos visiteurs avec une véritable intelligence artificielle construite spécifiquement pour votre destination.</p>
+        <ul class="check-list check-list--round">
+          <li><span class="check-icon"><svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M1.5 5.5l2.5 2.5 5.5-5.5"/></svg></span>Entraîné sur votre contenu : PDF, brochures, site web, SIT régionaux</li>
+          <li><span class="check-icon"><svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M1.5 5.5l2.5 2.5 5.5-5.5"/></svg></span>Dialogue naturel sur 20 à 30 échanges — multilingue, ton adaptatif</li>
+          <li><span class="check-icon"><svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M1.5 5.5l2.5 2.5 5.5-5.5"/></svg></span>Propulsé par la technologie Anthropic — comprend les nuances</li>
+          <li><span class="check-icon"><svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M1.5 5.5l2.5 2.5 5.5-5.5"/></svg></span>Disponible 24/7 sur web, tablette et borne tactile</li>
+        </ul>
+        <div class="stat-quote">
+          <svg class="stat-quote-icon" viewBox="0 0 32 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M0 24V14.4C0 8.533 3.2 3.733 9.6 0l2.4 3.2C8.8 5.067 6.933 7.467 6.4 10.4H12V24H0zm16 0V14.4C16 8.533 19.2 3.733 25.6 0L28 3.2C24.8 5.067 22.933 7.467 22.4 10.4H28V24H16z"/></svg>
+          <div>
+            <p class="stat-quote-src"><span style="opacity:.4">—</span> Baromètre Raffour 2025 <span style="opacity:.4">—</span></p>
+            <p class="stat-quote-n">40 % des Français utilisent déjà l'IA pour organiser leur voyage</p>
+            <p class="stat-quote-txt">« Sur place ils cherchent sur leur téléphone et veulent une réponse immédiate. »</p>
+          </div>
+        </div>
+        <a href="#" class="link" style="margin-top:28px">Découvrez ULYS en démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+      </div>
+      <div class="ulys-anim-wrap">
+        <img src="images/ulys_illu.png" alt="">
+        <div class="chat-wrap">
+          <!-- Header -->
+          <div class="chat-header">
+            <div class="chat-ai-avatar"><i data-lucide="bot" style="width:13px;height:13px"></i></div>
+            <div>
+              <div style="font-size:.76em;font-weight:600;color:var(--ink)">ULYS</div>
+              <div style="font-size:.65em;color:#1a9e4a;display:flex;align-items:center;gap:3px"><span style="width:5px;height:5px;border-radius:50%;background:#1a9e4a;display:inline-block"></span>En ligne</div>
+            </div>
+          </div>
+          <!-- Messages -->
+          <div class="chat-body" id="chat-body">
+
+            <!-- 1. User -->
+            <div class="chat-msg" id="cm-u1" style="text-align:right">
+              <span class="chat-user-bubble" id="cu1-text"></span>
+            </div>
+
+            <!-- 2. AI typing + ferry card -->
+            <div class="chat-msg chat-ai-row" id="cm-a1">
+              <div class="chat-ai-ic"><i data-lucide="bot" style="width:12px;height:12px"></i></div>
+              <div class="chat-ai-content">
+                <div class="chat-typing" id="chat-typing-1"><span></span><span></span><span></span></div>
+                <div class="chat-card" id="chat-ferry" style="display:none">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--ink-08)">
+                    <div style="width:26px;height:26px;border-radius:7px;background:var(--violet-10);display:flex;align-items:center;justify-content:center;color:var(--violet);flex-shrink:0"><i data-lucide="ship" style="width:13px;height:13px"></i></div>
+                    <div><div style="font-weight:600;color:var(--ink);font-size:.9em">Liaisons maritimes</div><div style="color:#aaa;font-size:.8em">Aujourd'hui · 10 août 2026</div></div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:4px;margin-bottom:8px;color:var(--ink-60);font-size:.85em">
+                    <span style="font-weight:500">La Rochelle</span>
+                    <i data-lucide="arrow-right" style="width:10px;height:10px;flex-shrink:0"></i>
+                    <span style="font-weight:500">Île de Ré</span>
+                    <span style="margin-left:auto;display:flex;align-items:center;gap:3px"><i data-lucide="clock" style="width:10px;height:10px"></i>22 min</span>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:1px">
+                    <div class="chat-ferry-row"><span style="color:var(--ink-60)">09:15</span><span class="chat-badge chat-badge--full">Complet</span></div>
+                    <div class="chat-ferry-next"><span>11:30</span><span class="chat-badge chat-badge--next">Prochain</span></div>
+                    <div class="chat-ferry-row"><span>14:00</span><span class="chat-badge chat-badge--ok">Disponible</span></div>
+                    <div class="chat-ferry-row"><span>16:45</span><span class="chat-badge chat-badge--ok">Disponible</span></div>
+                    <div class="chat-ferry-row"><span>19:00</span><span class="chat-badge chat-badge--ok">Disponible</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. AI weather -->
+            <div class="chat-msg chat-ai-row" id="cm-a2" style="display:none">
+              <div class="chat-ai-ic"><i data-lucide="bot" style="width:12px;height:12px"></i></div>
+              <div class="chat-ai-content">
+                <div class="chat-bubble">Attention à la météo ⛈️</div>
+                <div class="chat-card" id="chat-weather" style="display:none">
+                  <div style="display:flex;gap:10px;align-items:center">
+                    <div style="background:var(--sable);border-radius:8px;padding:8px 10px;text-align:center;flex-shrink:0">
+                      <div style="font-size:.7em;color:#aaa;margin-bottom:3px">Mercredi</div>
+                      <i data-lucide="cloud-rain" style="width:20px;height:20px;color:var(--violet)"></i>
+                      <div style="font-weight:700;font-size:.95em;margin-top:3px">18°C</div>
+                    </div>
+                    <div style="font-size:.82em;color:var(--ink-60);line-height:1.5">Pluies attendues toute la journée · Vent 22 km/h</div>
+                  </div>
+                </div>
+                <div class="chat-bubble" id="chat-aquarium" style="display:none">Je te propose d'aller visiter l'aquarium cet après-midi car il pleut. 🐠</div>
+              </div>
+            </div>
+
+            <!-- 4. User QR -->
+            <div class="chat-msg" id="cm-u2" style="text-align:right;display:none">
+              <span class="chat-user-bubble" id="cu2-text"></span>
+            </div>
+
+            <!-- 5. AI QR code -->
+            <div class="chat-msg chat-ai-row" id="cm-a3" style="display:none">
+              <div class="chat-ai-ic"><i data-lucide="bot" style="width:12px;height:12px"></i></div>
+              <div class="chat-ai-content">
+                <div class="chat-typing" id="chat-typing-3"><span></span><span></span><span></span></div>
+                <div class="chat-card" id="chat-qr" style="display:none;text-align:center">
+                  <div style="display:inline-flex;align-items:center;gap:5px;border:1px solid #E05A3A;border-radius:999px;padding:4px 10px;font-size:.78em;color:#E05A3A;margin-bottom:10px">
+                    <i data-lucide="smartphone" style="width:11px;height:11px"></i>Recevoir sur mon téléphone
+                  </div>
+                  <div class="qr-scan-wrap">
+                    <svg width="110" height="110" viewBox="0 0 110 110" fill="none">
+                      <rect x="5" y="5" width="34" height="34" rx="3" stroke="#222" stroke-width="2.5"/>
+                      <rect x="12" y="12" width="20" height="20" rx="2" fill="#222"/>
+                      <rect x="71" y="5" width="34" height="34" rx="3" stroke="#222" stroke-width="2.5"/>
+                      <rect x="78" y="12" width="20" height="20" rx="2" fill="#222"/>
+                      <rect x="5" y="71" width="34" height="34" rx="3" stroke="#222" stroke-width="2.5"/>
+                      <rect x="12" y="78" width="20" height="20" rx="2" fill="#222"/>
+                      <rect x="44" y="5" width="7" height="7" fill="#222"/><rect x="53" y="5" width="7" height="7" fill="#222"/><rect x="62" y="5" width="7" height="7" fill="#222"/>
+                      <rect x="44" y="14" width="7" height="7" fill="#222"/><rect x="62" y="14" width="7" height="7" fill="#222"/>
+                      <rect x="44" y="23" width="14" height="7" fill="#222"/>
+                      <rect x="44" y="44" width="7" height="7" fill="#222"/><rect x="53" y="44" width="7" height="7" fill="#222"/>
+                      <rect x="44" y="53" width="7" height="7" fill="#222"/><rect x="62" y="53" width="7" height="7" fill="#222"/>
+                      <rect x="53" y="62" width="7" height="7" fill="#222"/>
+                      <rect x="71" y="44" width="7" height="7" fill="#222"/><rect x="80" y="44" width="7" height="7" fill="#222"/><rect x="98" y="44" width="7" height="7" fill="#222"/>
+                      <rect x="71" y="53" width="14" height="7" fill="#222"/><rect x="89" y="53" width="16" height="7" fill="#222"/>
+                      <rect x="71" y="62" width="7" height="7" fill="#222"/><rect x="89" y="62" width="7" height="7" fill="#222"/>
+                      <rect x="5" y="44" width="7" height="7" fill="#222"/><rect x="14" y="44" width="7" height="7" fill="#222"/><rect x="32" y="44" width="7" height="7" fill="#222"/>
+                      <rect x="5" y="53" width="16" height="7" fill="#222"/><rect x="23" y="53" width="7" height="7" fill="#222"/>
+                      <rect x="5" y="62" width="7" height="7" fill="#222"/><rect x="23" y="62" width="14" height="7" fill="#222"/>
+                      <rect x="44" y="71" width="7" height="7" fill="#222"/><rect x="62" y="71" width="7" height="7" fill="#222"/>
+                      <rect x="53" y="80" width="14" height="7" fill="#222"/><rect x="71" y="80" width="7" height="7" fill="#222"/>
+                      <rect x="44" y="89" width="14" height="7" fill="#222"/><rect x="62" y="89" width="7" height="7" fill="#222"/><rect x="80" y="89" width="25" height="7" fill="#222"/>
+                      <rect x="80" y="71" width="7" height="16" fill="#222"/><rect x="98" y="71" width="7" height="7" fill="#222"/>
+                    </svg>
+                    <div class="qr-scan-line" id="chat-scan-line"></div>
+                  </div>
+                  <div style="font-weight:600;font-size:.85em;color:var(--ink);margin-bottom:3px">Ton planning de séjour</div>
+                  <div style="font-size:.72em;color:#aaa;line-height:1.4">Scanne pour recevoir le programme complet sur ton téléphone</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEST DETAIL — image gauche, texte droite -->
+<section class="px py bg-sable">
+  <div class="cnt">
+    <div class="twocol">
+      <div class="hnotify-vis">
+        <div class="hnotify-img-wrap">
+          <img src="images/nest_illu.jpeg" alt="" class="hnotify-img">
+          <div class="hnotif-group">
+            <div class="hnotif-card hnotif-card--3" id="nest-c3">
+              <div class="hnotif-row">
+                <div class="hnotif-icon--check"><i data-lucide="map-pin" style="width:22px;height:22px;stroke-width:2"></i></div>
+                <div class="hnotif-name">Étape débloquée !</div>
+              </div>
+            </div>
+            <div class="hnotif-card hnotif-card--1" id="nest-c1">
+              <div class="hnotif-row">
+                <div class="hnotif-icon"><i data-lucide="castle" style="width:18px;height:18px;stroke-width:1.8"></i></div>
+                <div><div class="hnotif-name">Château du Duc</div><div class="hnotif-sub">Format audio et vidéo disponible</div></div>
+              </div>
+            </div>
+            <div class="hnotif-card hnotif-card--2" id="nest-c2">
+              <div class="hnotif-row">
+                <div class="hnotif-icon hnotif-icon--green"><i data-lucide="book-headphones" style="width:18px;height:18px;stroke-width:1.8"></i></div>
+                <div><div class="hnotif-name">Une bâtisse du XV° siècle</div><div class="hnotif-sub">Piste en cours · 02:37</div></div>
+              </div>
+              <div class="hnotif-player">
+                <div class="hnotif-player-row">
+                  <div id="nest-play-btn" style="width:22px;height:22px;border-radius:50%;background:#e6f9ee;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i data-lucide="play" id="nest-play-icon" style="width:12px;height:12px;stroke-width:2.5;color:#1a9e4a"></i></div>
+                  <span class="hnotif-player-time" id="nest-time">0:00</span>
+                  <div class="hnotif-player-bar">
+                    <div class="hnotif-player-fill" id="nest-fill" style="width:0%"></div>
+                    <div class="hnotif-player-thumb" id="nest-thumb" style="left:0%"></div>
+                  </div>
+                  <span class="hnotif-player-time">3:00</span>
+                  <i data-lucide="volume-2" style="width:14px;height:14px;stroke-width:2;color:#aaa;flex-shrink:0"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="hero-badge" style="margin-bottom:12px;color:var(--violet);background:var(--violet-10);letter-spacing:.25em;font-weight:600;font-size:var(--t-s);background:#fff"><span style="display:inline-flex;animation:hello-bounce 2s ease-in-out infinite"><i data-lucide="compass" style="width:1.4em;height:1.4em;color:var(--violet);display:inline-flex"></i></span>NEST</span>
+        <h2 class="h-l" style="margin-bottom:10px">Le parcours qui fait vivre votre territoire</h2>
+        <p class="muted" style="font-size:var(--t-s);line-height:1.3">Votre territoire a une histoire. Vos visiteurs veulent la vivre. Une balade réelle dans vos rues, enrichie par l'audio, la vidéo et la géolocalisation, vécue depuis leur smartphone.</p>
+        <ul class="check-list check-list--round">
+          <li><span class="check-icon"><svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M1.5 5.5l2.5 2.5 5.5-5.5"/></svg></span>Parcours audio et vidéo géolocalisé pour faire vivre votre patrimoine</li>
+          <li><span class="check-icon"><svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M1.5 5.5l2.5 2.5 5.5-5.5"/></svg></span>Archives animées par IA pour ressusciter le passé de votre territoire</li>
+          <li><span class="check-icon"><svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M1.5 5.5l2.5 2.5 5.5-5.5"/></svg></span>Déploiement simple par QR codes, sans application ni infrastructure</li>
+          <li><span class="check-icon"><svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M1.5 5.5l2.5 2.5 5.5-5.5"/></svg></span>Étapes pensées pour dynamiser les flux vers vos commerces locaux</li>
+        </ul>
+        <div class="stat-quote">
+          <svg class="stat-quote-icon" viewBox="0 0 32 24" fill="currentColor"><path d="M0 24V14.4C0 8.533 3.2 3.733 9.6 0l2.4 3.2C8.8 5.067 6.933 7.467 6.4 10.4H12V24H0zm16 0V14.4C16 8.533 19.2 3.733 25.6 0L28 3.2C24.8 5.067 22.933 7.467 22.4 10.4H28V24H16z"/></svg>
+          <div>
+            <p class="stat-quote-src"><span style="opacity:.4">—</span> Atout France 2025 <span style="opacity:.4">—</span></p>
+            <p class="stat-quote-n">Les utilisateurs retiennent 95 % d'un message vidéo, contre 10 % pour un texte</p>
+            <p class="stat-quote-txt">« Vos visiteurs ne liront pas votre brochure. Ils se souviendront de l'émotion que vous leur avez donnée. »</p>
+          </div>
+        </div>
+        <a href="#" class="link" style="margin-top:28px">Découvrez NEST en démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ITHAK DETAIL — texte gauche, visuel droite -->
+<section class="px py bg-sable">
+  <div class="cnt">
+    <div class="twocol">
+      <div>
+        <span class="hero-badge" style="margin-bottom:12px;color:var(--violet);background:#fff;letter-spacing:.25em;font-weight:600;font-size:var(--t-s)"><span style="display:inline-flex;animation:hello-bounce 2s ease-in-out infinite"><i data-lucide="calendar-check" style="width:1.4em;height:1.4em;color:var(--violet);display:inline-flex"></i></span>ITHAK</span>
+        <h2 class="h-l" style="margin-bottom:10px">Votre propre plateforme de réservation</h2>
+        <p class="muted" style="font-size:var(--t-s);line-height:1.3">Offrez à vos visiteurs une expérience sur-mesure sur votre propre plateforme tout en générant de nouveaux revenus.</p>
+        <ul class="check-list check-list--round">
+          <li><span class="check-icon"><svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M1.5 5.5l2.5 2.5 5.5-5.5"/></svg></span>Expérience similaire aux leaders de la réservation</li>
+          <li><span class="check-icon"><svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M1.5 5.5l2.5 2.5 5.5-5.5"/></svg></span>Commissions automatiques sur chaque réservation</li>
+          <li><span class="check-icon"><svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M1.5 5.5l2.5 2.5 5.5-5.5"/></svg></span>Intégration des hébergeurs sans aucune action de leur part</li>
+          <li><span class="check-icon"><svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M1.5 5.5l2.5 2.5 5.5-5.5"/></svg></span>Accompagnement visiteur avant, pendant et après le séjour</li>
+        </ul>
+        <div class="stat-quote">
+          <svg class="stat-quote-icon" viewBox="0 0 32 24" fill="currentColor"><path d="M0 24V14.4C0 8.533 3.2 3.733 9.6 0l2.4 3.2C8.8 5.067 6.933 7.467 6.4 10.4H12V24H0zm16 0V14.4C16 8.533 19.2 3.733 25.6 0L28 3.2C24.8 5.067 22.933 7.467 22.4 10.4H28V24H16z"/></svg>
+          <div>
+            <p class="stat-quote-src"><span style="opacity:.4">—</span> Baromètre Raffour 2025 <span style="opacity:.4">—</span></p>
+            <p class="stat-quote-n">75 % des réservations hôtelières passent par les OTAs</p>
+            <p class="stat-quote-txt">« Ils choisissent votre destination mais sont captés à 75% par des acteurs extérieurs à forte commissions. »</p>
+          </div>
+        </div>
+        <a href="#" class="link" style="margin-top:28px">Découvrez ITHAK en démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+      </div>
+      <div class="ulys-anim-wrap">
+        <img src="images/ithak_illu.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+        <div class="ithak-phone">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+            <span class="ulys-label" id="ithak-label">Voyageurs</span>
+            <div class="ulys-dots">
+              <span class="ulys-dot" id="idot-0"></span>
+              <span class="ulys-dot" id="idot-1"></span>
+              <span class="ulys-dot" id="idot-2"></span>
+              <span class="ulys-dot" id="idot-3"></span>
+            </div>
+          </div>
+
+          <!-- Écran 0 : Voyageurs -->
+          <div class="ithak-screen" id="ithak-s0">
+            <div class="ulys-counter-row" id="ithak-row-a">
+              <div><div style="font-size:.7em;color:#aaa;margin-bottom:2px;text-transform:uppercase;letter-spacing:.05em">Adultes</div><div id="ithakAdultes" style="font-weight:700;font-size:1.1em;color:var(--ink)">0</div></div>
+              <div class="ulys-counter">
+                <button class="ulys-btn-count">−</button>
+                <button class="ulys-btn-count ulys-btn-count--active" id="ithak-plusA">+</button>
+              </div>
+            </div>
+            <div class="ulys-counter-row" id="ithak-row-e" style="margin-top:10px">
+              <div><div style="font-size:.7em;color:#aaa;margin-bottom:2px;text-transform:uppercase;letter-spacing:.05em">Enfants</div><div id="ithakEnfants" style="font-weight:700;font-size:1.1em;color:var(--ink)">0</div></div>
+              <div class="ulys-counter">
+                <button class="ulys-btn-count">−</button>
+                <button class="ulys-btn-count ulys-btn-count--active" id="ithak-plusE">+</button>
+              </div>
+            </div>
+            <div class="ulys-checks" style="margin-top:14px">
+              <label class="ulys-check"><span class="ulys-check-box" id="ithak-pmr"></span><i data-lucide="accessibility" class="ulys-pill-icon"></i>PMR</label>
+              <label class="ulys-check" id="ithak-animal-label"><span class="ulys-check-box" id="ithak-animal-box"><i data-lucide="check" style="width:12px;height:12px;color:#fff;stroke-width:3"></i></span><i data-lucide="paw-print" class="ulys-pill-icon"></i>Animaux de compagnie</label>
+            </div>
+          </div>
+
+          <!-- Écran 1 : Calendrier -->
+          <div class="ithak-screen" id="ithak-s1">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
+              <div class="ithak-datebox"><div class="ithak-datelabel">Arrivée</div><div id="ithak-arrive" class="ithak-datevalue">—</div></div>
+              <div class="ithak-datebox"><div class="ithak-datelabel">Départ</div><div id="ithak-depart" class="ithak-datevalue">—</div></div>
+            </div>
+            <div style="text-align:center;font-weight:600;font-size:.85em;color:var(--ink);margin-bottom:10px">Août 2026</div>
+            <div class="ithak-cal-grid">
+              <div class="ithak-cal-head">Lu</div><div class="ithak-cal-head">Ma</div><div class="ithak-cal-head">Me</div><div class="ithak-cal-head">Je</div><div class="ithak-cal-head">Ve</div><div class="ithak-cal-head">Sa</div><div class="ithak-cal-head">Di</div>
+              <div></div><div></div><div></div><div></div><div></div><div class="ithak-cal-day" id="ithak-d1">1</div><div class="ithak-cal-day" id="ithak-d2">2</div>
+              <div class="ithak-cal-day" id="ithak-d3">3</div><div class="ithak-cal-day" id="ithak-d4">4</div><div class="ithak-cal-day" id="ithak-d5">5</div><div class="ithak-cal-day" id="ithak-d6">6</div><div class="ithak-cal-day" id="ithak-d7">7</div><div class="ithak-cal-day" id="ithak-d8">8</div><div class="ithak-cal-day" id="ithak-d9">9</div>
+              <div class="ithak-cal-day" id="ithak-d10">10</div><div class="ithak-cal-day" id="ithak-d11">11</div><div class="ithak-cal-day" id="ithak-d12">12</div><div class="ithak-cal-day" id="ithak-d13">13</div><div class="ithak-cal-day" id="ithak-d14">14</div><div class="ithak-cal-day" id="ithak-d15">15</div><div class="ithak-cal-day" id="ithak-d16">16</div>
+              <div class="ithak-cal-day" id="ithak-d17">17</div><div class="ithak-cal-day" id="ithak-d18">18</div><div class="ithak-cal-day" id="ithak-d19">19</div><div class="ithak-cal-day" id="ithak-d20">20</div><div class="ithak-cal-day" id="ithak-d21">21</div><div class="ithak-cal-day" id="ithak-d22">22</div><div class="ithak-cal-day" id="ithak-d23">23</div>
+              <div class="ithak-cal-day" id="ithak-d24">24</div><div class="ithak-cal-day" id="ithak-d25">25</div><div class="ithak-cal-day" id="ithak-d26">26</div><div class="ithak-cal-day" id="ithak-d27">27</div><div class="ithak-cal-day" id="ithak-d28">28</div><div class="ithak-cal-day" id="ithak-d29">29</div><div class="ithak-cal-day" id="ithak-d30">30</div>
+              <div class="ithak-cal-day" id="ithak-d31">31</div>
+            </div>
+          </div>
+
+          <!-- Écran 3 : Loading -->
+          <div class="ithak-screen" id="ithak-s3">
+            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 0;gap:16px">
+              <div id="ithak-spinner" style="color:var(--violet)"><i data-lucide="loader-2" style="width:36px;height:36px;stroke-width:1.5;animation:ulys-spin 1s linear infinite"></i></div>
+              <div style="font-size:.85em;font-weight:600;color:var(--ink);text-align:center">Nous recherchons<br>votre logement…</div>
+              <div style="font-size:.72em;color:#aaa">Cela peut prendre quelques instants</div>
+            </div>
+          </div>
+
+          <!-- Écran 2 : Style de logement -->
+          <div class="ithak-screen" id="ithak-s2">
+            <div style="font-size:.7em;color:#aaa;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px">Style de logement</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <div class="ithak-pill" id="ithak-hotel"><i data-lucide="building-2" style="width:13px;height:13px;stroke-width:2"></i>Hôtel</div>
+              <div class="ithak-pill" id="ithak-gite"><i data-lucide="home" style="width:13px;height:13px;stroke-width:2"></i>Gîte</div>
+              <div class="ithak-pill" id="ithak-chambre"><i data-lucide="coffee" style="width:13px;height:13px;stroke-width:2"></i>Chambre d'hôtes</div>
+              <div class="ithak-pill" id="ithak-camping"><i data-lucide="tent" style="width:13px;height:13px;stroke-width:2"></i>Camping</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECHO DETAIL — image gauche, texte droite -->
+<section class="px py bg-sable">
+  <div class="cnt">
+    <div class="twocol">
+      <div class="hnotify-vis">
+        <div class="hnotify-img-wrap">
+          <img src="images/echo_illu.jpeg" alt="" class="hnotify-img">
+          <div class="echo-dash" id="echo-dash">
+            <div class="echo-google-card" id="echo-google-card">
+              <div class="echo-gc-header">
+                <span class="echo-glogo"><b style="color:#4285F4">G</b><b style="color:#EA4335">o</b><b style="color:#FBBC05">o</b><b style="color:#4285F4">g</b><b style="color:#34A853">l</b><b style="color:#EA4335">e</b></span>
+                <div class="echo-gc-traffic"><i data-lucide="bar-chart-2" style="width:10px;height:10px;stroke-width:2.5"></i> TRAFFIC</div>
+                <div class="echo-gc-target"><i data-lucide="crosshair" style="width:10px;height:10px;stroke-width:2.5"></i> île Saint-Jacques</div>
+              </div>
+              <div class="echo-gc-body">
+                <div class="echo-gc-left">
+                  <div class="echo-gc-num">+<span id="echo-counter">0</span> <span style="font-size:.55em;opacity:.5;font-weight:600;letter-spacing:0">visites</span></div>
+                  <div class="echo-gc-tags">
+                    <span class="echo-gc-tag echo-gc-tag--green" id="etag1">Hébergements</span>
+                    <span class="echo-gc-tag echo-gc-tag--pink" id="etag2">Restaurants</span>
+                    <span class="echo-gc-tag echo-gc-tag--blue" id="etag3">Activités</span>
+                  </div>
+                </div>
+                <div class="echo-gc-right">
+                  <div class="echo-gc-acq-title">Trafic mensuel</div>
+                  <div class="echo-gc-acq-content">
+                    <div class="echo-donut-wrap">
+                      <svg viewBox="0 0 50 50" class="echo-donut-svg">
+                        <circle cx="25" cy="25" r="18" fill="none" stroke="#e8e8e8" stroke-width="7"/>
+                        <circle cx="25" cy="25" r="18" fill="none" stroke="#F5A623" stroke-width="7" stroke-dasharray="113" stroke-dashoffset="113" id="echo-donut-arc" stroke-linecap="round" transform="rotate(-90 25 25)"/>
+                      </svg>
+                    </div>
+                    <div class="echo-bars-col">
+                      <div class="echo-bar-row"><div class="echo-bar-bg"><div class="echo-bar-val" id="ebar1" style="width:0%"></div></div></div>
+                      <div class="echo-bar-row"><div class="echo-bar-bg"><div class="echo-bar-val" id="ebar2" style="width:0%;background:#e0e0e0"></div></div></div>
+                      <div class="echo-bar-row"><div class="echo-bar-bg"><div class="echo-bar-val" id="ebar3" style="width:0%;background:#F5A623"></div></div></div>
+                      <div class="echo-legend-row">
+                        <span class="echo-legend-dot" style="background:#F5A623"></span>
+                        <span class="echo-legend-dot" style="background:#e0e0e0"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="echo-stats-row">
+              <div class="echo-stat echo-stat--light" id="echo-stat1">
+                <div class="echo-stat-num">+<span id="es1">0</span>%</div>
+                <div class="echo-stat-lbl">de trafic organique</div>
+              </div>
+              <div class="echo-stat echo-stat--dark" id="echo-stat2">
+                <div class="echo-stat-num">+<span id="es2">0</span>%</div>
+                <div class="echo-stat-lbl">de mots clés top 3</div>
+              </div>
+            </div>
+            <div class="echo-news-card" id="echo-news">
+              <div class="echo-news-top">
+                <span class="echo-news-lbl">Publication</span>
+                <span class="echo-news-date">13 AVRIL</span>
+              </div>
+              <div class="echo-skel"></div>
+              <div class="echo-skel echo-skel--sm"></div>
+              <div class="echo-news-img-box"><i data-lucide="image" style="width:20px;height:20px;color:rgba(255,255,255,.6)"></i></div>
+              <div class="echo-news-footer">
+                <div style="display:flex;gap:5px">
+                  <span class="echo-news-tag echo-news-tag--blue">Contenu</span>
+                  <span class="echo-news-tag echo-news-tag--orange">Classement</span>
+                </div>
+                <span class="echo-news-time">Reading time: 4 min</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="hero-badge" style="margin-bottom:12px;color:var(--violet);background:#fff;letter-spacing:.25em;font-weight:600;font-size:var(--t-s)"><span style="display:inline-flex;animation:hello-bounce 2s ease-in-out infinite"><i data-lucide="search" style="width:1.4em;height:1.4em;color:var(--violet);display:inline-flex"></i></span>ÉCHO</span>
+        <h2 class="h-l" style="margin-bottom:10px">Devenez 1er sur Google</h2>
+        <p class="muted" style="font-size:var(--t-s);line-height:1.3">Reprenez la première place sur Google pour votre territoire grâce à une solution SEO agentique qui génère automatiquement des milliers de pages de contenu optimisé, saison après saison.</p>
+        <ul class="check-list check-list--round">
+          <li><span class="check-icon"><svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M1.5 5.5l2.5 2.5 5.5-5.5"/></svg></span>Génération automatique de milliers de pages ciblées</li>
+          <li><span class="check-icon"><svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M1.5 5.5l2.5 2.5 5.5-5.5"/></svg></span>Optimisation sémantique sur les requêtes de votre territoire</li>
+          <li><span class="check-icon"><svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M1.5 5.5l2.5 2.5 5.5-5.5"/></svg></span>Mise à jour continue, synchronisée avec votre actualité</li>
+          <li><span class="check-icon"><svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M1.5 5.5l2.5 2.5 5.5-5.5"/></svg></span>Maillage interne optimisé pour maximiser votre autorité de domaine</li>
+        </ul>
+        <div class="stat-quote">
+          <svg class="stat-quote-icon" viewBox="0 0 32 24" fill="currentColor"><path d="M0 24V14.4C0 8.533 3.2 3.733 9.6 0l2.4 3.2C8.8 5.067 6.933 7.467 6.4 10.4H12V24H0zm16 0V14.4C16 8.533 19.2 3.733 25.6 0L28 3.2C24.8 5.067 22.933 7.467 22.4 10.4H28V24H16z"/></svg>
+          <div>
+            <p class="stat-quote-src"><span style="opacity:.4">—</span> Rapport Médiamétrie 2025 <span style="opacity:.4">—</span></p>
+            <p class="stat-quote-n">90 % des pages web n'obtiennent aucun trafic organique de Google</p>
+            <p class="stat-quote-txt">« Les destinations qui ne s'adaptent pas deviennent invisibles là où tout se décide. »</p>
+          </div>
+        </div>
+        <a href="#" class="link" style="margin-top:28px">Découvrez ÉCHO en démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TÉMOIGNAGE -->
+<section class="px py" style="background:var(--violet-10)">
+  <div class="cnt">
+    <div class="temo">
+      <div>
+
+        <p class="eyebrow mb-xs">Étude de cas</p>
+        <div style="background:#fff;border-radius:12px;padding:16px 20px;display:inline-flex;align-items:center;gap:14px">
+          <div class="temo-av" style="background:#fff;padding:4px;overflow:hidden;width:64px;height:64px;flex-shrink:0;border:1px solid rgba(0,0,0,.1)">
+            <img src="images/logo_lourdes.webp" alt="Lourdes" style="width:100%;height:100%;object-fit:contain">
+          </div>
+          <div>
+            <p class="temo-name">Sanctuaire Notre-Dame de Lourdes</p>
+            <p class="temo-role">2ème ville hôtelière de France</p>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px;margin-bottom:24px">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="color:var(--violet);margin-bottom:2px"><i data-lucide="hotel" style="width:18px;height:18px"></i></div>
+            <p style="font-family:var(--f-serif);font-size:var(--h-s);font-weight:700;color:var(--ink);line-height:1">2ème</p>
+            <p style="font-size:var(--t-xs);color:var(--ink-60);line-height:1.3">ville hôtelière de France</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="color:var(--violet);margin-bottom:2px"><i data-lucide="users" style="width:18px;height:18px"></i></div>
+            <p style="font-family:var(--f-serif);font-size:var(--h-s);font-weight:700;color:var(--ink);line-height:1">3,2M</p>
+            <p style="font-size:var(--t-xs);color:var(--ink-60);line-height:1.3">visiteurs par an</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="color:var(--violet);margin-bottom:2px"><i data-lucide="moon" style="width:18px;height:18px"></i></div>
+            <p style="font-family:var(--f-serif);font-size:var(--h-s);font-weight:700;color:var(--ink);line-height:1">2,5M</p>
+            <p style="font-size:var(--t-xs);color:var(--ink-60);line-height:1.3">nuitées hôtelières</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="color:var(--violet);margin-bottom:2px"><i data-lucide="bed" style="width:18px;height:18px"></i></div>
+            <p style="font-family:var(--f-serif);font-size:var(--h-s);font-weight:700;color:var(--ink);line-height:1">26 500</p>
+            <p style="font-size:var(--t-xs);color:var(--ink-60);line-height:1.3">lits hôteliers disponibles</p>
+          </div>
+        </div>
+        <p class="temo-quote" style="line-height:1;margin-top:20px">"Un service unique pour le pèlerin — moins cher et plus complet que les plateformes tierces."</p>
+        <a href="#" class="btn btn-p" style="margin-top:32px">Lire l'étude de cas <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+      </div>
+      <div class="hnotify-vis">
+        <div class="hnotify-img-wrap">
+          <img src="images/lourdes.jpg" alt="" class="hnotify-img">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESSE -->
+<section class="px py">
+  <div class="cnt">
+    <hr class="mb-s">
+    <p class="eyebrow mb-xs">Ils en parlent</p>
+    <h2 class="h-l" style="margin-bottom:var(--sp-s)">La presse parle d'Odyssey</h2>
+    <div class="press">
+      <div class="press-card">
+        <span class="press-src">France 3 Occitanie</span>
+        <p class="press-q">"Un service unique pour le pèlerin" : le Sanctuaire de Lourdes lance sa propre plateforme de réservation.</p>
+        <a href="#" class="link">Lire l'article <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg></a>
+      </div>
+      <div class="press-card">
+        <span class="press-src">Ouest-France</span>
+        <p class="press-q">Sanctuaire de Lourdes : "Une nouvelle plateforme pour aider les pèlerins à réserver leur séjour".</p>
+        <a href="#" class="link">Lire l'article <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg></a>
+      </div>
+      <div class="press-card">
+        <span class="press-src">La Dépêche</span>
+        <p class="press-q">"Moins chère et plus complète pour les pèlerins" : le Sanctuaire de Lourdes innove et lance sa propre plateforme.</p>
+        <a href="#" class="link">Lire l'article <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="px py">
+  <div class="cnt">
+    <hr class="mb-s">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+      <div class="hello-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="24" height="24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><circle cx="8" cy="11" r=".8" fill="currentColor"/><circle cx="12" cy="11" r=".8" fill="currentColor"/><circle cx="16" cy="11" r=".8" fill="currentColor"/></svg></div>
+      <h2 class="h-l" style="margin:0">Hello ! On discute ?</h2>
+    </div>
+    <p class="muted" style="font-size:var(--t-l);line-height:1.7;max-width:600px;margin-bottom:var(--sp-s)">Méthodologie, durée, tarifs...</p>
+    <div class="cnt-2cards">
+      <div style="background:var(--sable);border-radius:14px;padding:56px;display:flex;flex-direction:column;gap:28px;justify-content:center;">
+        <p class="eyebrow">Réservez votre démo</p>
+        <div style="display:flex;align-items:center;gap:20px">
+          <div class="contact-avatar">
+            <img src="images/etienne.jpg" alt="Étienne" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+          </div>
+          <div>
+            <p style="font-weight:700;font-size:var(--t-s);color:var(--ink)">Étienne Carpentier</p>
+            <p class="muted" style="font-size:var(--t-xs)">Responsable clientèle · Odyssey Manager</p>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;gap:14px">
+            <div class="sec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" width="15" height="15"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+            <p style="font-weight:600;font-size:var(--t-s)">Visio-conférence</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px">
+            <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7.5" cy="7.5" r="6"/><path d="M7.5 5v2.5l2 2"/></svg></div>
+            <p style="font-weight:600;font-size:var(--t-s)">Durée 30 min</p>
+          </div>
+        </div>
+        <a href="https://calendly.com/etienne-odyssey-manager/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=6e5bff&month=2026-06" target="_blank" class="btn btn-p" style="justify-content:center;text-align:center">Programmer une démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+      </div>
+      <div style="background:var(--violet-10);border-radius:14px;padding:56px;">
+        <p class="eyebrow" style="margin-bottom:26px">Contactez-nous</p>
+        <form class="form">
+          <div class="f-row">
+            <div class="f"><input type="text" placeholder="Votre prénom"></div>
+            <div class="f"><input type="text" placeholder="Votre nom"></div>
+          </div>
+          <div class="f"><input type="email" placeholder="Votre email"></div>
+          <div class="f">
+            <div class="csel" id="csel">
+              <div class="csel-trigger" onclick="toggleCsel()">
+                <span class="csel-val">Votre secteur</span>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 5l4 4 4-4"/></svg>
+              </div>
+              <div class="csel-drop" id="csel-drop">
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Destinations &amp; Territoires"><strong>Destinations &amp; Territoires</strong><span>OT · CDT · CRT</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Sites &amp; Patrimoine"><strong>Sites &amp; Patrimoine</strong><span>Culturel · Cultuel · Nature</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Complexe &amp; Loisirs"><strong>Complexe &amp; Loisirs</strong><span>Villages · Parcs · Campings</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Bien-être &amp; Santé"><strong>Bien-être &amp; Santé</strong><span>Thalassos · Spas · Clubs</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Opérateurs &amp; Médias"><strong>Opérateurs &amp; Médias</strong><span>Agences · Guides · Médias</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Événementiel &amp; MICE"><strong>Événementiel &amp; MICE</strong><span>Organisateurs · Événementiel</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="f">
+            <div class="csel" id="csel2">
+              <div class="csel-trigger" onclick="toggleCsel2()">
+                <span class="csel-val" id="csel2-val">Votre besoin</span>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 5l4 4 4-4"/></svg>
+              </div>
+              <div class="csel-drop" id="csel2-drop">
+                <div class="csel-opt" onclick="pickCsel2(this)" data-val="ULYS"><strong>ULYS</strong><span>Votre guide local I.A.</span></div>
+                <div class="csel-opt" onclick="pickCsel2(this)" data-val="ITHAK"><strong>ITHAK</strong><span>Votre propre plateforme de réservation</span></div>
+                <div class="csel-opt" onclick="pickCsel2(this)" data-val="ÉCHO"><strong>ÉCHO</strong><span>Votre destination en tête sur Google</span></div>
+                <div class="csel-opt" onclick="pickCsel2(this)" data-val="NEST"><strong>NEST</strong><span>Votre parcours découverte interactif</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="f"><textarea placeholder="Votre projet"></textarea></div>
+          <button type="submit" class="btn btn-p" style="width:100%;justify-content:center;margin-top:6px">Envoyer ma demande <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+function toggleCsel() { document.getElementById('csel').classList.toggle('open'); }
+function pickCsel(el) {
+  document.querySelector('#csel .csel-val').textContent = el.querySelector('strong').textContent;
+  document.querySelector('#csel .csel-val').classList.add('selected');
+  document.getElementById('csel').classList.remove('open');
+}
+function toggleCsel2() { document.getElementById('csel2').classList.toggle('open'); }
+function pickCsel2(el) {
+  document.getElementById('csel2-val').textContent = el.querySelector('strong').textContent;
+  document.getElementById('csel2-val').classList.add('selected');
+  document.getElementById('csel2').classList.remove('open');
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#csel')) document.getElementById('csel').classList.remove('open');
+  if (!e.target.closest('#csel2')) document.getElementById('csel2').classList.remove('open');
+});
+</script>
+<script>
+lucide.createIcons();
+
+// ULYS CHAT — séquence animée
+(function(){
+  function t(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
+  function show(id){ var el=document.getElementById(id); if(el){ el.style.display=''; setTimeout(function(){ el.classList.add('show'); },20); } }
+  function hide(id){ var el=document.getElementById(id); if(el){ el.classList.remove('show'); el.style.display='none'; } }
+  function scroll(){ var b=document.getElementById('chat-body'); if(b) b.scrollTop=b.scrollHeight; }
+  function typeText(elId, text, speed){ return new Promise(function(r){ var el=document.getElementById(elId); if(!el){ r(); return; } el.textContent=''; var i=0; function next(){ if(i<text.length){ el.textContent+=text[i++]; scroll(); setTimeout(next, speed||45); } else { r(); } } next(); }); }
+
+  function resetChat(){
+    ['cm-u1','cm-a1','cm-a2','cm-u2','cm-a3'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el){ el.classList.remove('show'); el.style.display=(id==='cm-u1'||id==='cm-a1')?'':'none'; }
+    });
+    ['chat-typing-1','chat-typing-3'].forEach(function(id){
+      var el=document.getElementById(id); if(el){ el.style.display='flex'; }
+    });
+    ['chat-ferry','chat-weather','chat-aquarium','chat-qr'].forEach(function(id){
+      var el=document.getElementById(id); if(el) el.style.display='none';
+    });
+    var sl=document.getElementById('chat-scan-line'); if(sl){ sl.classList.remove('qr-scan-line--active'); sl.style.top='0'; }
+    var b=document.getElementById('chat-body'); if(b) b.scrollTop=0;
+    lucide.createIcons();
+  }
+
+  async function chatLoop(){
+    while(true){
+      resetChat();
+      await t(400);
+
+      // 1. User: ferry
+      show('cm-u1'); await typeText('cu1-text','Je voudrais les horaires de ferry',42); await t(800);
+
+      // 2. AI: typing then ferry card
+      show('cm-a1'); scroll(); await t(1400);
+      var ty1=document.getElementById('chat-typing-1'); if(ty1) ty1.style.display='none';
+      var ferry=document.getElementById('chat-ferry'); if(ferry) ferry.style.display='block';
+      lucide.createIcons(); scroll(); await t(2200);
+
+      // 3. AI: weather alert
+      var a2=document.getElementById('cm-a2'); if(a2){ a2.style.display='flex'; setTimeout(function(){ a2.classList.add('show'); },20); }
+      scroll(); await t(900);
+      var wc=document.getElementById('chat-weather'); if(wc) wc.style.display='block';
+      lucide.createIcons(); scroll(); await t(1000);
+      var aq=document.getElementById('chat-aquarium'); if(aq) aq.style.display='block';
+      scroll(); await t(2000);
+
+      // 4. User: QR
+      var u2=document.getElementById('cm-u2'); if(u2){ u2.style.display='block'; setTimeout(function(){ u2.classList.add('show'); },20); }
+      await typeText('cu2-text','OK, envoie-moi le QR code pour que je garde les infos',42); await t(800);
+
+      // 5. AI: typing then QR
+      var a3=document.getElementById('cm-a3'); if(a3){ a3.style.display='flex'; setTimeout(function(){ a3.classList.add('show'); },20); }
+      scroll(); await t(1400);
+      var ty3=document.getElementById('chat-typing-3'); if(ty3) ty3.style.display='none';
+      var qr=document.getElementById('chat-qr'); if(qr) qr.style.display='block';
+      lucide.createIcons(); scroll();
+      await t(300);
+      var sl=document.getElementById('chat-scan-line'); if(sl) sl.classList.add('qr-scan-line--active');
+      await t(4000);
+    }
+  }
+  chatLoop();
+})();
+
+// NEST — séquence animée
+(function(){
+  var c3 = document.getElementById('nest-c3');
+  var c1 = document.getElementById('nest-c1');
+  var c2 = document.getElementById('nest-c2');
+  var fill = document.getElementById('nest-fill');
+  var thumb = document.getElementById('nest-thumb');
+  var timeEl = document.getElementById('nest-time');
+  var playIcon = document.getElementById('nest-play-icon');
+  var playBtn = document.getElementById('nest-play-btn');
+  var playerTimer = null;
+  var playerSec = 0;
+
+  function show(el) { el.classList.add('hnotif-card--show'); }
+  function hide(el) { el.classList.remove('hnotif-card--show'); }
+  function t(ms) { return new Promise(function(r){ setTimeout(r, ms); }); }
+  function wave(el, cls) {
+    el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls);
+    setTimeout(function(){ el.classList.remove(cls); }, 700);
+  }
+
+  function resetPlayer() {
+    clearInterval(playerTimer);
+    playerSec = 0;
+    fill.style.transition = 'none';
+    fill.style.width = '0%';
+    thumb.style.left = '0%';
+    timeEl.textContent = '0:00';
+    if (playIcon) { playIcon.setAttribute('data-lucide','play'); lucide.createIcons(); }
+  }
+
+  function startPlayer() {
+    if (playIcon) { playIcon.setAttribute('data-lucide','pause'); lucide.createIcons(); }
+    setTimeout(function(){ wave(playBtn, 'nest-wave-green'); }, 50);
+    playerTimer = setInterval(function(){
+      playerSec++;
+      var pct = (playerSec / 180) * 100;
+      fill.style.transition = 'width .9s linear';
+      fill.style.width = pct + '%';
+      thumb.style.left = pct + '%';
+      var m = Math.floor(playerSec / 60);
+      var s = playerSec % 60;
+      timeEl.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+      if (playerSec >= 4) { clearInterval(playerTimer); }
+    }, 1000);
+  }
+
+  async function nestLoop() {
+    while(true) {
+      hide(c3); hide(c1); hide(c2); resetPlayer();
+      await t(600);
+      show(c3); await t(1800);
+      show(c1); await t(1000); wave(c1, 'nest-wave'); await t(1000);
+      show(c2); await t(700); startPlayer(); await t(5500);
+    }
+  }
+  nestLoop();
+})();
+
+// ITHAK — séquence animée
+(function(){
+  var labels = ['Voyageurs','Calendrier','Logement','Recherche…'];
+  function t(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
+  function iwave(el){ el.classList.remove('ulys-wave'); void el.offsetWidth; el.classList.add('ulys-wave'); setTimeout(function(){ el.classList.remove('ulys-wave'); },600); }
+  function showIthak(i){
+    document.querySelectorAll('.ithak-screen').forEach(function(s){ s.classList.remove('active'); });
+    document.getElementById('ithak-s'+i).classList.add('active');
+    document.getElementById('ithak-label').textContent = labels[i];
+    var dots = document.querySelectorAll('[id^="idot-"]');
+    dots.forEach(function(d,j){ d.classList.toggle('ulys-dot--active', j===i); });
+    lucide.createIcons();
+  }
+  function resetIthak(){
+    document.getElementById('ithakAdultes').textContent='0';
+    document.getElementById('ithakEnfants').textContent='0';
+    var ab=document.getElementById('ithak-animal-box'), al=document.getElementById('ithak-animal-label');
+    if(ab){ ab.classList.remove('ulys-check-box--checked'); }
+    if(al){ al.classList.remove('ulys-check--checked'); }
+    document.getElementById('ithak-arrive').textContent='—';
+    document.getElementById('ithak-depart').textContent='—';
+    for(var n=1;n<=31;n++){
+      var d=document.getElementById('ithak-d'+n);
+      if(d){ d.className='ithak-cal-day'; }
+    }
+    document.querySelectorAll('.ithak-pill').forEach(function(p){ p.classList.remove('ithak-pill--active'); });
+  }
+  async function screen0(){
+    showIthak(0);
+    var plusA=document.getElementById('ithak-plusA'), plusE=document.getElementById('ithak-plusE');
+    var a=document.getElementById('ithakAdultes'), e=document.getElementById('ithakEnfants');
+    await t(700); a.textContent='1'; iwave(plusA);
+    await t(500); a.textContent='2'; iwave(plusA);
+    await t(700); e.textContent='1'; iwave(plusE);
+    await t(700);
+    var ab=document.getElementById('ithak-animal-box'), al=document.getElementById('ithak-animal-label');
+    ab.classList.add('ulys-check-box--checked'); al.classList.add('ulys-check--checked');
+    iwave(ab); lucide.createIcons();
+  }
+  async function screen1(){
+    showIthak(1);
+    await t(900);
+    var d10=document.getElementById('ithak-d10');
+    d10.classList.add('ithak-day--start'); iwave(d10);
+    document.getElementById('ithak-arrive').textContent='10 août 2026';
+    await t(800);
+    var d17=document.getElementById('ithak-d17');
+    d17.classList.add('ithak-day--end'); iwave(d17);
+    document.getElementById('ithak-depart').textContent='17 août 2026';
+    await t(600);
+    [11,12,13,14,15,16].forEach(function(n){ document.getElementById('ithak-d'+n).classList.add('ithak-day--range'); });
+  }
+  async function screen2(){
+    showIthak(2);
+    await t(900);
+    var h=document.getElementById('ithak-hotel');
+    h.classList.add('ithak-pill--active'); iwave(h);
+  }
+  async function screen3(){
+    showIthak(3);
+    await t(3000);
+  }
+  async function ithakLoop(){
+    while(true){
+      resetIthak(); await screen0(); await t(1800);
+      resetIthak(); await screen1(); await t(1800);
+      resetIthak(); await screen2(); await t(1800);
+      await screen3();
+    }
+  }
+  showIthak(0); ithakLoop();
+})();
+
+// ULYS — séquence animée automatique
+(function(){
+  const screens = document.querySelectorAll('.ulys-screen');
+  const dots = document.querySelectorAll('.ulys-dot');
+  if (!screens.length) return;
+  let cur = 0;
+
+  function showScreen(i) {
+    screens[cur].classList.remove('active');
+    dots[cur].classList.remove('ulys-dot--active');
+    cur = i % screens.length;
+    screens[cur].classList.add('active');
+    dots[cur].classList.add('ulys-dot--active');
+    lucide.createIcons();
+  }
+
+  function resetAll() {
+    // reset écran 1
+    document.querySelectorAll('.ulys-pill').forEach(p => p.classList.remove('ulys-pill--active'));
+    // reset écran 2
+    var a = document.getElementById('uAdultes'); if(a) a.textContent = '0';
+    var e = document.getElementById('uEnfants'); if(e) e.textContent = '0';
+    document.querySelectorAll('.ulys-counter-row').forEach(function(r){ r.classList.remove('ulys-counter-row--active'); });
+    var pb = document.getElementById('uCheckPMR'); if(pb) pb.classList.remove('ulys-check-box--checked');
+    var ab = document.getElementById('uCheckAnimalBox'); if(ab) ab.classList.remove('ulys-check-box--checked');
+    var al = document.getElementById('uCheckAnimal'); if(al) al.classList.remove('ulys-check--checked');
+    // reset écran 3
+    document.querySelectorAll('.ulys-budget-card').forEach(c => c.classList.remove('ulys-budget-card--active'));
+    // reset écran 4
+    [0,1,2,3].forEach(function(i){
+      var ic = document.getElementById('uStepIcon'+i);
+      var lb = document.getElementById('uStepLabel'+i);
+      var st = document.getElementById('uStep'+i);
+      if(!ic) return;
+      ic.classList.add('ulys-step-icon--pending');
+      ic.classList.remove('ulys-step-icon--spinning');
+      if(lb) lb.style.color='';
+      if(st) st.classList.add('ulys-step--pending');
+    });
+    var pr = document.getElementById('uProgress'); if(pr) pr.style.width='0%';
+  }
+
+  function t(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+  function wave(el) {
+    el.classList.remove('ulys-wave');
+    void el.offsetWidth;
+    el.classList.add('ulys-wave');
+    setTimeout(() => el.classList.remove('ulys-wave'), 600);
+  }
+
+  async function playScreen0() {
+    showScreen(0);
+    await t(800);
+    var p0 = document.getElementById('upill-0'); p0.classList.add('ulys-pill--active'); wave(p0);
+    await t(600);
+    var p5 = document.getElementById('upill-5'); p5.classList.add('ulys-pill--active'); wave(p5);
+  }
+
+  async function playScreen1() {
+    showScreen(1);
+    var a = document.getElementById('uAdultes');
+    var e = document.getElementById('uEnfants');
+    var rowA = a.closest('.ulys-counter-row');
+    var rowE = e.closest('.ulys-counter-row');
+    var plusA = a.closest('.ulys-counter').querySelector('.ulys-btn-count--active');
+    var plusE = e.closest('.ulys-counter').querySelector('.ulys-btn-count--active');
+    await t(600);  a.textContent = '1'; wave(plusA); rowA.classList.add('ulys-counter-row--active');
+    await t(500);  a.textContent = '2'; wave(plusA);
+    await t(600);  e.textContent = '1'; wave(plusE); rowE.classList.add('ulys-counter-row--active');
+    await t(700);
+    var ab = document.getElementById('uCheckAnimalBox');
+    var al = document.getElementById('uCheckAnimal');
+    ab.classList.add('ulys-check-box--checked');
+    al.classList.add('ulys-check--checked');
+    wave(ab);
+    lucide.createIcons();
+  }
+
+  async function playScreen2() {
+    showScreen(2);
+    await t(700);
+    var b2 = document.getElementById('uBudget2'); b2.classList.add('ulys-budget-card--active'); wave(b2);
+  }
+
+  function stepActivate(i, spinning) {
+    var ic = document.getElementById('uStepIcon'+i);
+    var lb = document.getElementById('uStepLabel'+i);
+    var st = document.getElementById('uStep'+i);
+    if(!ic) return;
+    ic.classList.remove('ulys-step-icon--pending');
+    if(spinning) ic.classList.add('ulys-step-icon--spinning');
+    else ic.classList.remove('ulys-step-icon--spinning');
+    if(st) st.classList.remove('ulys-step--pending');
+    if(lb) lb.style.color = 'var(--violet)';
+    wave(ic);
+    lucide.createIcons();
+  }
+
+  async function playScreen3() {
+    showScreen(3);
+    var pr = document.getElementById('uProgress');
+    await t(500);
+    stepActivate(0, false); pr.style.width = '25%';
+    await t(900);
+    stepActivate(1, true);  pr.style.width = '50%';
+    await t(1000);
+    stepActivate(1, false);
+    stepActivate(2, true);  pr.style.width = '75%';
+    await t(900);
+    stepActivate(2, false);
+    stepActivate(3, true);  pr.style.width = '90%';
+    await t(800);
+    stepActivate(3, false); pr.style.width = '100%';
+  }
+
+  async function loop() {
+    while(true) {
+      resetAll();
+      await playScreen0();
+      await t(2000);
+      resetAll();
+      await playScreen1();
+      await t(2000);
+      resetAll();
+      await playScreen2();
+      await t(2000);
+      resetAll();
+      await playScreen3();
+      await t(1500);
+    }
+  }
+
+  showScreen(0);
+  loop();
+})();
+
+// STEPPER CONSTAT — boucle animée
+(function(){
+  function t(ms){ return new Promise(r=>setTimeout(r,ms)); }
+  var nodes = [0,1,2,3].map(function(i){ return document.getElementById('cstn2-'+i); });
+  var lines = [0,1,2].map(function(i){ return document.getElementById('cstl2-'+i); });
+  if(!nodes[0]) return;
+  function reset(){
+    nodes.forEach(function(n){ if(n) n.classList.remove('cst-node--done'); });
+    lines.forEach(function(l){ if(l) l.classList.remove('cst-connector--done'); });
+  }
+  function activate(i){
+    if(nodes[i]) nodes[i].classList.add('cst-node--done');
+    if(lines[i]) lines[i].classList.add('cst-connector--done');
+  }
+  async function loop(){
+    while(true){
+      reset(); await t(700);
+      activate(0); await t(800);
+      activate(1); await t(800);
+      activate(2); await t(800);
+      activate(3); await t(2200);
+    }
+  }
+  loop();
+})();
+
+// ÉCHO — séquence animée automatique
+(function(){
+  function t(ms){ return new Promise(r=>setTimeout(r,ms)); }
+  var googleCard = document.getElementById('echo-google-card');
+  if(!googleCard) return;
+  var counter = document.getElementById('echo-counter');
+  var tag1 = document.getElementById('etag1');
+  var tag2 = document.getElementById('etag2');
+  var tag3 = document.getElementById('etag3');
+  var donutArc = document.getElementById('echo-donut-arc');
+  var ebar1 = document.getElementById('ebar1');
+  var ebar2 = document.getElementById('ebar2');
+  var ebar3 = document.getElementById('ebar3');
+  var stat1 = document.getElementById('echo-stat1');
+  var stat2 = document.getElementById('echo-stat2');
+  var es1 = document.getElementById('es1');
+  var es2 = document.getElementById('es2');
+  var newsCard = document.getElementById('echo-news');
+
+  function countUp(el, target, duration){
+    return new Promise(function(r){
+      var startTime = null;
+      function step(ts){
+        if(!startTime) startTime = ts;
+        var p = Math.min((ts-startTime)/duration, 1);
+        el.textContent = Math.round(p*target);
+        if(p<1) requestAnimationFrame(step); else r();
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+  function resetEcho(){
+    googleCard.classList.remove('show');
+    counter.textContent = '0';
+    [tag1,tag2,tag3].forEach(function(el){ el.classList.remove('show'); });
+    donutArc.style.transition = 'none';
+    donutArc.style.strokeDashoffset = '113';
+    ebar1.style.transition = 'none'; ebar1.style.width = '0%';
+    ebar2.style.transition = 'none'; ebar2.style.width = '0%';
+    ebar3.style.transition = 'none'; ebar3.style.width = '0%';
+    stat1.classList.remove('show'); es1.textContent = '0';
+    stat2.classList.remove('show'); es2.textContent = '0';
+    newsCard.classList.remove('show');
+    lucide.createIcons();
+  }
+
+  async function echoLoop(){
+    while(true){
+      resetEcho();
+      await t(500);
+      googleCard.classList.add('show');
+      await t(400);
+      // forcer reflow avant de lancer les transitions
+      void donutArc.getBoundingClientRect();
+      donutArc.style.transition = 'stroke-dashoffset 1.5s ease';
+      ebar1.style.transition = 'width 1.2s ease';
+      ebar2.style.transition = 'width 1.4s ease';
+      ebar3.style.transition = 'width 1s ease';
+      donutArc.style.strokeDashoffset = '28';
+      ebar1.style.width = '75%';
+      ebar2.style.width = '45%';
+      ebar3.style.width = '60%';
+      var cntPromise = countUp(counter, 3745, 1500);
+      await t(400); tag1.classList.add('show');
+      await t(300); tag2.classList.add('show');
+      await t(300); tag3.classList.add('show');
+      await cntPromise;
+      await t(400);
+      stat1.classList.add('show'); countUp(es1, 27, 700);
+      await t(500);
+      stat2.classList.add('show'); countUp(es2, 435, 1000);
+      await t(1200);
+      newsCard.classList.add('show'); lucide.createIcons();
+      await t(2800);
+    }
+  }
+  echoLoop();
+})();
+</script>
+</body>
+</html>
