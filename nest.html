@@ -32,6 +32,7 @@
   --white: #ffffff;
   --h-xl: 3.8rem;
   --h-l:  2.25rem;
+  --h-xs: 1.1rem;
   --btn-shadow: 0 12px 26px -12px rgba(110,91,255,.70);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -53,7 +54,6 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 .btn-p:hover { background: #5a48e8; box-shadow: 0 16px 34px -12px rgba(110,91,255,.7); animation: none; }
 .btn-g { background: var(--white); color: var(--ink); border: 1px solid var(--ink-14); }
 .btn-g:hover { border-color: var(--violet); color: var(--violet); background: var(--violet-10); }
-@keyframes hello-bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
 .hero-badge { display:inline-flex; align-items:center; gap:8px; background:var(--sable); border-radius:999px; padding:7px 16px 7px 10px; font-size:.8125rem; font-weight:600; color:var(--ink); letter-spacing:.06em; text-transform:uppercase; }
 .h-xl { font-family:var(--f-serif); font-size:var(--h-xl); line-height:1.06; font-weight:700; letter-spacing:-.025em; }
 .h-l  { font-family:var(--f-serif); font-size:var(--h-l);  line-height:1.1;  font-weight:700; letter-spacing:-.02em; }
@@ -119,7 +119,7 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 .hcw-card-body { padding:8px 10px 10px; }
 .hcw-card-status { font-size:.6em; font-weight:600; padding:2px 7px; border-radius:20px; background:var(--violet-10); color:var(--violet); display:inline-block; margin-bottom:5px; }
 .hcw-card-status--green { background:#e6f9ed; color:#1a9e4a; }
-.hcw-card-status--orange { background:var(--sable)3ec; color:#E05A3A; }
+.hcw-card-status--orange { background:#FEE7D6; color:#E05A3A; }
 .hcw-card-title { font-size:.72em; font-weight:600; color:var(--ink); line-height:1.3; margin-bottom:6px; }
 .hcw-card-tags { display:flex; flex-direction:column; gap:6px; }
 .hcw-card-info { display:flex; align-items:center; gap:5px; font-size:.68em; color:var(--ink-60); }
@@ -159,6 +159,150 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
   .hcw-sugg { grid-template-columns: 1fr; }
 }
 
+/* PRICING TABLE */
+.pt-wrap { background: transparent; border-radius: 20px; padding: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.pt-table { width: 100%; border-collapse: separate; border-spacing: 28px 0; table-layout: fixed; }
+.pt-table th:first-child, .pt-table td:first-child { width: 160px; min-width: 160px; max-width: 160px; }
+.pt-table th, .pt-table td { padding: 22px 20px; text-align: center; }
+/* Left label column */
+.pt-table th:first-child { background: transparent; padding: 0; }
+.pt-table td:first-child { text-align: left; color: var(--ink); font-size: var(--t-s); font-weight: 600; background: #fff; border-bottom: 1px solid rgba(0,0,0,.05); padding-left: 24px; }
+.pt-table tbody tr:nth-child(2) td:first-child { border-radius: 12px 12px 0 0; }
+.pt-table tbody tr:last-child td:first-child { border-bottom: none; border-radius: 0 0 12px 12px; }
+/* Plan column headers */
+.pt-head { background: var(--violet); color: #fff; font-family: var(--f-sans); font-size: 1.35rem; font-weight: 700; letter-spacing: -.01em; border-radius: 14px 14px 0 0; padding: 20px; }
+/* Plan column body cells */
+.pt-table tbody td:nth-child(n+2) { background: #fff; border-bottom: 1px solid rgba(110,91,255,.08); }
+.pt-table tbody tr:last-child td:nth-child(n+2) { border-bottom: none; border-radius: 0 0 14px 14px; }
+/* Shared */
+.pt-price { font-style: italic; color: var(--ink-60); font-size: var(--t-s); }
+.pt-price strong { font-style: normal; }
+.pt-icon-yes { display: inline-flex; align-items: center; justify-content: center; }
+.pt-icon-yes svg { width: 16px; height: 16px; color: var(--violet); stroke-width: 2.5; }
+.pt-icon-no { display: inline-flex; align-items: center; justify-content: center; }
+.pt-icon-no svg { width: 16px; height: 16px; color: rgba(110,91,255,.35); stroke-width: 2.5; }
+.pt-val { font-size: var(--t-s); color: var(--ink-60); }
+
+/* FAQ */
+.faq { display: grid; grid-template-columns: 320px 1fr; gap: 80px; padding: 80px 0; align-items: start; }
+.faq-list { display: flex; flex-direction: column; }
+.faq-item { border-bottom: 1px solid rgba(44,46,77,.1); }
+.faq-item summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 0; cursor: pointer; font-size: var(--t-m); font-weight: 600; color: var(--ink); }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary .faq-chevron { flex-shrink: 0; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; transition: transform .3s; }
+.faq-item[open] summary .faq-chevron { transform: rotate(180deg); }
+.faq-body { padding: 0 0 22px; font-size: var(--t-s); color: var(--ink-60); line-height: 1.75; max-width: 620px; }
+@media (max-width: 768px) {
+  .faq { grid-template-columns: 1fr; gap: 32px; padding: 48px 0; }
+  .cnt-2cards { grid-template-columns: 1fr; }
+  .pt-table { min-width: 600px; }
+  .f-row { grid-template-columns: 1fr; }
+}
+
+/* CONTACT */
+.cnt-2cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; }
+.cnt-2cards > div { display: flex; flex-direction: column; }
+.contact-avatar { width: 80px; height: 80px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
+.hello-icon { width: 48px; height: 48px; border-radius: 50%; background: var(--violet-10); display: flex; align-items: center; justify-content: center; color: var(--violet); flex-shrink: 0; animation: hello-bounce 2s ease-in-out infinite; }
+@keyframes hello-bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.form { display: flex; flex-direction: column; gap: 14px; }
+.f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.f { display: flex; flex-direction: column; gap: 6px; }
+.f input, .f select, .f textarea { padding: 12px 16px; border: 1px solid var(--ink-14); border-radius: 10px; font-family: var(--f-sans); font-size: var(--t-s); color: var(--ink); background: #fff; outline: none; transition: border-color .2s; appearance: none; -webkit-appearance: none; }
+.f input:focus, .f select:focus, .f textarea:focus { border-color: var(--violet); }
+.f textarea { resize: vertical; min-height: 110px; }
+.csel { position: relative; }
+.csel-trigger { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border: 1px solid var(--ink-14); border-radius: 10px; font-family: var(--f-sans); font-size: var(--t-s); color: var(--ink); background: #fff; cursor: pointer; transition: border-color .2s; }
+.csel-trigger:hover, .csel.open .csel-trigger { border-color: var(--violet); }
+.csel-val { color: var(--ink-60); }
+.csel-val.selected { color: var(--ink); }
+.csel-drop { display: none; position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #fff; border: 1px solid var(--ink-14); border-radius: 12px; box-shadow: 0 12px 32px -8px rgba(44,46,77,.12); z-index: 100; overflow: hidden; }
+.csel.open .csel-drop { display: block; }
+.csel-opt { padding: 14px 16px; cursor: pointer; display: flex; flex-direction: column; gap: 2px; border-bottom: 1px solid var(--ink-08); transition: background .15s; }
+.csel-opt:last-child { border-bottom: none; }
+.csel-opt:hover { background: var(--violet-10); }
+.csel-opt strong { font-size: var(--t-s); font-weight: 600; color: var(--violet); }
+.csel-opt span { font-size: var(--t-xs); color: var(--ink-60); }
+
+/* HNOTIF ANIMATION */
+.hnotify-img-wrap { border-radius: 20px; overflow: hidden; position: relative; aspect-ratio: 1/1; }
+.hnotify-img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+.hnotif-group { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); display: flex; flex-direction: column; align-items: flex-start; gap: 12px; width: max-content; max-width: calc(100% - 32px); }
+.hnotif-card { background: #fff; border-radius: 14px; padding: 14px 18px; box-shadow: 0 12px 40px rgba(0,0,0,.18); opacity: 0; transform: translateY(14px); transition: opacity .4s ease, transform .4s ease; }
+.hnotif-card--show { opacity: 1 !important; transform: translateY(0) !important; }
+.hnotif-card--3 { width: fit-content; padding: 10px 18px; border-radius: 999px; background: #1a9e4a; }
+.hnotif-card--1 { min-width:300px; }
+.hnotif-card--2 { min-width:300px; }
+.hnotif-card--3 .hnotif-row { gap: 8px; }
+.hnotif-card--3 .hnotif-name { color: #fff; font-size: var(--t-xs); font-weight: 700; letter-spacing: .03em; }
+.hnotif-card--3 .hnotif-icon--check { width: 20px; height: 20px; color: #fff; display: flex; align-items: center; justify-content: center; }
+.hnotif-row { display: flex; align-items: center; gap: 12px; }
+.hnotif-icon { width: 38px; height: 38px; flex-shrink: 0; background: var(--violet-10); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--violet); }
+.hnotif-icon--green { background: #e6f9ee; color: #1a9e4a; }
+.hnotif-player { margin-top:10px; padding-top:10px; border-top:0.5px solid rgba(0,0,0,.07); }
+.hnotif-player-row { display:flex; align-items:center; gap:8px; }
+.hnotif-player-time { font-size:10px; color:#999; font-variant-numeric:tabular-nums; }
+.hnotif-player-bar { flex:1; height:4px; background:#e0e0e0; border-radius:2px; position:relative; }
+.hnotif-player-fill { height:100%; background:#1a9e4a; border-radius:2px; }
+.hnotif-player-thumb { position:absolute; top:50%; transform:translate(-50%,-50%); width:12px; height:12px; background:#1a9e4a; border-radius:50%; }
+.hnotif-name { font-size: var(--t-s); font-weight: 600; color: var(--ink); }
+.hnotif-sub { font-size: var(--t-xs); color: var(--ink-60); margin-top: 2px; }
+@keyframes nest-wave-kf { 0%,100%{transform:scale(1)} 50%{transform:scale(1.03)} }
+.nest-wave { animation: nest-wave-kf .7s ease; }
+@keyframes nest-wave-green-kf { 0%,100%{transform:scale(1)} 50%{transform:scale(1.12)} }
+.nest-wave-green { animation: nest-wave-green-kf .7s ease; }
+
+/* ORBIT */
+.orbit-card { background: var(--sable); border-radius: 20px; padding: 72px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; overflow: hidden; position: relative; }
+.orbit-card::before { content:''; position:absolute; inset:0; background:url('images/fond_orbit_nest.jpeg') center/cover no-repeat; z-index:0; }
+.orbit-card::after { content:''; position:absolute; inset:0; background:linear-gradient(135deg, rgba(255,234,213,1) 0%, rgba(255,234,213,1) 33%, rgba(255,234,213,.60) 100%); z-index:1; }
+.orbit-card > * { position:relative; z-index:2; }
+.orbit-stage { position: relative; width: 420px; height: 420px; margin: 0 auto; flex-shrink: 0; }
+.orbit-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 80px; height: 80px; border-radius: 50%; background: var(--violet); display: flex; align-items: center; justify-content: center; z-index: 1; animation: orbit-breathe 3s ease-in-out infinite; }
+@keyframes orbit-breathe {
+  0%, 100% { box-shadow: 0 0 0 14px rgba(110,91,255,.20), 0 0 0 32px rgba(110,91,255,.10), 0 0 0 60px rgba(110,91,255,.05), 0 0 0 100px rgba(110,91,255,.02); }
+  50%       { box-shadow: 0 0 0 22px rgba(110,91,255,.16), 0 0 0 50px rgba(110,91,255,.08), 0 0 0 88px rgba(110,91,255,.04), 0 0 0 130px rgba(110,91,255,.01); }
+}
+.oi { position: absolute; top: 50%; left: 50%; width: 52px; height: 52px; margin: -26px 0 0 -26px; z-index: 4; }
+.oi-inner { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,.14); }
+.oi--1 { animation: oi1 24s linear infinite; }
+.oi--2 { animation: oi2 24s linear infinite; }
+.oi--3 { animation: oi3 24s linear infinite; }
+.oi--4 { animation: oi4 24s linear infinite; }
+.oi--5 { animation: oi5 24s linear infinite; }
+.oi--6 { animation: oi6 24s linear infinite; }
+.oi--7 { animation: oi7 24s linear infinite; }
+.oi--8 { animation: oi8 24s linear infinite; }
+@keyframes oi1 { from{transform:rotate(0deg)   translateX(170px) rotate(0deg);}   to{transform:rotate(360deg)  translateX(170px) rotate(-360deg);} }
+@keyframes oi2 { from{transform:rotate(45deg)  translateX(170px) rotate(-45deg);}  to{transform:rotate(405deg)  translateX(170px) rotate(-405deg);} }
+@keyframes oi3 { from{transform:rotate(90deg)  translateX(170px) rotate(-90deg);}  to{transform:rotate(450deg)  translateX(170px) rotate(-450deg);} }
+@keyframes oi4 { from{transform:rotate(135deg) translateX(170px) rotate(-135deg);} to{transform:rotate(495deg)  translateX(170px) rotate(-495deg);} }
+@keyframes oi5 { from{transform:rotate(180deg) translateX(170px) rotate(-180deg);} to{transform:rotate(540deg)  translateX(170px) rotate(-540deg);} }
+@keyframes oi6 { from{transform:rotate(225deg) translateX(170px) rotate(-225deg);} to{transform:rotate(585deg)  translateX(170px) rotate(-585deg);} }
+@keyframes oi7 { from{transform:rotate(270deg) translateX(170px) rotate(-270deg);} to{transform:rotate(630deg)  translateX(170px) rotate(-630deg);} }
+@keyframes oi8 { from{transform:rotate(315deg) translateX(170px) rotate(-315deg);} to{transform:rotate(675deg)  translateX(170px) rotate(-675deg);} }
+@media (max-width: 768px) { .orbit-card { grid-template-columns: 1fr; gap: 40px; padding: 48px 32px; } .orbit-stage { width: 280px; height: 280px; } }
+
+/* EXPAND CARDS */
+.xsect { display: grid; grid-template-columns: 280px 1fr; gap: 60px; align-items: center; padding: 80px 0; }
+.xsect-cards { display: flex; gap: 12px; height: 480px; }
+.xcard { flex: 1; border-radius: 18px; overflow: hidden; position: relative; cursor: pointer; transition: flex .55s cubic-bezier(.4,0,.2,1); }
+.xcard:first-child { flex: 2.8; }
+.xcard:first-child .xcard-arrow { opacity: 1; transform: scale(1); }
+.xsect-cards:has(.xcard:hover) .xcard:first-child { flex: 1; }
+.xsect-cards:has(.xcard:hover) .xcard:first-child .xcard-arrow { opacity: 0; transform: scale(.7); }
+.xcard:hover { flex: 2.8; }
+.xsect-cards:has(.xcard:first-child:hover) .xcard:first-child { flex: 2.8; }
+.xsect-cards:has(.xcard:first-child:hover) .xcard:first-child .xcard-arrow { opacity: 1; transform: scale(1); }
+.xcard img, .xcard video { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .55s ease; }
+.xcard:hover img, .xcard:hover video { transform: scale(1.04); }
+.xcard::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,.08) 55%, transparent 100%); }
+.xcard-info { position: absolute; bottom: 22px; left: 22px; z-index: 1; }
+.xcard-name { color: #fff; font-size: var(--t-xs); font-weight: 700; letter-spacing: .01em; }
+.xcard-arrow { position: absolute; top: 18px; right: 18px; z-index: 1; width: 36px; height: 36px; background: rgba(255,255,255,.18); backdrop-filter: blur(6px); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; opacity: 0; transform: scale(.7); transition: opacity .35s, transform .35s; }
+.xcard:hover .xcard-arrow { opacity: 1; transform: scale(1); }
+@media (max-width: 768px) { .xsect { grid-template-columns: 1fr; gap: 28px; padding: 48px 0; } .xsect-cards { flex-direction: column; height: auto; gap: 8px; } }
+
 /* CAROUSEL */
 .caro-wrap { padding: 64px 0 52px; background: var(--sable); }
 .caro-track { display: flex; gap: 24px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 0 40px 0 0; cursor: grab; user-select: none; scrollbar-width: none; }
@@ -177,6 +321,32 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 .caro-dot { width: 8px; height: 8px; border-radius: 4px; background: rgba(44,46,77,.18); cursor: pointer; transition: background .3s, width .3s; flex-shrink: 0; }
 .caro-dot.active { background: var(--violet); width: 28px; }
 @media (max-width: 768px) { .caro-card { width: 78vw; min-width: 0; } }
+
+/* SECTEURS */
+.sec-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+.sec-item { padding: 32px; border-right: 1px solid var(--ink-08); border-bottom: 1px solid var(--ink-08); display: flex; flex-direction: column; gap: 12px; transition: background .2s; text-decoration: none; color: inherit; }
+.sec-item:nth-child(3n)        { border-right: none; }
+.sec-item:nth-last-child(-n+3) { border-bottom: none; }
+.sec-item:hover { background: var(--sable); }
+.sec-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--violet-10); display: flex; align-items: center; justify-content: center; }
+.sec-icon svg { width: 15px; height: 15px; color: var(--violet); }
+.sec-item h3 { font-size: var(--t-s); font-weight: 600; line-height: 1.35; }
+.sec-item p  { font-size: var(--t-xs); color: var(--ink-60); line-height: 1.6; }
+@media (max-width: 768px) { .sec-grid { grid-template-columns: 1fr; } }
+
+/* ICONE CARDS */
+.icard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.icard { border-radius: 14px; padding: 32px 28px; display: flex; flex-direction: column; gap: 14px; transition: transform .25s ease, box-shadow .25s ease; }
+.icard:hover { transform: translateY(-6px); box-shadow: none; }
+.icard:hover .icard-icon { background: var(--violet); }
+.icard:hover .icard-icon svg, .icard:hover .icard-icon i { color: #fff; opacity: 1; }
+.icard--sable { background: var(--sable); }
+.icard--violet { background: rgba(110,91,255,.08); }
+.icard-icon { width: 56px; height: 56px; border-radius: 12px; background: rgba(255,255,255,.65); display: flex; align-items: center; justify-content: center; transition: background .25s ease; }
+.icard-icon svg, .icard-icon i { width: 26px; height: 26px; color: var(--ink); opacity: .6; transition: color .25s ease, opacity .25s ease; }
+.icard h3 { font-family: var(--f-serif); font-size: 1.25rem; line-height: 1.25; font-weight: 700; }
+.icard p { font-size: var(--t-xs); color: var(--ink-60); line-height: 1.4; }
+@media (max-width: 768px) { .icard-grid { grid-template-columns: 1fr; } }
 
 /* FEAT LIST */
 .feat-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 80px; align-items: start; }
@@ -266,35 +436,89 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 <body>
 
 <!-- HERO -->
-<section class="px bg-sable" style="min-height:85vh;display:flex;align-items:center">
+<section class="px bg-sable" style="min-height:85vh;display:flex;align-items:center;padding-bottom:0">
   <div class="cnt">
     <div class="hnotify">
       <div class="hnotify-text">
-        <span class="hero-badge" style="margin-bottom:12px;color:var(--violet);background:var(--sable);letter-spacing:.25em;font-weight:600;font-size:var(--t-s)"><span style="display:inline-flex;animation:hello-bounce 2s ease-in-out infinite"><i data-lucide="compass" style="width:1.4em;height:1.4em;color:var(--violet);display:inline-flex"></i></span>NEST</span>
-        <h1 class="h-xl" style="margin-bottom:22px">Votre parcours découverte interactif</h1>
+        <span class="hero-badge" style="margin-bottom:12px;color:var(--violet);background:#fff;letter-spacing:.25em;font-weight:600;font-size:var(--t-s)"><span style="display:inline-flex;animation:hello-bounce 2s ease-in-out infinite"><i data-lucide="compass" style="width:1.4em;height:1.4em;color:var(--violet);display:inline-flex"></i></span>NEST</span>
+        <h1 class="h-xl" style="margin-bottom:22px;font-size:3.6rem">Votre parcours découverte interactif</h1>
         <p class="muted" style="font-size:var(--t-l);line-height:1.65;max-width:480px">Offrez à vos visiteurs une balade immersive : patrimoine vivant, archives animées par l'IA, étapes et carte sur smartphone.<br>Sans application. Sans infrastructure lourde.</p>
         <div class="hero-actions">
           <a href="#" class="btn btn-p">Demander une démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
           <a href="#" class="btn btn-g">Voir comment ça marche</a>
         </div>
-        <div class="hnotify-trust">
-          <i data-lucide="sparkles" style="width:15px;height:15px;flex-shrink:0"></i> Captive &nbsp;&nbsp;
-          <i data-lucide="send-to-back" style="width:15px;height:15px;flex-shrink:0"></i> Immerge &nbsp;&nbsp;
-          <i data-lucide="clapperboard" style="width:15px;height:15px;flex-shrink:0"></i> Raconte &nbsp;&nbsp;
-          <i data-lucide="flame" style="width:15px;height:15px;flex-shrink:0"></i> Inspire
-        </div>
       </div>
       <div class="hnotify-vis">
-        <div class="ulys-anim-wrap no-overlay" style="width:100%">
-          <img src="images/ulys_illu.png" alt="">
+        <div class="hnotify-img-wrap">
+          <img src="images/nest_illu.jpeg" alt="" class="hnotify-img">
+          <div class="hnotif-group">
+            <div class="hnotif-card hnotif-card--3" id="nest-c3">
+              <div class="hnotif-row">
+                <div class="hnotif-icon--check"><i data-lucide="map-pin" style="width:22px;height:22px;stroke-width:2"></i></div>
+                <div class="hnotif-name">Étape débloquée !</div>
+              </div>
+            </div>
+            <div class="hnotif-card hnotif-card--1" id="nest-c1">
+              <div class="hnotif-row">
+                <div class="hnotif-icon"><i data-lucide="castle" style="width:18px;height:18px;stroke-width:1.8"></i></div>
+                <div><div class="hnotif-name">Château du Duc</div><div class="hnotif-sub">Format audio et vidéo disponible</div></div>
+              </div>
+            </div>
+            <div class="hnotif-card hnotif-card--2" id="nest-c2">
+              <div class="hnotif-row">
+                <div class="hnotif-icon hnotif-icon--green"><i data-lucide="book-headphones" style="width:18px;height:18px;stroke-width:1.8"></i></div>
+                <div><div class="hnotif-name">Une bâtisse du XV° siècle</div><div class="hnotif-sub">Piste en cours · 02:37</div></div>
+              </div>
+              <div class="hnotif-player">
+                <div class="hnotif-player-row">
+                  <div id="nest-play-btn" style="width:22px;height:22px;border-radius:50%;background:#e6f9ee;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i data-lucide="play" id="nest-play-icon" style="width:12px;height:12px;stroke-width:2.5;color:#1a9e4a"></i></div>
+                  <span class="hnotif-player-time" id="nest-time">0:00</span>
+                  <div class="hnotif-player-bar">
+                    <div class="hnotif-player-fill" id="nest-fill" style="width:0%"></div>
+                    <div class="hnotif-player-thumb" id="nest-thumb" style="left:0%"></div>
+                  </div>
+                  <span class="hnotif-player-time">3:00</span>
+                  <i data-lucide="volume-2" style="width:14px;height:14px;stroke-width:2;color:#aaa;flex-shrink:0"></i>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ICONE CARDS — Fond sable — HERO -->
+<section class="px" style="background:var(--sable);padding-top:0;padding-bottom:48px">
+  <div class="cnt">
+    <div class="icard-grid" style="grid-template-columns:repeat(4,1fr)">
+      <div class="icard icard--sable">
+        <div class="icard-icon"><i data-lucide="castle" style="width:26px;height:26px;stroke-width:1.6"></i></div>
+        <h3 style="font-family:var(--f-sans);font-size:var(--t-s);font-weight:600;color:var(--violet)">Voyagez dans le temps</h3>
+        <p>Le passé reprend vie et les personnages d'époque réapparaissent dans vos décors.</p>
+      </div>
+      <div class="icard icard--sable">
+        <div class="icard-icon"><i data-lucide="qr-code" style="width:26px;height:26px;stroke-width:1.6"></i></div>
+        <h3 style="font-family:var(--f-sans);font-size:var(--t-s);font-weight:600;color:var(--violet)">Scannez, c'est parti</h3>
+        <p>Un QR code, l'étape se déclenche. Pas d'app, pas de matériel, rien à télécharger.</p>
+      </div>
+      <div class="icard icard--sable">
+        <div class="icard-icon"><i data-lucide="circle-play" style="width:26px;height:26px;stroke-width:1.6"></i></div>
+        <h3 style="font-family:var(--f-sans);font-size:var(--t-s);font-weight:600;color:var(--violet)">Surprenez à chaque arrêt</h3>
+        <p>Audio, vidéo, géolocalisation : à chaque étape une expérience et des souvenirs.</p>
+      </div>
+      <div class="icard icard--sable">
+        <div class="icard-icon"><i data-lucide="signpost-big" style="width:26px;height:26px;stroke-width:1.6"></i></div>
+        <h3 style="font-family:var(--f-sans);font-size:var(--t-s);font-weight:600;color:var(--violet)">Orientez les flux</h3>
+        <p>Le parcours passe devant le café, l'épicerie, l'atelier. Vos commerces font partie du voyage.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- TIMELINE -->
-<section class="py" style="overflow:hidden;background:var(--sable)">
+<section class="py" style="overflow:hidden;background:var(--sable);padding-top:24px;display:none">
 
   <div class="tl-wrap">
     <div class="cnt tl-row tl-row--top">
@@ -321,17 +545,16 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
     <div class="tl-svg-wrap">
       <svg class="tl-svg" viewBox="0 0 1200 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" overflow="visible">
         <defs>
+          <filter id="road-shadow" x="-5%" y="-20%" width="110%" height="200%">
+            <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="rgba(0,0,0,0.12)"/>
+          </filter>
           <linearGradient id="tl-grad-nest" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="rgba(176,216,122,0.9)"/>
-            <stop offset="100%" stop-color="rgba(176,216,122,0.9)"/>
+            <stop offset="0%" stop-color="#FFEAD5"/>
+            <stop offset="100%" stop-color="#FFEAD5"/>
           </linearGradient>
         </defs>
         <path d="M-400,80 C-200,80 -50,160 150,160 C260,160 340,80 450,80 C560,80 640,155 750,155 C860,155 940,70 1050,70 C1160,70 1350,155 1600,160 L1600,800 L-400,800 Z" fill="url(#tl-grad-nest)"/>
         <path id="road-path-nest" d="M-400,80 C-200,80 -50,160 150,160 C260,160 340,80 450,80 C560,80 640,155 750,155 C860,155 940,70 1050,70 C1160,70 1350,155 1600,160" fill="none" stroke="#ffffff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- Branches secondaires -->
-        <path d="M 290,131 C 295,148 370,145 440,132" fill="none" stroke="#ffffff" stroke-width="14" stroke-linecap="round"/>
-        <path d="M 880,112 C 870,78 825,78 792,94" fill="none" stroke="#ffffff" stroke-width="14" stroke-linecap="round"/>
-        <path d="M 1150,84 C 1250,42 1400,-10 1600,-35" fill="none" stroke="#ffffff" stroke-width="14" stroke-linecap="round"/>
         <g>
           <animateMotion dur="10s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
             <mpath href="#road-path-nest"/>
@@ -370,7 +593,7 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 
   <!-- Titre centré dans la zone verte -->
   <div class="cnt px" style="text-align:center;padding-top:120px;padding-bottom:0;margin-bottom:-40px">
-    <p style="color:#fff;font-size:1.4rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px">Votre territoire a une histoire</p>
+    <p style="color:var(--violet);font-size:1.4rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px">Votre territoire a une histoire</p>
     <h2 style="font-family:var(--f-serif);font-size:calc(var(--h-l) * 1.15);font-weight:700;line-height:1.1;letter-spacing:-.02em;color:var(--ink)">Vos visiteurs veulent la vivre !</h2>
   </div>
 
@@ -401,7 +624,7 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 </section>
 
 <!-- GALERIE PHOTOS -->
-<section class="px py" style="background:linear-gradient(to bottom, #B8DA83 100px, #ffffff 100px);padding-top:40px;position:relative;overflow:hidden;padding-bottom:48px">
+<section class="px" style="padding-top:0;padding-bottom:64px;background:linear-gradient(to bottom, #FFEAD5 70px, #fff 70px)">
   <div class="cnt">
     <div class="photo-mosaic">
       <div class="photo-mosaic__left">
@@ -410,16 +633,16 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
         </div>
         <div class="photo-mosaic__left-bottom">
           <div class="photo-block" style="height:220px">
-            <img src="images/nest-4.jpg" alt="" style="object-position:bottom">
+            <img src="images/nest-3.jpeg" alt="">
           </div>
           <div class="photo-block" style="height:220px">
-            <img src="images/nest-3.jpeg" alt="">
+            <img src="images/nest-4.jpeg" alt="">
           </div>
         </div>
       </div>
       <div class="photo-mosaic__right">
         <div class="photo-block">
-          <img src="images/nest-1.jpg" alt="">
+          <img src="images/nest-7.jpeg" alt="">
         </div>
         <div class="photo-block" style="background:url('images/nest-2.jpg') center bottom/cover no-repeat"></div>
       </div>
@@ -428,13 +651,13 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 </section>
 
 <!-- FEATURES LIST -->
-<section class="px py">
+<section class="px py" style="padding-bottom:100px">
   <div class="cnt">
     <div class="feat-grid">
       <div>
         <p class="eyebrow mb-xs">Le parcours en pratique</p>
         <h2 class="h-l" style="margin-bottom:20px">Du totem à la dernière étape : une balade guidée par le digital</h2>
-        <p class="muted" style="font-size:var(--t-m);line-height:1.7">Deux façons de vivre le parcours : suivre le fil étape par étape, ou se balader librement et scanner les arrêts qui attirent.</p>
+        <p class="muted" style="font-size:var(--t-m);line-height:1.7">Deux façons de vivre le parcours : suivre le fil des étapes, ou se balader librement et scanner les arrêts qui attirent.</p>
       </div>
       <div class="feat-list">
         <div class="feat-item">
@@ -459,15 +682,15 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 </section>
 
 <!-- CAROUSEL -->
-<section class="px" style="background:var(--sable);padding-bottom:16px">
+<section class="px" style="background:var(--sable);padding-top:120px;padding-bottom:16px">
   <div class="cnt">
     <p class="eyebrow mb-xs">Votre territoire enrichi par le digital</p>
     <h2 class="h-l">Transformez votre patrimoine en attraction vivante</h2>
     <p style="margin-top:16px;font-size:var(--t-m);line-height:1.7;color:var(--ink-60);max-width:640px">Votre territoire a des histoires qui méritent d'être vécues.<br>Nous les mettons en mouvement pour que chaque visiteur reparte avec une expérience et des souvenirs uniques.</p>
   </div>
 </section>
-<section style="background:var(--sable);padding-left:40px;overflow:visible">
-  <div class="caro-wrap" style="padding-top:24px">
+<section style="background:var(--sable);padding-left:var(--px);overflow:visible">
+  <div class="caro-wrap" style="padding-top:64px;padding-bottom:80px">
     <div class="caro-track" id="caroTrack">
       <div class="caro-card">
         <div class="caro-card-text">
@@ -491,7 +714,7 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
           <h3>Personnages d'époque incrustés</h3>
           <p>Des personnages historiques ou locaux surgissent dans les décors actuels pour contextualiser le lieu et ancrer le visiteur dans le temps.</p>
         </div>
-        <div class="caro-card-img"><img src="images/nest-3.jpeg" alt=""></div>
+        <div class="caro-card-img"><video autoplay muted loop playsinline preload="none" style="width:100%;height:100%;object-fit:cover;pointer-events:none"><source src="images/nest_carousel_3.mp4" type="video/mp4"></video></div>
       </div>
       <div class="caro-card">
         <div class="caro-card-text">
@@ -499,7 +722,7 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
           <h3>Narration audio et vidéo</h3>
           <p>Chaque étape s'accompagne d'une voix, d'ambiance sonore d'époque, de témoignages, d'un plan ou d'un épisode vidéo dédié.</p>
         </div>
-        <div class="caro-card-img"><img src="images/nest-4.jpg" alt=""></div>
+        <div class="caro-card-img"><video autoplay muted loop playsinline preload="none" style="width:100%;height:100%;object-fit:cover;pointer-events:none"><source src="images/nest_carousel_4.mp4" type="video/mp4"></video></div>
       </div>
       <div class="caro-card">
         <div class="caro-card-text">
@@ -507,7 +730,7 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
           <h3>Carte interactive & valorisation des acteurs locaux</h3>
           <p>Le visiteur suit sa progression sur une carte en temps réel. Chaque étape met en lumière votre patrimoine mais aussi valorise vos acteurs locaux.</p>
         </div>
-        <div class="caro-card-img"><img src="images/nest-5.jpg" alt=""></div>
+        <div class="caro-card-img"><video autoplay muted loop playsinline preload="none" style="width:100%;height:100%;object-fit:cover;pointer-events:none"><source src="images/nest_carousel_5.mp4" type="video/mp4"></video></div>
       </div>
     </div>
     <div class="caro-footer" id="caroDots">
@@ -520,48 +743,154 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
   </div>
 </section>
 
-<!-- BENTO — Fond blanc · Cards sable -->
-<section class="px py">
-  <div class="cnt--m">
-    <div class="bento-header">
-      <h2 class="h-l">Chaque étape devient une expérience mémorable</h2>
-      <p>NEST transforme chaque point d'intérêt en contenu vivant — audio, vidéo, archives animées.</p>
-    </div>
-    <div class="bento-grid">
-      <div class="bento-card bento-card--wide">
-        <h3>Parcours sur mesure</h3>
-        <p>Créez des itinéraires thématiques adaptés à chaque public : familles, randonneurs, passionnés d'histoire — chaque parcours raconte une histoire différente.</p>
+<!-- ICONE CARDS — Fond sable -->
+<section class="px py" style="padding-top:100px">
+  <div class="cnt">
+    <p class="eyebrow mb-xs">Pourquoi NEST</p>
+    <h2 class="h-l" style="margin-bottom:var(--sp-s)">Créez du trafic et du lien</h2>
+    <div class="icard-grid">
+      <div class="icard icard--sable">
+        <div class="icard-icon"><i data-lucide="route" style="width:26px;height:26px;stroke-width:1.6"></i></div>
+        <h3>Créer une nouvelle attraction sans infrastructure lourde</h3>
+        <p>Pas de bornes, pas de matériel, pas d'application. Un totem de départ, des QR codes positionnés sur vos supports, et le parcours est en ligne en quelques jours.</p>
       </div>
-      <div class="bento-card">
-        <h3>Guide audio intégré</h3>
-        <p>Des voix professionnelles ou synthétiques pour narrer chaque étape, disponibles en plusieurs langues.</p>
+      <div class="icard icard--sable">
+        <div class="icard-icon"><i data-lucide="shopping-basket" style="width:26px;height:26px;stroke-width:1.6"></i></div>
+        <h3>Dynamiser les flux vers vos commerces locaux</h3>
+        <p>Les étapes sont conçues pour faire traverser le village, passer devant l'épicerie et la terrasse du café. Chaque commerçant devient une étape à part entière, avec sa propre histoire.</p>
       </div>
-      <div class="bento-card">
-        <h3>QR codes intelligents</h3>
-        <p>Placés sur le terrain, ils déclenchent le bon contenu au bon endroit — sans application à télécharger.</p>
-      </div>
-      <div class="bento-card">
-        <h3>Contenus enrichis</h3>
-        <p>Photos d'archives, vidéos courtes, anecdotes locales — chaque stop devient un moment de découverte.</p>
-      </div>
-      <div class="bento-card">
-        <h3>Statistiques de visite</h3>
-        <p>Suivez quels stops captivent le plus, combien de temps les visiteurs s'y attardent et optimisez vos parcours.</p>
+      <div class="icard icard--sable">
+        <div class="icard-icon"><i data-lucide="hand-heart" style="width:26px;height:26px;stroke-width:1.6"></i></div>
+        <h3>Valoriser le patrimoine que vous voulez préserver</h3>
+        <p>Un projet de restauration patrimoniale ? Intègrez une étape de don directement dans le parcours. Le visiteur contribue directement devant le lieu concerné.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 2 COLONNES TEXTE + VISUEL — fond sable -->
-<section class="px py bg-sable">
+<!-- PANORAMA -->
+<section class="px">
   <div class="cnt">
-    <div class="twocol">
-      <div class="vis"><span>Photo terrain</span></div>
+    <div style="border-radius:16px;overflow:hidden;">
+      <img src="images/nest_panorama_2.jpg" alt="" style="width:100%;height:auto;display:block;">
+    </div>
+  </div>
+</section>
+
+<!-- SECTEURS -->
+<section class="px" style="padding-top:40px;padding-bottom:80px">
+  <div class="cnt">
+    <p class="eyebrow mb-xs">Des formats qui captivent</p>
+    <h2 class="h-l" style="margin-bottom:12px">Des formats et fonctionnalités qui captivent</h2>
+    <p class="muted" style="font-size:var(--t-m);line-height:1.7;margin-bottom:var(--sp-s)">De la découverte sur place à l'expérience en ligne, votre parcours peut être aussi simple ou aussi riche que vous le souhaitez.</p>
+    <div class="sec-grid">
+      <a href="#" class="sec-item">
+        <div class="sec-icon"><i data-lucide="mic" style="width:15px;height:15px"></i></div>
+        <h3>Voix locale</h3>
+        <p>L'édito final lu par le maire ou un acteur du village, pour conclure sur une note personnelle.</p>
+      </a>
+      <a href="#" class="sec-item">
+        <div class="sec-icon"><i data-lucide="heart" style="width:15px;height:15px"></i></div>
+        <h3>Mur du souvenir</h3>
+        <p>Les habitants partagent leurs anecdotes sur une timeline collaborative en fin de parcours.</p>
+      </a>
+      <a href="#" class="sec-item">
+        <div class="sec-icon"><i data-lucide="package-search" style="width:15px;height:15px"></i></div>
+        <h3>Produits locaux</h3>
+        <p>Mise en avant dans la balade et aussi en point d'entrée qui ouvre la fiche du producteur.</p>
+      </a>
+      <a href="#" class="sec-item">
+        <div class="sec-icon"><i data-lucide="shopping-cart" style="width:15px;height:15px"></i></div>
+        <h3>Sponsoring d'étape</h3>
+        <p>Un acteur local parraine une étape et gagne en visibilité auprès de chaque visiteur.</p>
+      </a>
+      <a href="#" class="sec-item">
+        <div class="sec-icon"><i data-lucide="map" style="width:15px;height:15px"></i></div>
+        <h3>Format papier</h3>
+        <p>Brochure de la balade, carte papier, QR autocollants : tout le parcours en version print.</p>
+      </a>
+      <a href="#" class="sec-item">
+        <div class="sec-icon"><i data-lucide="palette" style="width:15px;height:15px"></i></div>
+        <h3>Habillage et mobilier</h3>
+        <p>Personnages historiques ou faune découpés en métal ou bois, installés au fil des étapes.</p>
+      </a>
+      <a href="#" class="sec-item">
+        <div class="sec-icon"><i data-lucide="switch-camera" style="width:15px;height:15px"></i></div>
+        <h3>Spot photo</h3>
+        <p>Un point selfie qui marque le territoire : chaque photo partagée fait voyager votre destination.</p>
+      </a>
+      <a href="#" class="sec-item">
+        <div class="sec-icon"><i data-lucide="languages" style="width:15px;height:15px"></i></div>
+        <h3>Multilingue</h3>
+        <p>Narration générée par IA : chaque étape se décline dans la langue de votre choix.</p>
+      </a>
+      <a href="#" class="sec-item">
+        <div class="sec-icon"><i data-lucide="file-search" style="width:15px;height:15px"></i></div>
+        <h3>Rapport annuel</h3>
+        <p>Fréquentation, étapes préférées : votre parcours en un coup d'œil.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- EXPAND CARDS — Secteurs hover -->
+<section class="px" style="background:#fff">
+  <div class="cnt">
+    <div class="xsect">
       <div>
-        <p class="eyebrow mb-xs">Expérience interactive</p>
-        <h2 class="h-l" style="margin-bottom:20px">Donnez vie à votre territoire, stop par stop.</h2>
-        <p class="muted" style="font-size:var(--t-m);line-height:1.7">NEST transforme votre destination en parcours découverte immersif. Audio, vidéo, archives animées — aucune application à télécharger.</p>
-        <a href="#" class="btn btn-p" style="margin-top:28px">Découvrir NEST <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+        <p class="eyebrow mb-xs">Destinations</p>
+        <h2 class="h-l">Un parcours sur-mesure pour chaque territoire</h2>
+      </div>
+      <div class="xsect-cards">
+        <div class="xcard">
+          <img src="images/nest_cards_1.jpg" alt="Communes">
+          <div class="xcard-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17 17 7M7 7h10v10"/></svg></div>
+          <div class="xcard-info"><div class="xcard-name">Communes</div></div>
+        </div>
+        <div class="xcard">
+          <img src="images/nest_cards_2.jpeg" alt="Patrimoines">
+          <div class="xcard-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17 17 7M7 7h10v10"/></svg></div>
+          <div class="xcard-info"><div class="xcard-name">Patrimoines</div></div>
+        </div>
+        <div class="xcard">
+          <img src="images/nest_cards_3.jpg" alt="Sites naturels">
+          <div class="xcard-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17 17 7M7 7h10v10"/></svg></div>
+          <div class="xcard-info"><div class="xcard-name">Sites naturels</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORBIT -->
+<section class="px" style="padding-top:140px;padding-bottom:40px">
+  <div class="cnt" style="text-align:center;margin-bottom:48px">
+    <h2 class="h-l" style="color:var(--violet)">Vous avez une histoire, nous avons le parcours.</h2>
+    <p class="muted" style="font-size:var(--t-m);margin-top:10px">Réunissez le physique et le digital pour que chaque balade devienne une expérience inoubliable.</p>
+  </div>
+  <div class="cnt">
+    <div class="orbit-card">
+      <div>
+        <p class="eyebrow mb-xs"><i data-lucide="qr-code" style="width:13px;height:13px;display:inline-block;vertical-align:middle;margin-right:4px"></i> QR codes &nbsp;&nbsp;&nbsp; <i data-lucide="signpost-big" style="width:13px;height:13px;display:inline-block;vertical-align:middle;margin-right:4px"></i> Totem de départ &nbsp;&nbsp;&nbsp; <i data-lucide="wifi" style="width:13px;height:13px;display:inline-block;vertical-align:middle;margin-right:4px"></i> 100 % en ligne</p>
+        <h2 class="h-l" style="margin-bottom:20px">Une balade immersive pour tous les âges</h2>
+        <p style="font-size:var(--t-m);color:var(--ink-60);line-height:1.7;margin-bottom:32px">Offrez à vos visiteurs une balade immersive : patrimoine vivant, archives animées par l'IA, étapes sur smartphone. Sans infrastructure . Sans application . Sans effort de votre côté .</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:32px">
+          <a href="#" class="btn btn-p"><i data-lucide="monitor-smartphone" style="width:16px;height:16px;stroke-width:2;flex-shrink:0"></i> Tester en live</a>
+          <a href="#" class="btn" style="background:#fff;color:var(--ink);border:1px solid var(--ink-14)"><i data-lucide="mail" style="width:16px;height:16px;stroke-width:2;flex-shrink:0"></i> Plus d'info</a>
+        </div>
+      </div>
+      <div class="orbit-stage">
+        <div class="orbit-center">
+          <i data-lucide="map-pin" style="width:32px;height:32px;color:#fff;stroke-width:1.6"></i>
+        </div>
+        <div class="oi oi--1"><div class="oi-inner" style="background:#fff;color:var(--violet)"><i data-lucide="castle" style="width:20px;height:20px;stroke-width:1.5"></i></div></div>
+        <div class="oi oi--2"><div class="oi-inner" style="background:#fff;color:var(--violet)"><i data-lucide="coffee" style="width:20px;height:20px;stroke-width:1.5"></i></div></div>
+        <div class="oi oi--3"><div class="oi-inner" style="background:#fff;color:var(--violet)"><i data-lucide="trees" style="width:20px;height:20px;stroke-width:1.5"></i></div></div>
+        <div class="oi oi--4"><div class="oi-inner" style="background:#fff;color:var(--violet)"><i data-lucide="chess-rook" style="width:20px;height:20px;stroke-width:1.5"></i></div></div>
+        <div class="oi oi--5"><div class="oi-inner" style="background:#fff;color:var(--violet)"><i data-lucide="shopping-basket" style="width:20px;height:20px;stroke-width:1.5"></i></div></div>
+        <div class="oi oi--6"><div class="oi-inner" style="background:#fff;color:var(--violet)"><i data-lucide="landmark" style="width:20px;height:20px;stroke-width:1.5"></i></div></div>
+        <div class="oi oi--7"><div class="oi-inner" style="background:#fff;color:var(--violet)"><i data-lucide="bike" style="width:20px;height:20px;stroke-width:1.5"></i></div></div>
+        <div class="oi oi--8"><div class="oi-inner" style="background:#fff;color:var(--violet)"><i data-lucide="church" style="width:20px;height:20px;stroke-width:1.5"></i></div></div>
       </div>
     </div>
   </div>
@@ -608,10 +937,349 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 })();
 </script>
 
+<!-- ICONE CARDS — Cards violet clair -->
+<section class="px py">
+  <div class="cnt">
+    <p class="eyebrow mb-xs">Comment ça marche ?</p>
+    <h2 class="h-l" style="margin-bottom:var(--sp-s)">Vous transmettez vos contenus et validez à chaque étape.<br>On s'occupe du reste.</h2>
+    <div class="icard-grid">
+      <div class="icard icard--violet">
+        <div class="icard-icon"><i data-lucide="inbox" style="width:26px;height:26px;stroke-width:1.6"></i></div>
+        <h3>Brief &amp; collecte</h3>
+        <p>Vous nous transmettez vos contenus existants — textes, photos, archives, témoignages. Un atelier de cadrage définit ensemble le fil conducteur, les étapes clés et le ton du parcours.</p>
+      </div>
+      <div class="icard icard--violet">
+        <div class="icard-icon"><i data-lucide="pencil-ruler" style="width:26px;height:26px;stroke-width:1.6"></i></div>
+        <h3>Création &amp; production</h3>
+        <p>On prend en charge toute la fabrication : rédaction, narration audio, montage vidéo, cartographie, QR codes et totems. Vous suivez l'avancée et vous gardez la main à tout moment.</p>
+      </div>
+      <div class="icard icard--violet">
+        <div class="icard-icon"><i data-lucide="check-circle" style="width:26px;height:26px;stroke-width:1.6"></i></div>
+        <h3>Validation &amp; installation</h3>
+        <p>Vous relisez, vous validez, on ajuste si besoin. On installe les totems et les supports, on met la carte en ligne. Le parcours est prêt à accueillir vos premiers visiteurs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="px" style="background:#fff">
+  <div class="cnt">
+    <div class="faq">
+      <div>
+        <p class="eyebrow mb-xs">Aller plus loin</p>
+        <h2 class="h-l">Questions fréquentes</h2>
+      </div>
+      <div class="faq-list">
+
+        <details class="faq-item" open>
+          <summary>
+            Faut-il télécharger une application ?
+            <span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="faq-body">Non. Le parcours s'ouvre directement dans le navigateur du téléphone, déclenché par un simple scan de QR code. Rien à installer, aucun compte à créer : le visiteur scanne, le contenu s'affiche.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            Combien de temps faut-il pour déployer un parcours ?
+            <span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="faq-body">Comptez entre 4 et 8 semaines, selon la complexité du parcours et le volume de contenus à produire. Du premier atelier de cadrage à la mise en ligne, Odyssey prend en charge toute la production : vous validez à chaque étape.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            Nous avons déjà des panneaux en place, faut-il tout refaire ?
+            <span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="faq-body">Non. Un simple autocollant QR code posé sur vos supports existants suffit. Vos panneaux, totems et cartels restent en place : NEST vient les enrichir, pas les remplacer.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            Nous travaillons déjà avec un prestataire de mobilier urbain.
+            <span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="faq-body">Aucun problème. Nous produisons les visuels et les contenus, vous gérez l'installation avec votre prestataire habituel. Et si vous préférez, Odyssey prend en charge la fabrication et la pose.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            Nous préférons enregistrer les voix nous-mêmes, sans IA.
+            <span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="faq-body">C'est tout à fait possible. Voix générées, voix enregistrées par vos équipes ou production audio complète par Odyssey : nous nous adaptons à votre choix, étape par étape.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            Nous avons déjà du contenu : textes, photos, archives.
+            <span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="faq-body">Parfait, c'est souvent le meilleur point de départ. Nous intégrons tout l'existant et le mettons en valeur. Au besoin, nous complétons avec de la production sur-mesure.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            Les contenus sont-ils modifiables après la mise en ligne ?
+            <span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="faq-body">Oui. Les QR codes sont dynamiques : le contenu de chaque étape reste éditable à tout moment, sans jamais toucher aux supports physiques déjà installés.</div>
+        </details>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING TABLE -->
+<section class="px py" style="background:rgba(110,91,255,.07)">
+  <div class="cnt">
+    <div style="text-align:center;margin-bottom:48px">
+      <p class="eyebrow" style="margin-bottom:8px">Tarifs</p>
+      <h2 class="h-l" style="margin-bottom:12px">Des tarifs adaptés à votre budget</h2>
+      <p class="muted" style="font-size:var(--t-s)">Pas de surprise, pas de coût caché.</p>
+    </div>
+    <div class="pt-wrap">
+      <table class="pt-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="pt-head">Parcours</th>
+            <th class="pt-head">Voyage</th>
+            <th class="pt-head">Odyssée</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:0;border:none;background:transparent"></td>
+            <td class="pt-price">À partir de 1 890 € HT</td>
+            <td class="pt-price">À partir de 3 890 € HT</td>
+            <td class="pt-price">Sur devis</td>
+          </tr>
+          <tr>
+            <td><i data-lucide="map" style="width:18px;height:18px;vertical-align:middle;margin-right:8px;color:var(--violet)"></i>Carte</td>
+            <td><span class="pt-icon-yes"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span></td>
+            <td><span class="pt-icon-yes"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span></td>
+            <td><span class="pt-icon-yes"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span></td>
+          </tr>
+          <tr>
+            <td><i data-lucide="text-cursor-input" style="width:18px;height:18px;vertical-align:middle;margin-right:8px;color:var(--violet)"></i>Texte</td>
+            <td><span class="pt-icon-yes"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span></td>
+            <td><span class="pt-icon-yes"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span></td>
+            <td><span class="pt-icon-yes"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span></td>
+          </tr>
+          <tr>
+            <td><i data-lucide="headphones" style="width:18px;height:18px;vertical-align:middle;margin-right:8px;color:var(--violet)"></i>Audio</td>
+            <td><span class="pt-icon-no"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round"><line x1="2" y1="6" x2="10" y2="6"/></svg></span></td>
+            <td><span class="pt-icon-yes"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span></td>
+            <td><span class="pt-icon-yes"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span></td>
+          </tr>
+          <tr>
+            <td><i data-lucide="video" style="width:18px;height:18px;vertical-align:middle;margin-right:8px;color:var(--violet)"></i>Vidéo</td>
+            <td><span class="pt-icon-no"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round"><line x1="2" y1="6" x2="10" y2="6"/></svg></span></td>
+            <td><span class="pt-icon-no"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round"><line x1="2" y1="6" x2="10" y2="6"/></svg></span></td>
+            <td><span class="pt-icon-yes"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span></td>
+          </tr>
+          <tr>
+            <td><i data-lucide="map-pin" style="width:18px;height:18px;vertical-align:middle;margin-right:8px;color:var(--violet)"></i>Étapes</td>
+            <td class="pt-val">Jusqu'à 10</td>
+            <td class="pt-val">Jusqu'à 20</td>
+            <td class="pt-val">Au-delà de 20</td>
+          </tr>
+          <tr>
+            <td><i data-lucide="signpost-big" style="width:18px;height:18px;vertical-align:middle;margin-right:8px;color:var(--violet)"></i>Totem</td>
+            <td class="pt-val">1</td>
+            <td class="pt-val">2</td>
+            <td class="pt-val">3 et plus</td>
+          </tr>
+          <tr>
+            <td><i data-lucide="qr-code" style="width:18px;height:18px;vertical-align:middle;margin-right:8px;color:var(--violet)"></i>QR codes</td>
+            <td class="pt-val">PVC</td>
+            <td class="pt-val">PVC</td>
+            <td class="pt-val">PVC, bois ou métal</td>
+          </tr>
+          <tr>
+            <td><i data-lucide="languages" style="width:18px;height:18px;vertical-align:middle;margin-right:8px;color:var(--violet)"></i>Langues</td>
+            <td class="pt-val">Français</td>
+            <td class="pt-val">Français + 1 langue</td>
+            <td class="pt-val">Français + 2 langues et plus</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="px py">
+  <div class="cnt">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+      <div class="hello-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="24" height="24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><circle cx="8" cy="11" r=".8" fill="currentColor"/><circle cx="12" cy="11" r=".8" fill="currentColor"/><circle cx="16" cy="11" r=".8" fill="currentColor"/></svg></div>
+      <h2 class="h-l" style="margin:0">Hello ! On discute ?</h2>
+    </div>
+    <p class="muted" style="font-size:var(--t-l);line-height:1.7;max-width:600px;margin-bottom:var(--sp-s)">Méthodologie, durée, tarifs...</p>
+
+    <div class="cnt-2cards">
+
+      <!-- Encart 1 — Programmer une démo -->
+      <div style="background:var(--sable);border-radius:14px;padding:56px;display:flex;flex-direction:column;gap:28px;justify-content:center;">
+        <p class="eyebrow">Réservez votre démo</p>
+        <div style="display:flex;align-items:center;gap:20px">
+          <div class="contact-avatar">
+            <img src="images/etienne.jpg" alt="Étienne Carpentier" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+          </div>
+          <div>
+            <p style="font-weight:700;font-size:var(--t-s);color:var(--ink)">Étienne Carpentier</p>
+            <p class="muted" style="font-size:var(--t-xs)">Responsable clientèle · Odyssey Manager</p>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;gap:14px">
+            <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1.5" y="3.5" width="12" height="8" rx="2"/><path d="M1.5 7l6 3 6-3"/></svg></div>
+            <p style="font-weight:600;font-size:var(--t-s)">Visio-conférence</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px">
+            <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7.5" cy="7.5" r="6"/><path d="M7.5 5v2.5l2 2"/></svg></div>
+            <p style="font-weight:600;font-size:var(--t-s)">Durée 30 min</p>
+          </div>
+        </div>
+        <a href="https://calendly.com/etienne-odyssey-manager/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=6e5bff&month=2026-06" target="_blank" class="btn btn-p" style="justify-content:center;text-align:center">Programmer une démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+      </div>
+
+      <!-- Encart 2 — Formulaire -->
+      <div style="background:var(--violet-10);border-radius:14px;padding:56px;">
+        <p class="eyebrow" style="margin-bottom:26px">Contactez-nous</p>
+        <form class="form" id="contactForm" novalidate>
+          <div class="f-row">
+            <div class="f"><input type="text" placeholder="Votre prénom" aria-label="Prénom" name="prenom"></div>
+            <div class="f"><input type="text" placeholder="Votre nom" aria-label="Nom" name="nom"></div>
+          </div>
+          <div class="f"><input type="email" placeholder="Votre email" aria-label="Email" name="email"></div>
+          <div class="f">
+            <div class="csel" id="csel">
+              <div class="csel-trigger" onclick="toggleCsel()">
+                <span class="csel-val">Votre secteur</span>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 5l4 4 4-4"/></svg>
+              </div>
+              <div class="csel-drop" id="csel-drop">
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Destinations &amp; Territoires"><strong>Destinations &amp; Territoires</strong><span>OT · CDT · CRT</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Sites &amp; Patrimoine"><strong>Sites &amp; Patrimoine</strong><span>Culturel · Cultuel · Nature</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Complexe &amp; Loisirs"><strong>Complexe &amp; Loisirs</strong><span>Villages · Parcs · Campings</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Bien-être &amp; Santé"><strong>Bien-être &amp; Santé</strong><span>Thalassos · Spas · Clubs</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Opérateurs &amp; Médias"><strong>Opérateurs &amp; Médias</strong><span>Agences · Guides · Médias</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Événementiel &amp; MICE"><strong>Événementiel &amp; MICE</strong><span>Organisateurs · Événementiel</span></div>
+              </div>
+            </div>
+            <input type="hidden" name="secteur" id="csel-input">
+          </div>
+          <div class="f">
+            <div class="csel" id="csel2">
+              <div class="csel-trigger" onclick="toggleCsel2()">
+                <span class="csel-val" id="csel2-val">Votre besoin</span>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 5l4 4 4-4"/></svg>
+              </div>
+              <div class="csel-drop" id="csel2-drop">
+                <div class="csel-opt" onclick="pickCsel2(this)" data-val="NEST"><strong>NEST</strong><span>Votre parcours découverte interactif</span></div>
+                <div class="csel-opt" onclick="pickCsel2(this)" data-val="ULYS"><strong>ULYS</strong><span>Votre guide local I.A.</span></div>
+                <div class="csel-opt" onclick="pickCsel2(this)" data-val="ITHAK"><strong>ITHAK</strong><span>Votre propre plateforme de réservation</span></div>
+                <div class="csel-opt" onclick="pickCsel2(this)" data-val="ÉCHO"><strong>ÉCHO</strong><span>Votre destination en tête sur Google</span></div>
+              </div>
+            </div>
+            <input type="hidden" name="besoin" id="csel2-input">
+          </div>
+          <div class="f"><textarea placeholder="Votre projet"></textarea></div>
+          <button type="submit" class="btn btn-p" style="width:100%;justify-content:center;margin-top:6px">Envoyer ma demande <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>
 lucide.createIcons();
 
+
+// NEST hero animation
+(function(){
+  var c3 = document.getElementById('nest-c3');
+  var c1 = document.getElementById('nest-c1');
+  var c2 = document.getElementById('nest-c2');
+  var fill = document.getElementById('nest-fill');
+  var thumb = document.getElementById('nest-thumb');
+  var timeEl = document.getElementById('nest-time');
+  var playIcon = document.getElementById('nest-play-icon');
+  var playBtn = document.getElementById('nest-play-btn');
+  var playerTimer = null;
+  var playerSec = 0;
+  function show(el) { el.classList.add('hnotif-card--show'); }
+  function hide(el) { el.classList.remove('hnotif-card--show'); }
+  function t(ms) { return new Promise(function(r){ setTimeout(r, ms); }); }
+  function wave(el, cls) { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); setTimeout(function(){ el.classList.remove(cls); }, 700); }
+  function resetPlayer() {
+    clearInterval(playerTimer); playerSec = 0;
+    fill.style.transition = 'none'; fill.style.width = '0%';
+    thumb.style.left = '0%'; timeEl.textContent = '0:00';
+    if (playIcon) { playIcon.setAttribute('data-lucide','play'); lucide.createIcons(); }
+  }
+  function startPlayer() {
+    if (playIcon) { playIcon.setAttribute('data-lucide','pause'); lucide.createIcons(); }
+    setTimeout(function(){ wave(playBtn, 'nest-wave-green'); }, 50);
+    playerTimer = setInterval(function(){
+      playerSec++;
+      var pct = (playerSec / 180) * 100;
+      fill.style.transition = 'width .9s linear'; fill.style.width = pct + '%'; thumb.style.left = pct + '%';
+      var m = Math.floor(playerSec / 60); var s = playerSec % 60;
+      timeEl.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+      if (playerSec >= 4) { clearInterval(playerTimer); }
+    }, 1000);
+  }
+  async function nestLoop() {
+    while(true) {
+      hide(c3); hide(c1); hide(c2); resetPlayer();
+      await t(600);
+      show(c3); await t(1800);
+      show(c1); await t(1000); wave(c1, 'nest-wave'); await t(1000);
+      show(c2); await t(700); startPlayer(); await t(5500);
+    }
+  }
+  nestLoop();
+})();
+
+function toggleCsel() { document.getElementById('csel').classList.toggle('open'); }
+function pickCsel(el) {
+  document.querySelector('#csel .csel-val').textContent = el.querySelector('strong').textContent;
+  document.querySelector('#csel .csel-val').classList.add('selected');
+  document.getElementById('csel-input').value = el.getAttribute('data-val');
+  document.getElementById('csel').classList.remove('open');
+}
+function toggleCsel2() { document.getElementById('csel2').classList.toggle('open'); }
+function pickCsel2(el) {
+  document.getElementById('csel2-val').textContent = el.querySelector('strong').textContent;
+  document.getElementById('csel2-val').classList.add('selected');
+  document.getElementById('csel2-input').value = el.getAttribute('data-val');
+  document.getElementById('csel2').classList.remove('open');
+}
+document.addEventListener('click', function(e) {
+  var csel = document.getElementById('csel');
+  if (csel && !csel.contains(e.target)) csel.classList.remove('open');
+  var csel2 = document.getElementById('csel2');
+  if (csel2 && !csel2.contains(e.target)) csel2.classList.remove('open');
+});
+
+var contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var btn = contactForm.querySelector('button[type="submit"]');
+    btn.textContent = 'Message envoyé ✓';
+    btn.disabled = true;
+    btn.style.opacity = '.7';
+  });
+}
 </script>
 
 </body>

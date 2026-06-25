@@ -90,12 +90,6 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 .stat-quote-n { font-size: var(--t-s); font-weight: 700; color: var(--violet); line-height: 1.3; margin-bottom: 6px; }
 .stat-quote-txt { font-size: var(--t-s); color: var(--ink-60); font-style: italic; line-height: 1.3; }
 
-/* NAV */
-.nav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--ink-08); }
-.nav-inner { display: flex; align-items: center; height: 68px; gap: 40px; padding: 0 var(--px); max-width: var(--container); margin: 0 auto; }
-.nav-logo { font-family: var(--f-serif); font-size: 1.1rem; font-weight: 700; }
-.nav-logo span { color: var(--violet); }
-.nav-actions { display: flex; gap: 10px; margin-left: auto; }
 
 /* HERO NOTIFY */
 .hnotify { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; padding: 80px 0; }
@@ -226,7 +220,6 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 /* ULYS ANIMATION */
 .ulys-anim-wrap { position:relative; aspect-ratio:1/1; border-radius:20px; overflow:hidden; display:flex; align-items:center; justify-content:center; }
 .ulys-anim-wrap > img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-.ulys-anim-wrap::after { content:''; position:absolute; inset:0; background:rgba(44,46,77,.35); }
 .ulys-phone { position:relative; z-index:2; background:#fff; border-radius:20px; padding:28px 24px 20px; width:320px; box-shadow:0 20px 60px -10px rgba(44,46,77,.25); }
 .ulys-screens { overflow:hidden; }
 .ulys-screen { display:none; animation:ulys-fadein .5s ease; }
@@ -415,6 +408,8 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 .sol:hover .sol-tag i { color: rgba(255,255,255,.9); }
 .sol-title { font-family: var(--f-serif); font-size: var(--t-xl); line-height: 1.2; font-weight: 700; margin-top: 16px; transition: color .35s; }
 .sol:hover .sol-title { color: #fff; }
+.sol-desc { font-size: var(--t-s); color: var(--ink-60); line-height: 1.2em; margin-top: 12px; max-height: 0; overflow: hidden; opacity: 0; transition: max-height .4s ease, opacity .3s; }
+.sol:hover .sol-desc { max-height: 200px; opacity: 1; color: rgba(255,255,255,.65); }
 .sol-link { display: inline-flex; align-items: center; gap: 6px; font-size: var(--t-xs); font-weight: 600; color: var(--violet); margin-top: auto; padding-top: 20px; transition: color .35s; }
 .sol:hover .sol-link { color: #fff; }
 .sol-n { position: absolute; bottom: 20px; right: 20px; font-family: var(--f-serif); font-size: 3.5rem; font-weight: 700; color: var(--ink); opacity: .05; transition: opacity .35s, color .35s; }
@@ -434,7 +429,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 .xsect-cards:has(.xcard:first-child:hover) .xcard:first-child .xcard-arrow { opacity: 1; transform: scale(1); }
 .xcard img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .55s ease; }
 .xcard:hover img { transform: scale(1.04); }
-.xcard::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,.08) 55%, transparent 100%); }
+.xcard::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.60) 0%, rgba(0,0,0,.20) 35%, transparent 50%); }
 .xcard-info { position: absolute; bottom: 22px; left: 22px; z-index: 1; }
 .xcard-name { color: #fff; font-size: var(--t-xs); font-weight: 700; letter-spacing: .01em; }
 .xcard-arrow { position: absolute; top: 18px; right: 18px; z-index: 1; width: 36px; height: 36px; background: rgba(255,255,255,.18); backdrop-filter: blur(6px); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; opacity: 0; transform: scale(.7); transition: opacity .35s, transform .35s; }
@@ -471,7 +466,6 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
   :root { --h-xl: 2.8rem; --h-l: 1.9rem; --h-m: 1.55rem; --h-s: 1.2rem; }
   .px { padding-left: 24px; padding-right: 24px; }
   .hnotify { grid-template-columns: 1fr; gap: 32px; padding: 48px 0; }
-  .hnotify-img { height: 380px; }
   .hnotif-group { left: 14px; right: 14px; gap: 8px; }
   .hnotif-card { padding: 11px 14px; }
   .hnotif-name { font-size: .8rem; }
@@ -499,16 +493,6 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="nav-inner">
-    <div class="nav-logo">Odyssey<span>.</span></div>
-    <div class="nav-actions">
-      <a href="#" class="btn btn-g">Se connecter</a>
-      <a href="#" class="btn btn-p">Demander une démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
-    </div>
-  </div>
-</nav>
 
 <!-- HERO — Sable · Notifs animées -->
 <section class="px bg-sable" style="min-height:85vh;display:flex;align-items:center">
@@ -700,6 +684,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
           <div>
             <span class="sol-tag"><i data-lucide="bot"></i>ULYS</span>
             <p class="sol-title">Votre guide local en intelligence artificielle</p>
+            <p class="sol-desc">Vos visiteurs posent leurs questions. Il répond. Toujours.</p>
           </div>
           <a href="#" class="sol-link">En savoir plus <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
           <span class="sol-n">01</span>
@@ -710,6 +695,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
           <div>
             <span class="sol-tag"><i data-lucide="compass"></i>NEST</span>
             <p class="sol-title">Votre parcours découverte interactif</p>
+            <p class="sol-desc">Un QR code. Une histoire. Partout sur votre territoire.</p>
           </div>
           <a href="#" class="sol-link">En savoir plus <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
           <span class="sol-n">02</span>
@@ -720,6 +706,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
           <div>
             <span class="sol-tag"><i data-lucide="calendar-check"></i>ITHAK</span>
             <p class="sol-title">Votre plateforme de réservation</p>
+            <p class="sol-desc">Ils vous ont choisi. Ne les laissez pas réserver ailleurs.</p>
           </div>
           <a href="#" class="sol-link">En savoir plus <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
           <span class="sol-n">03</span>
@@ -730,6 +717,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
           <div>
             <span class="sol-tag"><i data-lucide="search"></i>ÉCHO</span>
             <p class="sol-title">Votre destination en tête sur Google</p>
+            <p class="sol-desc">Vos concurrents sont premiers. Plus pour longtemps.</p>
           </div>
           <a href="#" class="sol-link">En savoir plus <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
           <span class="sol-n">04</span>
@@ -740,7 +728,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 </section>
 
 <!-- EXPAND CARDS — Secteurs -->
-<section class="px bg-sable">
+<section class="px" style="background:#fff">
   <div class="cnt">
     <div class="xsect">
       <div>
@@ -749,7 +737,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
       </div>
       <div class="xsect-cards">
         <div class="xcard">
-          <img src="images/nest-4.jpg" alt="Destinations & Territoires">
+          <img src="images/home-cards-1.jpeg" alt="Destinations & Territoires">
           <div class="xcard-arrow">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
           </div>
@@ -758,7 +746,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
           </div>
         </div>
         <div class="xcard">
-          <img src="images/nest-5.jpg" alt="Sites & Patrimoine">
+          <img src="images/home-cards-2.jpeg" alt="Sites & Patrimoine">
           <div class="xcard-arrow">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
           </div>
@@ -767,7 +755,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
           </div>
         </div>
         <div class="xcard">
-          <img src="images/nest-3.jpg" alt="Complexes & Loisirs">
+          <img src="images/home-cards-3.jpeg" alt="Complexes & Loisirs">
           <div class="xcard-arrow">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
           </div>
@@ -823,7 +811,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
         <a href="#" class="link" style="margin-top:28px">Découvrez ULYS en démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
       </div>
       <div class="ulys-anim-wrap">
-        <img src="images/ulys_illu.png" alt="">
+        <img src="images/ulys_illu.jpg" alt="">
         <div class="chat-wrap">
           <!-- Header -->
           <div class="chat-header">
@@ -1114,7 +1102,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
     <div class="twocol">
       <div class="hnotify-vis">
         <div class="hnotify-img-wrap">
-          <img src="images/echo_illu.jpeg" alt="" class="hnotify-img">
+          <img src="images/fond_orbit.jpeg" alt="" class="hnotify-img">
           <div class="echo-dash" id="echo-dash">
             <div class="echo-google-card" id="echo-google-card">
               <div class="echo-gc-header">

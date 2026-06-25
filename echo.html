@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ÉCHO — Votre destination en tête sur Google</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --violet:    #6E5BFF;
+  --violet-10: rgba(110,91,255,.10);
+  --sable:     #FFEAD5;
+  --ink:       #2C2E4D;
+  --ink-60:    rgba(44,46,77,.60);
+  --ink-14:    rgba(44,46,77,.14);
+  --ink-08:    rgba(44,46,77,.08);
+  --f-serif: 'Libre Baskerville', Georgia, serif;
+  --f-sans:  'Inter', system-ui, sans-serif;
+  --container: 83rem;
+  --px: clamp(24px,5vw,80px);
+  --sp-xxl: 96px;
+  --sp-m:   48px;
+  --sp-s:   32px;
+  --sp-xs:  16px;
+  --t-xl: 1.375rem;
+  --t-l:  1.25rem;
+  --t-m:  1.125rem;
+  --t-s:  1.0625rem;
+  --t-xs: 1rem;
+  --white: #ffffff;
+  --h-xl: 3.8rem;
+  --h-l:  2.25rem;
+  --h-xs: 1.1rem;
+  --btn-shadow: 0 12px 26px -12px rgba(110,91,255,.70);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
+/* Layout */
+.px  { padding-left: var(--px); padding-right: var(--px); }
+.py  { padding-top: 64px; padding-bottom: 64px; }
+.cnt { max-width: var(--container); margin: 0 auto; }
+.bg-sable { background: var(--sable); }
+/* Buttons */
+@keyframes breathe {
+  0%       { box-shadow: 0 0 0 0   rgba(110,91,255,.45), var(--btn-shadow); }
+  70%,100% { box-shadow: 0 0 0 12px rgba(110,91,255,0),  var(--btn-shadow); }
+}
+.btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 26px; border-radius: 12px; font-family: var(--f-sans); font-size: var(--t-s); font-weight: 600; cursor: pointer; border: none; transition: background .2s, box-shadow .2s, color .2s; white-space: nowrap; text-decoration: none; }
+.btn svg { transition: transform .2s; flex-shrink: 0; }
+.btn:hover svg { transform: translateX(4px); }
+.btn-p { background: var(--violet); color: #fff; animation: breathe 3s ease-out infinite; }
+.btn-p:hover { background: #5a48e8; box-shadow: 0 16px 34px -12px rgba(110,91,255,.7); animation: none; }
+.btn-g { background: var(--white); color: var(--ink); border: 1px solid var(--ink-14); }
+.btn-g:hover { border-color: var(--violet); color: var(--violet); background: var(--violet-10); }
+.hero-badge { display:inline-flex; align-items:center; gap:8px; background:var(--sable); border-radius:999px; padding:7px 16px 7px 10px; font-size:.8125rem; font-weight:600; color:var(--ink); letter-spacing:.06em; text-transform:uppercase; }
+.h-xl { font-family:var(--f-serif); font-size:var(--h-xl); line-height:1.06; font-weight:700; letter-spacing:-.025em; }
+.h-l  { font-family:var(--f-serif); font-size:var(--h-l);  line-height:1.1;  font-weight:700; letter-spacing:-.02em; }
+.muted { color:var(--ink-60); line-height:1.65; }
+.link { display:inline-flex; align-items:center; gap:6px; color:var(--violet); font-size:var(--t-s); font-weight:600; text-decoration:none; }
+.link svg { transition:transform .2s ease; }
+.link:hover svg { transform:translateX(4px); }
+.check-list { display:flex; flex-direction:column; gap:14px; margin:24px 0; }
+.check-list li { display:flex; align-items:center; gap:12px; font-size:var(--t-s); color:var(--ink-60); line-height:1.5; }
+.check-icon { width:18px; height:18px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.check-icon svg { width:14px; height:14px; color:var(--violet); stroke-width:2.5; }
+.check-list--circle .check-icon { width:20px; height:20px; border-radius:50%; background:var(--violet); }
+.check-list--circle .check-icon svg { width:10px; height:10px; color:#fff; stroke-width:2.5; }
+.eyebrow { font-size: var(--t-xs); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--violet); }
+.mb-xs { margin-bottom: var(--sp-xs); }
+.mb-s  { margin-bottom: var(--sp-s); }
+/* Hero layout */
+.hnotify       { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; padding:80px 0 40px; }
+.hnotify-text  { display:flex; flex-direction:column; gap:0; align-items:flex-start; }
+.hnotify-vis   { position:relative; }
+.hero-actions  { display:flex; gap:12px; flex-wrap:wrap; margin-top:36px; }
+@keyframes hello-bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+/* HNOTIF */
+.hnotify-img-wrap { border-radius: 20px; overflow: hidden; position: relative; aspect-ratio: 1/1; }
+.hnotify-img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+/* STAT QUOTE */
+.stat-quote { background:rgba(255,255,255,.7); border-radius:12px; padding:20px 24px; display:flex; align-items:center; gap:16px; margin-top:24px; }
+.stat-quote-icon { width:36px; height:36px; flex-shrink:0; color:var(--violet); opacity:.15; align-self:center; }
+.stat-quote-icon svg { width:36px; height:36px; fill:currentColor !important; stroke:none !important; }
+.stat-quote-src { font-size:var(--t-s); color:var(--violet); font-weight:600; letter-spacing:.05em; margin-bottom:6px; line-height:1.3; }
+.stat-quote-n { font-size:var(--t-s); font-weight:700; color:var(--violet); line-height:1.3; margin-bottom:6px; }
+.stat-quote-txt { font-size:var(--t-s); color:var(--ink-60); font-style:italic; line-height:1.3; }
+/* ÉCHO dashboard animation */
+.echo-dash { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); display:flex; flex-direction:column; gap:8px; width:280px; max-width:calc(100% - 24px); }
+.echo-google-card { background:#fff; border-radius:14px; padding:14px 16px; box-shadow:0 12px 40px rgba(0,0,0,.18); opacity:0; transform:translateY(12px); transition:opacity .4s ease,transform .4s ease; }
+.echo-google-card.show { opacity:1; transform:translateY(0); }
+.echo-gc-header { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
+.echo-glogo { font-size:13px; font-weight:700; letter-spacing:.3px; }
+.echo-gc-traffic { font-size:9px; font-weight:700; letter-spacing:.08em; color:var(--ink); background:rgba(110,91,255,.08); border-radius:6px; padding:3px 7px; display:flex; align-items:center; gap:4px; }
+.echo-gc-target { font-size:9px; font-weight:700; letter-spacing:.08em; color:var(--ink); background:rgba(110,91,255,.08); border-radius:6px; padding:3px 7px; display:flex; align-items:center; gap:4px; margin-left:auto; white-space:nowrap; }
+.echo-gc-body { display:flex; gap:14px; }
+.echo-gc-left { display:flex; flex-direction:column; gap:8px; }
+.echo-gc-num { font-size:26px; font-weight:700; color:var(--ink); letter-spacing:-1px; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.echo-gc-tags { display:flex; flex-direction:column; gap:4px; }
+.echo-gc-tag { font-size:9px; font-weight:600; border-radius:20px; padding:2px 8px; display:inline-block; opacity:0; transform:translateX(-6px); transition:opacity .3s ease,transform .3s ease; }
+.echo-gc-tag.show { opacity:1; transform:translateX(0); }
+.echo-gc-tag--green { background:#e6f9ee; color:#1a9e4a; }
+.echo-gc-tag--pink { background:#fdecea; color:#d93025; }
+.echo-gc-tag--blue { background:var(--violet-10); color:var(--violet); }
+.echo-gc-right { flex:1; min-width:0; }
+.echo-gc-acq-title { font-size:8px; font-weight:700; letter-spacing:.07em; color:var(--ink); opacity:.6; display:flex; align-items:center; gap:4px; margin-bottom:8px; white-space:nowrap; }
+.echo-gc-acq-content { display:flex; gap:10px; align-items:center; }
+.echo-donut-wrap { width:48px; height:48px; flex-shrink:0; }
+.echo-donut-svg { width:100%; height:100%; }
+.echo-bars-col { flex:1; display:flex; flex-direction:column; gap:4px; }
+.echo-bar-bg { background:#f0f0f0; border-radius:3px; height:6px; overflow:hidden; }
+.echo-bar-val { height:100%; background:var(--violet); border-radius:3px; }
+.echo-legend-row { display:flex; gap:5px; margin-top:3px; }
+.echo-legend-dot { width:7px; height:7px; border-radius:50%; display:inline-block; }
+.echo-stats-row { display:flex; gap:8px; }
+.echo-stat { flex:1; border-radius:12px; padding:10px 12px; opacity:0; transform:translateY(8px); transition:opacity .4s ease,transform .4s ease; }
+.echo-stat.show { opacity:1; transform:translateY(0); }
+.echo-stat--light { background:#f5f5f5; }
+.echo-stat--dark { background:var(--ink); }
+.echo-stat-num { font-size:18px; font-weight:700; color:var(--ink); letter-spacing:-0.5px; font-variant-numeric:tabular-nums; }
+.echo-stat--dark .echo-stat-num { color:#fff; }
+.echo-stat-lbl { font-size:8.5px; color:var(--ink); opacity:.55; margin-top:2px; font-weight:500; line-height:1.2; }
+.echo-stat--dark .echo-stat-lbl { color:#fff; opacity:.6; }
+.echo-news-card { background:#fff; border-radius:12px; padding:12px 14px; box-shadow:0 8px 30px rgba(0,0,0,.12); opacity:0; transform:translateY(8px); transition:opacity .4s ease,transform .4s ease; }
+.echo-news-card.show { opacity:1; transform:translateY(0); }
+.echo-news-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.echo-news-lbl { font-size:10px; font-weight:700; color:var(--ink); letter-spacing:.06em; }
+.echo-news-date { font-size:9px; color:var(--ink); opacity:.4; font-weight:500; }
+.echo-skel { height:8px; background:#eee; border-radius:4px; margin-bottom:5px; }
+.echo-skel--sm { width:60%; }
+.echo-news-img-box { height:48px; background:#5B8AF5; border-radius:8px; display:flex; align-items:center; justify-content:center; margin:8px 0; }
+.echo-news-footer { display:flex; justify-content:space-between; align-items:center; }
+.echo-news-tag { font-size:8px; font-weight:600; border-radius:20px; padding:2px 7px; }
+.echo-news-tag--blue { background:#e8f0fe; color:#1a73e8; }
+.echo-news-tag--orange { background:#fef3e2; color:#e37400; }
+.echo-news-time { font-size:8px; color:var(--ink); opacity:.5; background:#fff3e0; padding:2px 7px; border-radius:20px; font-weight:500; }
+/* TWOCOL */
+.twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+/* Num cards */
+.num-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.num-card { border-radius: 14px; padding: 28px 24px; display: flex; flex-direction: column; justify-content: space-between; min-height: 160px; }
+.num-card--sable { background: var(--sable); transition: background .25s ease; }
+.num-card--sable:hover { background: var(--violet); }
+.num-n { font-family: var(--f-serif); font-size: clamp(2.8rem, 5vw, 4rem); font-weight: 700; line-height: 1; letter-spacing: -.03em; color: var(--ink); transition: color .25s ease; }
+.num-card--sable:hover .num-n { color: #fff; }
+.num-n span { transition: color .25s ease; }
+.num-card--sable:hover .num-n span { color: rgba(255,255,255,.55); }
+.num-l { font-size: var(--t-xs); color: var(--ink-60); line-height: 1.6; max-width: 180px; transition: color .25s ease; }
+.num-card--sable:hover .num-l { color: rgba(255,255,255,.7); }
+/* CONTACT */
+.cnt-2cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; }
+.cnt-2cards > div { display: flex; flex-direction: column; }
+.contact-avatar { width: 80px; height: 80px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
+.hello-icon { width: 48px; height: 48px; border-radius: 50%; background: var(--violet-10); display: flex; align-items: center; justify-content: center; color: var(--violet); flex-shrink: 0; animation: hello-bounce 2s ease-in-out infinite; }
+.form { display: flex; flex-direction: column; gap: 14px; }
+.f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.f { display: flex; flex-direction: column; gap: 6px; }
+.f input, .f select, .f textarea { padding: 12px 16px; border: 1px solid var(--ink-14); border-radius: 10px; font-family: var(--f-sans); font-size: var(--t-s); color: var(--ink); background: #fff; outline: none; transition: border-color .2s; appearance: none; -webkit-appearance: none; }
+.f input:focus, .f select:focus, .f textarea:focus { border-color: var(--violet); }
+.f textarea { resize: vertical; min-height: 110px; }
+.csel { position: relative; }
+.csel-trigger { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border: 1px solid var(--ink-14); border-radius: 10px; font-family: var(--f-sans); font-size: var(--t-s); color: var(--ink); background: #fff; cursor: pointer; transition: border-color .2s; }
+.csel-trigger:hover, .csel.open .csel-trigger { border-color: var(--violet); }
+.csel-val { color: var(--ink-60); }
+.csel-val.selected { color: var(--ink); }
+.csel-drop { display: none; position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #fff; border: 1px solid var(--ink-14); border-radius: 12px; box-shadow: 0 12px 32px -8px rgba(44,46,77,.12); z-index: 100; overflow: hidden; }
+.csel.open .csel-drop { display: block; }
+.csel-opt { padding: 14px 16px; cursor: pointer; display: flex; flex-direction: column; gap: 2px; border-bottom: 1px solid var(--ink-08); transition: background .15s; }
+.csel-opt:last-child { border-bottom: none; }
+.csel-opt:hover { background: var(--violet-10); }
+.csel-opt strong { font-size: var(--t-s); font-weight: 600; color: var(--violet); }
+.csel-opt span { font-size: var(--t-xs); color: var(--ink-60); }
+.sec-icon { width: 36px; height: 36px; border-radius: 8px; background: #fff; display: flex; align-items: center; justify-content: center; }
+/* ICONE CARDS */
+.icard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.icard-grid--4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 960px) { .icard-grid--4 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .icard-grid--4 { grid-template-columns: 1fr; } }
+.icard { border-radius: 14px; padding: 32px 28px; display: flex; flex-direction: column; gap: 14px; transition: transform .25s ease, box-shadow .25s ease; }
+.icard:hover { transform: translateY(-6px); }
+.icard:hover .icard-icon { background: var(--violet); }
+.icard:hover .icard-icon svg, .icard:hover .icard-icon i { color: #fff; opacity: 1; }
+.icard--sable { background: var(--sable); }
+.icard-icon { width: 56px; height: 56px; border-radius: 12px; background: rgba(255,255,255,.65); display: flex; align-items: center; justify-content: center; transition: background .25s ease; }
+.icard-icon svg, .icard-icon i { width: 26px; height: 26px; color: var(--ink); opacity: .6; transition: color .25s ease, opacity .25s ease; }
+.icard h3 { font-family: var(--f-sans); font-size: var(--t-s); font-weight: 600; }
+.icard p { font-size: var(--t-xs); color: var(--ink-60); line-height: 1.4; }
+@media (max-width: 768px) { .icard-grid { grid-template-columns: 1fr; } }
+/* FEAT LIST */
+.feat-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 80px; align-items: start; }
+.feat-list { display: flex; flex-direction: column; }
+.feat-item { display: flex; align-items: flex-start; gap: 18px; padding: 22px 0; border-bottom: 1px solid var(--ink-08); }
+.feat-item:first-child { border-top: 1px solid var(--ink-08); }
+.feat-icon { width: 38px; height: 38px; flex-shrink: 0; background: var(--violet-10); border-radius: 9px; display: flex; align-items: center; justify-content: center; transition: background .2s ease; }
+.feat-icon svg { width: 21px; height: 21px; color: var(--violet); transition: color .2s ease; }
+.feat-item:hover .feat-icon { background: var(--violet); }
+.feat-item:hover .feat-icon svg { color: #fff !important; }
+.feat-text h3 { font-size: var(--t-s); font-weight: 600; margin-bottom: 3px; transition: color .2s ease; }
+.feat-item:hover .feat-text h3 { color: var(--violet); }
+.feat-text p  { font-size: var(--t-xs); color: var(--ink-60); line-height: 1.6; }
+@media (max-width: 960px) { .feat-grid { grid-template-columns: 1fr; gap: 40px; } }
+/* CAPA CARDS */
+.capa-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.capa-card { background: var(--white); border-radius: 12px; padding: 22px 20px; display: flex; flex-direction: column; gap: 10px; transition: background .25s ease; cursor: default; }
+.capa-card:hover { background: var(--violet) !important; }
+.capa-icon { width: 20px; height: 20px; color: var(--violet); transition: color .25s ease; }
+.capa-card:hover .capa-icon { color: #fff; }
+.capa-icon svg { width: 20px; height: 20px; stroke: currentColor; }
+.capa-icon i { display: flex; width: 20px; height: 20px; }
+.capa-card h3 { font-size: var(--t-s); font-weight: 600; line-height: 1.3; color: var(--ink); transition: color .25s ease; }
+.capa-card:hover h3 { color: #fff; }
+.capa-card p  { font-size: var(--t-xs); color: var(--violet); line-height: 1.6; transition: color .25s ease; }
+.capa-card:hover p { color: rgba(255,255,255,.65); }
+.bg-violet-l { background: var(--violet-10); }
+/* RESPONSIVE */
+@media (max-width: 960px) {
+  :root { --px: clamp(20px, 5vw, 48px); --h-xl: 2.8rem; --h-l: 1.875rem; }
+  .py { padding-top: 48px; padding-bottom: 48px; }
+  .hnotify { grid-template-columns: 1fr; gap: 40px; padding: 48px 0; }
+  .hnotify-vis { order: -1; }
+  .twocol { grid-template-columns: 1fr; gap: 40px; }
+  .capa-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .cnt-2cards { grid-template-columns: 1fr; }
+  .f-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  :root { --px: 20px; --h-xl: 2.2rem; --h-l: 1.6rem; }
+  .py { padding-top: 40px; padding-bottom: 40px; }
+  .hnotify { padding: 32px 0; gap: 28px; }
+  .hero-actions { flex-direction: column; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+  .capa-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="px bg-sable" style="min-height:85vh;display:flex;align-items:center;padding-top:0;padding-bottom:0">
+  <div class="cnt">
+    <div class="hnotify">
+      <div class="hnotify-text">
+        <span class="hero-badge" style="margin-bottom:12px;color:var(--violet);background:#fff;letter-spacing:.25em;font-weight:600;font-size:var(--t-s)"><span style="display:inline-flex;animation:hello-bounce 2s ease-in-out infinite"><i data-lucide="search" style="width:1.4em;height:1.4em;color:var(--violet);display:inline-flex"></i></span>ÉCHO</span>
+        <h1 class="h-xl" style="margin-bottom:22px;font-size:3.6rem">Votre destination<br>en tête sur Google</h1>
+        <p class="muted" style="font-size:var(--t-l);line-height:1.65;max-width:480px">Devenez 1er là où vos visiteurs cherchent grâce à notre IA qui génère automatiquement des centaines de pages optimisées.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-p">Demander une démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+          <a href="#" class="btn btn-g">Voir les use cases</a>
+        </div>
+      </div>
+      <div class="hnotify-vis">
+        <div class="hnotify-img-wrap">
+          <img src="images/fond_orbit.jpeg" alt="" class="hnotify-img">
+          <div class="echo-dash" id="echo-dash">
+            <div class="echo-google-card" id="echo-google-card">
+              <div class="echo-gc-header">
+                <span class="echo-glogo"><b style="color:#4285F4">G</b><b style="color:#EA4335">o</b><b style="color:#FBBC05">o</b><b style="color:#4285F4">g</b><b style="color:#34A853">l</b><b style="color:#EA4335">e</b></span>
+                <div class="echo-gc-traffic"><i data-lucide="bar-chart-2" style="width:10px;height:10px;stroke-width:2.5"></i> TRAFFIC</div>
+                <div class="echo-gc-target"><i data-lucide="crosshair" style="width:10px;height:10px;stroke-width:2.5"></i> île Saint-Jacques</div>
+              </div>
+              <div class="echo-gc-body">
+                <div class="echo-gc-left">
+                  <div class="echo-gc-num">+<span id="echo-counter">0</span> <span style="font-size:.55em;opacity:.5;font-weight:600;letter-spacing:0">visites</span></div>
+                  <div class="echo-gc-tags">
+                    <span class="echo-gc-tag echo-gc-tag--green" id="etag1">Hébergements</span>
+                    <span class="echo-gc-tag echo-gc-tag--pink" id="etag2">Restaurants</span>
+                    <span class="echo-gc-tag echo-gc-tag--blue" id="etag3">Activités</span>
+                  </div>
+                </div>
+                <div class="echo-gc-right">
+                  <div class="echo-gc-acq-title">Trafic mensuel</div>
+                  <div class="echo-gc-acq-content">
+                    <div class="echo-donut-wrap">
+                      <svg viewBox="0 0 50 50" class="echo-donut-svg">
+                        <circle cx="25" cy="25" r="18" fill="none" stroke="#e8e8e8" stroke-width="7"/>
+                        <circle cx="25" cy="25" r="18" fill="none" stroke="#F5A623" stroke-width="7" stroke-dasharray="113" stroke-dashoffset="113" id="echo-donut-arc" stroke-linecap="round" transform="rotate(-90 25 25)"/>
+                      </svg>
+                    </div>
+                    <div class="echo-bars-col">
+                      <div class="echo-bar-row"><div class="echo-bar-bg"><div class="echo-bar-val" id="ebar1" style="width:0%"></div></div></div>
+                      <div class="echo-bar-row"><div class="echo-bar-bg"><div class="echo-bar-val" id="ebar2" style="width:0%;background:#e0e0e0"></div></div></div>
+                      <div class="echo-bar-row"><div class="echo-bar-bg"><div class="echo-bar-val" id="ebar3" style="width:0%;background:#F5A623"></div></div></div>
+                      <div class="echo-legend-row">
+                        <span class="echo-legend-dot" style="background:#F5A623"></span>
+                        <span class="echo-legend-dot" style="background:#e0e0e0"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="echo-stats-row">
+              <div class="echo-stat echo-stat--light" id="echo-stat1">
+                <div class="echo-stat-num">+<span id="es1">0</span>%</div>
+                <div class="echo-stat-lbl">de trafic organique</div>
+              </div>
+              <div class="echo-stat echo-stat--dark" id="echo-stat2">
+                <div class="echo-stat-num">+<span id="es2">0</span>%</div>
+                <div class="echo-stat-lbl">de mots clés top 3</div>
+              </div>
+            </div>
+            <div class="echo-news-card" id="echo-news">
+              <div class="echo-news-top">
+                <span class="echo-news-lbl">Publication</span>
+                <span class="echo-news-date">13 AVRIL</span>
+              </div>
+              <div class="echo-skel"></div>
+              <div class="echo-skel echo-skel--sm"></div>
+              <div class="echo-news-img-box"><i data-lucide="image" style="width:20px;height:20px;color:rgba(255,255,255,.6)"></i></div>
+              <div class="echo-news-footer">
+                <div style="display:flex;gap:5px">
+                  <span class="echo-news-tag echo-news-tag--blue">Contenu</span>
+                  <span class="echo-news-tag echo-news-tag--orange">Classement</span>
+                </div>
+                <span class="echo-news-time">Reading time: 4 min</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ICONE CARDS — Fond sable — HERO -->
+<section class="px" style="background:var(--sable);padding-top:0;padding-bottom:32px">
+  <div class="cnt">
+    <div class="icard-grid icard-grid--4">
+      <div class="icard icard--sable">
+        <div class="icard-icon"><i data-lucide="eye" style="width:26px;height:26px;stroke-width:1.6"></i></div>
+        <h3 style="font-family:var(--f-sans);font-size:var(--t-s);font-weight:600;color:var(--violet)">Visibilité</h3>
+        <p>Apparaissez sur les requêtes exactes que vos visiteurs tapent, avant même qu'ils sachent où ils vont.</p>
+      </div>
+      <div class="icard icard--sable">
+        <div class="icard-icon"><i data-lucide="trending-up" style="width:26px;height:26px;stroke-width:1.6"></i></div>
+        <h3 style="font-family:var(--f-sans);font-size:var(--t-s);font-weight:600;color:var(--violet)">Trafic</h3>
+        <p>Des centaines de pages optimisées génèrent un flux continu de visiteurs qualifiés, sans budget publicitaire.</p>
+      </div>
+      <div class="icard icard--sable">
+        <div class="icard-icon"><i data-lucide="trophy" style="width:26px;height:26px;stroke-width:1.6"></i></div>
+        <h3 style="font-family:var(--f-sans);font-size:var(--t-s);font-weight:600;color:var(--violet)">Position</h3>
+        <p>ÉCHO cible les requêtes à fort potentiel pour vous hisser durablement en tête des résultats sur votre territoire.</p>
+      </div>
+      <div class="icard icard--sable">
+        <div class="icard-icon"><i data-lucide="badge-check" style="width:26px;height:26px;stroke-width:1.6"></i></div>
+        <h3 style="font-family:var(--f-sans);font-size:var(--t-s);font-weight:600;color:var(--violet)">Autorité</h3>
+        <p>Un maillage interne intelligent consolide votre domaine et le renforce dans la durée, saison après saison.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 COLONNES — Constat -->
+<section class="px" style="padding-top:120px;padding-bottom:120px">
+  <div class="cnt">
+    <div class="twocol">
+      <div style="aspect-ratio:1/1;padding:0;overflow:hidden;position:relative;border-radius:20px">
+        <img src="images/echo-illu.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+      </div>
+      <div>
+        <p class="eyebrow mb-xs">Vos visiteurs vous cherchent</p>
+        <h2 class="h-l" style="margin-bottom:20px">Le SEO traditionnel ne suffit plus</h2>
+        <p class="muted" style="font-size:var(--t-m);line-height:1.7;margin-bottom:4px">Des milliers de personnes tapent chaque jour le nom de votre destination sur Google. Elles cherchent où dormir, quoi faire, où aller...</p>
+        <p style="font-size:var(--t-m);line-height:1.7;color:var(--violet);font-weight:500;margin-bottom:16px">Et elles trouvent vos concurrents en premier.</p>
+        <p class="muted" style="font-size:var(--t-m);line-height:1.7;margin-bottom:24px">ÉCHO vous replace là où la décision se prend — en tête des résultats — grâce à des pages de contenu générées et optimisées automatiquement.</p>
+        <div class="num-grid" style="grid-template-columns:repeat(2,1fr)">
+          <div class="num-card num-card--sable">
+            <div class="num-n">90<span style="font-size:.55em">%</span></div>
+            <p class="num-l">des pages web n'obtiennent aucun trafic Google</p>
+          </div>
+          <div class="num-card num-card--sable">
+            <div class="num-n">3<span style="font-size:.55em">x</span></div>
+            <p class="num-l">plus de clics pour le 1er résultat vs le 2ème</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ICONE CARDS — Fond sable -->
+<section class="px py">
+  <div class="cnt">
+    <p class="eyebrow mb-xs">Notre force</p>
+    <h2 class="h-l" style="margin-bottom:16px">Le bon contenu, sous la bonne forme</h2>
+    <p class="muted" style="font-size:var(--t-m);line-height:1.7;max-width:720px;margin-bottom:var(--sp-s)">ÉCHO ne se contente pas de publier des pages. Il identifie les sujets qui comptent, produit un contenu réellement optimisé, et l'habille de formats vivants qui captent l'attention et la retiennent.</p>
+    <div class="icard-grid">
+      <div class="icard icard--sable">
+        <div class="icard-icon"><i data-lucide="crosshair" style="width:26px;height:26px;stroke-width:1.6"></i></div>
+        <h3>Les bons sujets</h3>
+        <p>ÉCHO part des meilleures requêtes de votre territoire pour ne créer que les pages qui ont un vrai potentiel de trafic.</p>
+      </div>
+      <div class="icard icard--sable">
+        <div class="icard-icon"><i data-lucide="pen-line" style="width:26px;height:26px;stroke-width:1.6"></i></div>
+        <h3>Le bon contenu</h3>
+        <p>Chaque page est rédigée et structurée pour le référencement comme pour le lecteur : pertinente, ancrée dans votre destination, prête à se positionner.</p>
+      </div>
+      <div class="icard icard--sable">
+        <div class="icard-icon"><i data-lucide="layout-template" style="width:26px;height:26px;stroke-width:1.6"></i></div>
+        <h3>La bonne forme</h3>
+        <p>Textes, visuels, audio, vidéo, cartes interactives : des supports dynamiques qui prolongent la visite et maximisent le temps passé.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES LIST -->
+<section class="px py" style="padding-bottom:100px">
+  <div class="cnt">
+    <div class="feat-grid">
+      <div>
+        <p class="eyebrow mb-xs">Notre méthode</p>
+        <h2 class="h-l" style="margin-bottom:20px">Soyez 1er là où vos visiteurs cherchent</h2>
+        <p class="muted" style="font-size:var(--t-m);line-height:1.7">ÉCHO ne crée pas du contenu au hasard. Il analyse, priorise et agit avec méthode pour vous placer durablement en tête des résultats Google.</p>
+      </div>
+      <div class="feat-list">
+        <div class="feat-item">
+          <div class="feat-icon"><i data-lucide="search" style="width:17px;height:17px;color:var(--violet)"></i></div>
+          <div class="feat-text"><h3>Audit des top requêtes</h3><p>Analyse exhaustive des mots-clés stratégiques sur votre territoire : volume de recherche, saisonnalité, intentions, opportunités inexploitées.</p></div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i data-lucide="swords" style="width:17px;height:17px;color:var(--violet)"></i></div>
+          <div class="feat-text"><h3>Analyse concurrentielle</h3><p>Forces et faiblesses de vos concurrents : quelles pages les positionnent, sur quels mots-clés ils sont vulnérables, où les dépasser.</p></div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i data-lucide="crosshair" style="width:17px;height:17px;color:var(--violet)"></i></div>
+          <div class="feat-text"><h3>Détection des gaps</h3><p>Cartographie des mots-clés non couverts et des pages à créer en priorité pour maximiser votre gain de visibilité.</p></div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i data-lucide="layers" style="width:17px;height:17px;color:var(--violet)"></i></div>
+          <div class="feat-text"><h3>Création de masse</h3><p>Génération de centaines de pages SEO optimisées : textes, illustrations, mise en page, cadrage technique.</p></div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i data-lucide="network" style="width:17px;height:17px;color:var(--violet)"></i></div>
+          <div class="feat-text"><h3>Publication &amp; maillage</h3><p>Mise en ligne automatique et liens entre vos pages pour renforcer l'autorité de votre domaine.</p></div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon"><i data-lucide="refresh-cw" style="width:17px;height:17px;color:var(--violet)"></i></div>
+          <div class="feat-text"><h3>Mise à jour continue</h3><p>Synchronisation avec votre actualité et suivi des positions, du trafic et des mots-clés gagnés, saison après saison.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPACITÉS -->
+<section class="px py" style="background:var(--sable)">
+  <div class="cnt">
+    <p class="eyebrow mb-xs">Ce qu'ÉCHO génère</p>
+    <h2 class="h-l mb-s">Votre territoire, couvert sous tous les angles</h2>
+    <p class="muted mb-s" style="font-size:var(--t-m);line-height:1.7;max-width:680px">ÉCHO produit des contenus sur-mesure qui valorisent chaque facette de votre destination. Chaque page capture l'intention de vos futurs visiteurs et reflète l'identité unique de votre territoire.</p>
+    <div class="capa-grid">
+
+      <div class="capa-card">
+        <div class="capa-icon"><i data-lucide="book-open" style="width:20px;height:20px"></i></div>
+        <h3>Guides &amp; catalogues</h3>
+        <p>Guides thématiques, catalogues de lieux et d'activités, programmes de séjour par profil.</p>
+      </div>
+
+      <div class="capa-card">
+        <div class="capa-icon"><i data-lucide="route" style="width:20px;height:20px"></i></div>
+        <h3>Itinéraires &amp; parcours</h3>
+        <p>Randonnée, gastronomie, patrimoine, famille, sport : une page par expérience et par saison.</p>
+      </div>
+
+      <div class="capa-card">
+        <div class="capa-icon"><i data-lucide="search" style="width:20px;height:20px"></i></div>
+        <h3>Longue traîne &amp; niche</h3>
+        <p>Des milliers de requêtes spécifiques captées, au plus près de l'intention de recherche.</p>
+      </div>
+
+      <div class="capa-card">
+        <div class="capa-icon"><i data-lucide="play-circle" style="width:20px;height:20px"></i></div>
+        <h3>Contenus audio &amp; vidéo</h3>
+        <p>Formats audio et vidéo intégrés aux pages pour maximiser l'engagement et le temps passé.</p>
+      </div>
+
+      <div class="capa-card">
+        <div class="capa-icon"><i data-lucide="calendar-days" style="width:20px;height:20px"></i></div>
+        <h3>Contenus événementiels</h3>
+        <p>Pages générées avant chaque événement local ou saisonnier, pour capter le trafic au bon moment.</p>
+      </div>
+
+      <div class="capa-card">
+        <div class="capa-icon"><i data-lucide="list-checks" style="width:20px;height:20px"></i></div>
+        <h3>Comparateurs &amp; sélections</h3>
+        <p>Vos sélections calées sur les top requêtes : « les meilleurs restaurants de... ».</p>
+      </div>
+
+      <div class="capa-card">
+        <div class="capa-icon"><i data-lucide="map-pin" style="width:20px;height:20px"></i></div>
+        <h3>Hébergements &amp; activités</h3>
+        <p>Fiches enrichies pour chaque hébergeur, lieu et activité de votre territoire.</p>
+      </div>
+
+      <div class="capa-card">
+        <div class="capa-icon"><i data-lucide="sun" style="width:20px;height:20px"></i></div>
+        <h3>Pages saisonnières</h3>
+        <p>Contenus adaptés au rythme de l'année : été, hiver, vacances, temps forts.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="px py">
+  <div class="cnt">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+      <div class="hello-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="24" height="24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><circle cx="8" cy="11" r=".8" fill="currentColor"/><circle cx="12" cy="11" r=".8" fill="currentColor"/><circle cx="16" cy="11" r=".8" fill="currentColor"/></svg></div>
+      <h2 class="h-l" style="margin:0">Hello ! On discute ?</h2>
+    </div>
+    <p class="muted" style="font-size:var(--t-l);line-height:1.7;max-width:600px;margin-bottom:var(--sp-s)">Méthodologie, durée, tarifs...</p>
+
+    <div class="cnt-2cards">
+
+      <!-- Encart 1 — Programmer une démo -->
+      <div style="background:var(--sable);border-radius:14px;padding:56px;display:flex;flex-direction:column;gap:28px;justify-content:center;">
+        <p class="eyebrow">Réservez votre démo</p>
+        <div style="display:flex;align-items:center;gap:20px">
+          <div class="contact-avatar">
+            <img src="images/etienne.jpg" alt="Étienne Carpentier" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+          </div>
+          <div>
+            <p style="font-weight:700;font-size:var(--t-s);color:var(--ink)">Étienne Carpentier</p>
+            <p class="muted" style="font-size:var(--t-xs)">Responsable clientèle · Odyssey Manager</p>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;gap:14px">
+            <div class="sec-icon"><i data-lucide="video" style="width:18px;height:18px;color:var(--violet)"></i></div>
+            <p style="font-weight:600;font-size:var(--t-s)">Visio-conférence</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px">
+            <div class="sec-icon"><i data-lucide="clock" style="width:18px;height:18px;color:var(--violet)"></i></div>
+            <p style="font-weight:600;font-size:var(--t-s)">Durée 30 min</p>
+          </div>
+        </div>
+        <a href="https://calendly.com/etienne-odyssey-manager/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=6e5bff&month=2026-06" target="_blank" class="btn btn-p" style="justify-content:center;text-align:center">Programmer une démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+      </div>
+
+      <!-- Encart 2 — Formulaire -->
+      <div style="background:var(--violet-10);border-radius:14px;padding:56px;">
+        <p class="eyebrow" style="margin-bottom:26px">Contactez-nous</p>
+        <form class="form" id="contactForm" novalidate>
+          <div class="f-row">
+            <div class="f"><input type="text" placeholder="Votre prénom" aria-label="Prénom" name="prenom"></div>
+            <div class="f"><input type="text" placeholder="Votre nom" aria-label="Nom" name="nom"></div>
+          </div>
+          <div class="f"><input type="email" placeholder="Votre email" aria-label="Email" name="email"></div>
+          <div class="f">
+            <div class="csel" id="csel">
+              <div class="csel-trigger" onclick="toggleCsel()">
+                <span class="csel-val">Votre secteur</span>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 5l4 4 4-4"/></svg>
+              </div>
+              <div class="csel-drop" id="csel-drop">
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Destinations &amp; Territoires"><strong>Destinations &amp; Territoires</strong><span>OT · CDT · CRT</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Sites &amp; Patrimoine"><strong>Sites &amp; Patrimoine</strong><span>Culturel · Cultuel · Nature</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Complexe &amp; Loisirs"><strong>Complexe &amp; Loisirs</strong><span>Villages · Parcs · Campings</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Bien-être &amp; Santé"><strong>Bien-être &amp; Santé</strong><span>Thalassos · Spas · Clubs</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Opérateurs &amp; Médias"><strong>Opérateurs &amp; Médias</strong><span>Agences · Guides · Médias</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Événementiel &amp; MICE"><strong>Événementiel &amp; MICE</strong><span>Organisateurs · Événementiel</span></div>
+              </div>
+            </div>
+            <input type="hidden" name="secteur" id="csel-input">
+          </div>
+          <div class="f">
+            <div class="csel" id="csel2">
+              <div class="csel-trigger" onclick="toggleCsel2()">
+                <span class="csel-val" id="csel2-val">Votre besoin</span>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 5l4 4 4-4"/></svg>
+              </div>
+              <div class="csel-drop" id="csel2-drop">
+                <div class="csel-opt" onclick="pickCsel2(this)" data-val="NEST"><strong>NEST</strong><span>Votre parcours découverte interactif</span></div>
+                <div class="csel-opt" onclick="pickCsel2(this)" data-val="ULYS"><strong>ULYS</strong><span>Votre guide local I.A.</span></div>
+                <div class="csel-opt" onclick="pickCsel2(this)" data-val="ITHAK"><strong>ITHAK</strong><span>Votre propre plateforme de réservation</span></div>
+                <div class="csel-opt" onclick="pickCsel2(this)" data-val="ÉCHO"><strong>ÉCHO</strong><span>Votre destination en tête sur Google</span></div>
+              </div>
+            </div>
+            <input type="hidden" name="besoin" id="csel2-input">
+          </div>
+          <div class="f"><textarea placeholder="Votre projet"></textarea></div>
+          <button type="submit" class="btn btn-p" style="width:100%;justify-content:center;margin-top:6px">Envoyer ma demande <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+lucide.createIcons();
+
+// ÉCHO dashboard animation
+(function(){
+  var googleCard = document.getElementById('echo-google-card');
+  if(!googleCard) return;
+  var counter = document.getElementById('echo-counter');
+  var tag1 = document.getElementById('etag1');
+  var tag2 = document.getElementById('etag2');
+  var tag3 = document.getElementById('etag3');
+  var donutArc = document.getElementById('echo-donut-arc');
+  var ebar1 = document.getElementById('ebar1');
+  var ebar2 = document.getElementById('ebar2');
+  var ebar3 = document.getElementById('ebar3');
+  var stat1 = document.getElementById('echo-stat1');
+  var stat2 = document.getElementById('echo-stat2');
+  var es1 = document.getElementById('es1');
+  var es2 = document.getElementById('es2');
+  var newsCard = document.getElementById('echo-news');
+
+  function t(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
+
+  function countUp(el, target, duration){
+    return new Promise(function(r){
+      var startTime = null;
+      function step(ts){
+        if(!startTime) startTime = ts;
+        var p = Math.min((ts-startTime)/duration, 1);
+        el.textContent = Math.round(p*target);
+        if(p<1) requestAnimationFrame(step); else r();
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+  function resetEcho(){
+    googleCard.classList.remove('show');
+    counter.textContent = '0';
+    [tag1,tag2,tag3].forEach(function(el){ el.classList.remove('show'); });
+    donutArc.style.transition = 'none';
+    donutArc.style.strokeDashoffset = '113';
+    ebar1.style.transition = 'none'; ebar1.style.width = '0%';
+    ebar2.style.transition = 'none'; ebar2.style.width = '0%';
+    ebar3.style.transition = 'none'; ebar3.style.width = '0%';
+    stat1.classList.remove('show'); es1.textContent = '0';
+    stat2.classList.remove('show'); es2.textContent = '0';
+    newsCard.classList.remove('show');
+    lucide.createIcons();
+  }
+
+  async function echoLoop(){
+    while(true){
+      resetEcho();
+      await t(500);
+      googleCard.classList.add('show');
+      await t(400);
+      void donutArc.getBoundingClientRect();
+      donutArc.style.transition = 'stroke-dashoffset 1.5s ease';
+      ebar1.style.transition = 'width 1.2s ease';
+      ebar2.style.transition = 'width 1.4s ease';
+      ebar3.style.transition = 'width 1s ease';
+      donutArc.style.strokeDashoffset = '28';
+      ebar1.style.width = '75%';
+      ebar2.style.width = '45%';
+      ebar3.style.width = '60%';
+      var cntPromise = countUp(counter, 3745, 1500);
+      await t(400); tag1.classList.add('show');
+      await t(300); tag2.classList.add('show');
+      await t(300); tag3.classList.add('show');
+      await cntPromise;
+      await t(400);
+      stat1.classList.add('show'); countUp(es1, 27, 700);
+      await t(500);
+      stat2.classList.add('show'); countUp(es2, 435, 1000);
+      await t(1200);
+      newsCard.classList.add('show'); lucide.createIcons();
+      await t(2800);
+    }
+  }
+  echoLoop();
+})();
+
+function toggleCsel() { document.getElementById('csel').classList.toggle('open'); }
+function pickCsel(el) {
+  document.querySelector('#csel .csel-val').textContent = el.querySelector('strong').textContent;
+  document.querySelector('#csel .csel-val').classList.add('selected');
+  document.getElementById('csel-input').value = el.getAttribute('data-val');
+  document.getElementById('csel').classList.remove('open');
+}
+function toggleCsel2() { document.getElementById('csel2').classList.toggle('open'); }
+function pickCsel2(el) {
+  document.getElementById('csel2-val').textContent = el.querySelector('strong').textContent;
+  document.getElementById('csel2-val').classList.add('selected');
+  document.getElementById('csel2-input').value = el.getAttribute('data-val');
+  document.getElementById('csel2').classList.remove('open');
+}
+document.addEventListener('click', function(e) {
+  var csel = document.getElementById('csel');
+  if (csel && !csel.contains(e.target)) csel.classList.remove('open');
+  var csel2 = document.getElementById('csel2');
+  if (csel2 && !csel2.contains(e.target)) csel2.classList.remove('open');
+});
+
+var contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var btn = contactForm.querySelector('button[type="submit"]');
+    btn.textContent = 'Message envoyé ✓';
+    btn.disabled = true;
+    btn.style.opacity = '.7';
+  });
+}
+</script>
+
+</body>
+</html>

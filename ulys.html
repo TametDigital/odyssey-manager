@@ -32,6 +32,7 @@
   --white: #ffffff;
   --h-xl: 3.8rem;
   --h-l:  2.25rem;
+  --h-xs: 1.1rem;
   --btn-shadow: 0 12px 26px -12px rgba(110,91,255,.70);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -122,7 +123,7 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 .sec-item:nth-child(3n)        { border-right: none; }
 .sec-item:nth-last-child(-n+3) { border-bottom: none; }
 .sec-item:hover { background: var(--violet); }
-.sec-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--violet-10); display: flex; align-items: center; justify-content: center; transition: background .25s ease; }
+.sec-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--violet-10); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background .25s ease; }
 .sec-item:hover .sec-icon { background: rgba(255,255,255,.2); }
 .sec-icon svg { width: 15px; height: 15px; color: var(--violet); transition: color .25s ease; }
 .sec-item:hover .sec-icon svg { color: #fff; }
@@ -175,8 +176,6 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 .cnt-2cards > div { display: flex; flex-direction: column; }
 .contact-avatar { width: 80px; height: 80px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
 .hello-icon { width: 48px; height: 48px; border-radius: 50%; background: var(--violet-10); display: flex; align-items: center; justify-content: center; color: var(--violet); flex-shrink: 0; animation: hello-bounce 2s ease-in-out infinite; }
-.sec-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--violet-10); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.sec-icon svg { width: 15px; height: 15px; color: var(--violet); }
 .form { display: flex; flex-direction: column; gap: 14px; }
 .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .f { display: flex; flex-direction: column; gap: 6px; }
@@ -465,6 +464,12 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 
   /* Comparaison table */
   .cmp-table { font-size: .875rem; }
+
+  /* Twocol → 1 colonne */
+  .twocol { grid-template-columns: 1fr; gap: 48px; }
+
+  /* icard 4 colonnes → 2 colonnes */
+  .icard-grid[style*="repeat(4"] { grid-template-columns: repeat(2, 1fr) !important; }
 }
 
 /* Mobile : ≤ 600px */
@@ -502,8 +507,24 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
   .hcw-sugg { grid-template-columns: 1fr; }
 
   /* Contact */
-  .cnt-2cards { gap: 24px !important; }
+  .cnt-2cards { grid-template-columns: 1fr; gap: 24px !important; }
+
+  /* Photo mosaic sous-grille */
+  .photo-mosaic__left-bottom { grid-template-columns: 1fr; }
+
+  /* icard 4 colonnes → 1 colonne */
+  .icard-grid[style*="repeat(4"] { grid-template-columns: 1fr !important; }
 }
+/* FAQ */
+.faq { display: grid; grid-template-columns: 320px 1fr; gap: 80px; padding: 80px 0; align-items: start; }
+.faq-list { display: flex; flex-direction: column; }
+.faq-item { border-bottom: 1px solid rgba(44,46,77,.1); }
+.faq-item summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 0; cursor: pointer; font-size: var(--t-m); font-weight: 600; color: var(--ink); }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary .faq-chevron { flex-shrink: 0; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; transition: transform .3s; }
+.faq-item[open] summary .faq-chevron { transform: rotate(180deg); }
+.faq-body { padding: 0 0 22px; font-size: var(--t-s); color: var(--ink-60); line-height: 1.75; max-width: 620px; }
+@media (max-width: 768px) { .faq { grid-template-columns: 1fr; gap: 32px; padding: 48px 0; } }
 </style>
 </head>
 <body>
@@ -529,7 +550,7 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
       </div>
       <div class="hnotify-vis">
         <div class="ulys-anim-wrap no-overlay" style="width:100%">
-  <img src="images/ulys_illu.png" alt="">
+  <img src="images/ulys_illu.jpg" alt="">
   <div class="hcw">
     <div class="hcw-head">
       <div class="hcw-av"><i data-lucide="bot" style="width:14px;height:14px;color:#fff"></i></div>
@@ -1092,6 +1113,36 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
   </div>
 </section>
 
+<!-- ICONE CARDS — Fond sable — avant SECTEURS -->
+<section class="px py" style="padding-top:100px">
+  <div class="cnt">
+    <p class="eyebrow mb-xs">Désormais indispensable</p>
+    <h2 class="h-l" style="margin-bottom:var(--sp-s)">L'IA, nouveau standard d'accueil</h2>
+    <div class="icard-grid" style="grid-template-columns:repeat(4,1fr)">
+      <div class="icard icard--sable">
+        <div class="icard-icon"><i data-lucide="wifi"></i></div>
+        <h3>Un service nouvelle génération</h3>
+        <p>Vous iriez dans un hôtel sans Wi-Fi ? L'IA prend le même chemin : un service que vos visiteurs attendent. Avec ULYS, vous le proposez sous votre marque.</p>
+      </div>
+      <div class="icard icard--sable">
+        <div class="icard-icon"><i data-lucide="palette"></i></div>
+        <h3>Une IA à votre image</h3>
+        <p>Serviettes, tasses, brochures : vous floquez déjà tout à votre logo. Chez vous, même l'IA est brandée, à votre identité et à vos couleurs, à chaque échange.</p>
+      </div>
+      <div class="icard icard--sable">
+        <div class="icard-icon"><i data-lucide="sliders-horizontal"></i></div>
+        <h3>Vos infos, vos règles</h3>
+        <p>Votre propre IA, c'est votre propre algorithme. Vous décidez ce qui apparaît, ce qui passe en avant et ce qui reste en retrait, toujours selon vos priorités.</p>
+      </div>
+      <div class="icard icard--sable">
+        <div class="icard-icon"><i data-lucide="message-circle-check"></i></div>
+        <h3>Une parole cohérente</h3>
+        <p>Fini les infos contradictoires entre le flyer, le site et le comptoir. ULYS délivre une parole homogène, fiable et toujours à jour, sur tous vos points de contact.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- SECTEURS -->
 <section class="px py">
   <div class="cnt">
@@ -1446,6 +1497,76 @@ initPhone('B');
 })();
 </script>
 
+<!-- FAQ -->
+<section class="px" style="background:#fff">
+  <div class="cnt">
+    <div class="faq">
+      <div>
+        <p class="eyebrow mb-xs">Aller plus loin</p>
+        <h2 class="h-l">Questions fréquentes</h2>
+      </div>
+      <div class="faq-list">
+
+        <details class="faq-item" open>
+          <summary>Faut-il télécharger une application ?<span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <div class="faq-body">Non. ULYS fonctionne directement depuis le navigateur, sans aucune installation. Sur votre site, il s'intègre en widget ou en page dédiée ; en borne, il est déjà là ; sur mobile, un simple scan de QR code suffit.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Combien de temps faut-il pour déployer ULYS ?<span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <div class="faq-body">Comptez 6 à 8 semaines entre le lancement et la mise en service. Ce délai couvre l'ingestion de vos contenus — PDF, site, brochures, SIT, APIs temps réel — leur structuration et le paramétrage de l'agent. Intégration et formation de vos équipes sont incluses.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Dans quelles langues ULYS répond-il ?<span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <div class="faq-body">ULYS détecte automatiquement la langue du visiteur et lui répond dans celle-ci, sans réglage de votre côté. L'agent dialogue couramment dans les principales langues touristiques — français, anglais, espagnol, allemand, italien et au-delà — pour accueillir chaque voyageur dans sa langue.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Quelle différence avec ChatGPT sur le téléphone de mes visiteurs ?<span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <div class="faq-body">La même qu'entre votre site web et 50 flyers posés sur votre comptoir. ChatGPT répond de façon générale, à partir de tout et n'importe quoi. ULYS répond à partir de vos contenus — une information triée, vérifiée et hiérarchisée par vos soins, dans une expérience pensée pour vos visiteurs.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Et si l'IA invente une information ?<span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <div class="faq-body">ULYS répond uniquement à partir des sources que vous lui confiez. Il ne va pas chercher ailleurs et n'invente rien. Quand il ne dispose pas de l'information, il le dit et oriente vers vos équipes, plutôt que de formuler une réponse approximative.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>ULYS remplace-t-il mon équipe d'accueil ?<span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <div class="faq-body">Au contraire, il la libère. ULYS prend en charge les questions répétitives et l'affluence aux heures de pointe, pour que vos conseillers se concentrent sur les échanges à forte valeur. Vos équipes restent au cœur de l'accueil, ULYS les épaule.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Mes contenus sont dispersés et pas toujours à jour, est-ce jouable ?<span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <div class="faq-body">Oui, c'est précisément notre métier. PDF, brochures papier, site web, SIT régionaux : ULYS ingère et structure l'ensemble de vos sources, même hétérogènes. Vous n'avez rien à réorganiser au préalable.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>J'ai déjà un espace web et une tablette dans mes locaux.<span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <div class="faq-body">Aucun souci, ULYS se branche sur votre existant. Site, tablette, borne ou tout ensemble : on s'adapte à votre dispositif actuel sans rien remplacer.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Qu'en est-il des données de mes visiteurs et du RGPD ?<span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <div class="faq-body">La collecte est conforme au RGPD. Les emails et numéros recueillis vous appartiennent, alimentent votre base contacts et restent sous votre contrôle, dans le respect du consentement de vos visiteurs.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Qui gère la maintenance de la borne ?<span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <div class="faq-body">Tout est pris en charge. Un contrat avec notre partenaire couvre l'ensemble du suivi technique de votre borne, sans aucune action de votre côté.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Achat ou leasing pour la borne ?<span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <div class="faq-body">Les deux. Vous choisissez la formule qui correspond le mieux à votre budget et à votre mode de fonctionnement.</div>
+        </details>
+
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section class="px" style="padding-top:0;padding-bottom:64px">
   <div class="cnt">
@@ -1480,12 +1601,12 @@ initPhone('B');
       <!-- Encart 2 — Formulaire -->
       <div style="background:var(--violet-10);border-radius:14px;padding:56px;">
         <p class="eyebrow" style="margin-bottom:26px">Contactez-nous</p>
-        <form class="form">
+        <form class="form" id="contactForm" novalidate>
           <div class="f-row">
-            <div class="f"><input type="text" placeholder="Votre prénom"></div>
-            <div class="f"><input type="text" placeholder="Votre nom"></div>
+            <div class="f"><input type="text" placeholder="Votre prénom" aria-label="Prénom" name="prenom"></div>
+            <div class="f"><input type="text" placeholder="Votre nom" aria-label="Nom" name="nom"></div>
           </div>
-          <div class="f"><input type="email" placeholder="Votre email"></div>
+          <div class="f"><input type="email" placeholder="Votre email" aria-label="Email" name="email"></div>
           <div class="f">
             <div class="csel" id="csel">
               <div class="csel-trigger" onclick="toggleCsel()">
@@ -1518,7 +1639,7 @@ initPhone('B');
             </div>
             <input type="hidden" name="besoin" id="csel2-input">
           </div>
-          <div class="f"><textarea placeholder="Votre projet"></textarea></div>
+          <div class="f"><textarea placeholder="Votre projet" aria-label="Votre projet" name="projet"></textarea></div>
           <button type="submit" class="btn btn-p" style="width:100%;justify-content:center;margin-top:6px">Envoyer ma demande <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></button>
         </form>
       </div>
@@ -1548,6 +1669,14 @@ document.addEventListener('click', function(e) {
   var c = document.getElementById('csel'); if(c && !c.contains(e.target)) c.classList.remove('open');
   var c2 = document.getElementById('csel2'); if(c2 && !c2.contains(e.target)) c2.classList.remove('open');
 });
+var contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var btn = contactForm.querySelector('button[type="submit"]');
+    if (btn) { btn.textContent = 'Message envoyé ✓'; btn.disabled = true; btn.style.opacity = '.7'; }
+  });
+}
 </script>
 
 
