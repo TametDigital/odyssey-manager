@@ -539,7 +539,7 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 }
 .contact-card { border-radius:14px; padding:56px; }
 @media (max-width: 960px) { .contact-card { padding:40px; } }
-@media (max-width: 600px) { .contact-card { padding:28px 24px; } }
+@media (max-width: 600px) { .contact-card { padding:28px 20px; } .contact-card .btn { width:100%; box-sizing:border-box; } .f-row { grid-template-columns:1fr; } }
 /* FAQ */
 .faq { display: grid; grid-template-columns: 320px 1fr; gap: 80px; padding: 80px 0; align-items: start; }
 .faq-list { display: flex; flex-direction: column; }
@@ -907,6 +907,7 @@ if (contactForm) {
 <script>lucide.createIcons();</script>
 </body>
 </html>
+
 
 
 
