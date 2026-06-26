@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
+    --sable: #EDCABC;
   --violet:    #6E5BFF;
   --violet-10: rgba(110,91,255,.10);
   --sable:     #FFEAD5;
@@ -428,7 +429,8 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 
 /* Tablette : ≤ 960px */
 @media (max-width: 960px) {
-  :root { --px: clamp(20px, 5vw, 48px); --h-xl: 2.8rem; --h-l: 1.875rem; }
+  :root {
+    --sable: #EDCABC; --px: clamp(20px, 5vw, 48px); --h-xl: 2.8rem; --h-l: 1.875rem; }
   .py { padding-top: 48px; padding-bottom: 48px; }
 
   /* Hero */
@@ -474,7 +476,8 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 
 /* Mobile : ≤ 600px */
 @media (max-width: 600px) {
-  :root { --px: 20px; --h-xl: 2.2rem; --h-l: 1.6rem; }
+  :root {
+    --sable: #EDCABC; --px: 20px; --h-xl: 2.2rem; --h-l: 1.6rem; }
   .py { padding-top: 40px; padding-bottom: 40px; }
 
   /* Hero */
@@ -875,6 +878,7 @@ if (contactForm) {
 <script>lucide.createIcons();</script>
 </body>
 </html>
+
 
 
 
