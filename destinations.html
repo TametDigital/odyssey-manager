@@ -537,6 +537,9 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
   /* Hero min-height */
   .bg-sable { min-height:auto !important; }
 }
+.contact-card { border-radius:14px; padding:56px; }
+@media (max-width: 960px) { .contact-card { padding:40px; } }
+@media (max-width: 600px) { .contact-card { padding:28px 24px; } }
 /* FAQ */
 .faq { display: grid; grid-template-columns: 320px 1fr; gap: 80px; padding: 80px 0; align-items: start; }
 .faq-list { display: flex; flex-direction: column; }
@@ -795,7 +798,7 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
     <div class="cnt-2cards">
 
       <!-- Encart 1 — Programmer une démo -->
-      <div style="background:var(--sable);border-radius:14px;padding:56px;display:flex;flex-direction:column;gap:28px;justify-content:center;">
+      <div class="contact-card" style="background:var(--sable);display:flex;flex-direction:column;gap:28px;justify-content:center;">
         <p class="eyebrow">Réservez votre démo</p>
         <div style="display:flex;align-items:center;gap:20px">
           <div class="contact-avatar">
@@ -820,7 +823,7 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
       </div>
 
       <!-- Encart 2 — Formulaire -->
-      <div style="background:var(--violet-10);border-radius:14px;padding:56px;">
+      <div class="contact-card" style="background:var(--violet-10);">
         <p class="eyebrow" style="margin-bottom:26px">Contactez-nous</p>
         <form class="form" id="contactForm" novalidate>
           <div class="f-row">
@@ -904,6 +907,7 @@ if (contactForm) {
 <script>lucide.createIcons();</script>
 </body>
 </html>
+
 
 
 
