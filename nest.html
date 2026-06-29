@@ -441,6 +441,14 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 .contact-card { border-radius:14px; padding:56px; }
 @media (max-width: 960px) { .contact-card { padding:40px; } }
 @media (max-width: 600px) { .contact-card { padding:28px 20px; } .contact-card .btn { width:100%; box-sizing:border-box; } .f-row { grid-template-columns:1fr; } }
+/* Pricing mobile blocks */
+.pt-block { border:1px solid rgba(44,46,77,.12); border-radius:12px; padding:20px; background:#fff; }
+.pt-block--items { background:var(--bg,#F9F8FF); }
+.pt-block-title { font-weight:700; font-size:var(--t-m,1rem); color:var(--violet,#6E5BFF); margin-bottom:8px; }
+.pt-block-price { font-size:var(--t-s,.875rem); color:var(--ink-60,#666); margin-bottom:12px; padding-bottom:12px; border-bottom:1px solid rgba(44,46,77,.1); }
+.pt-block .pt-row { display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid rgba(44,46,77,.06); font-size:var(--t-s,.875rem); }
+.pt-block .pt-row:last-child { border-bottom:none; }
+.pt-block .pt-row-val { font-size:var(--t-xs,.75rem); color:var(--ink-60,#666); text-align:right; max-width:50%; }
 </style>
 </head>
 <body>
@@ -1501,6 +1509,7 @@ if (contactForm) {
 
 </body>
 </html>
+
 
 
 
