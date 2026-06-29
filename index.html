@@ -1272,20 +1272,17 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 </section>
 
 <!-- CONTACT -->
-<section class="px py">
+<section class="px" style="padding-top:0;padding-bottom:64px">
   <div class="cnt">
-    <hr class="mb-s">
-    <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
-      <div class="hello-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="24" height="24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><circle cx="8" cy="11" r=".8" fill="currentColor"/><circle cx="12" cy="11" r=".8" fill="currentColor"/><circle cx="16" cy="11" r=".8" fill="currentColor"/></svg></div>
-      <h2 class="h-l" style="margin:0">Hello ! On discute ?</h2>
-    </div>
-    <p class="muted" style="font-size:var(--t-l);line-height:1.7;max-width:600px;margin-bottom:var(--sp-s)">Méthodologie, durée, tarifs...</p>
+
     <div class="cnt-2cards">
-      <div style="background:var(--sable);border-radius:14px;padding:56px;display:flex;flex-direction:column;gap:28px;justify-content:center;">
+
+      <!-- Encart 1 — Programmer une démo -->
+      <div class="contact-card" style="background:var(--sable);display:flex;flex-direction:column;gap:28px;justify-content:center;">
         <p class="eyebrow">Réservez votre démo</p>
         <div style="display:flex;align-items:center;gap:20px">
           <div class="contact-avatar">
-            <img src="images/etienne.jpg" alt="Étienne" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+            <img src="images/etienne.jpg" alt="Étienne Carpentier" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
           </div>
           <div>
             <p style="font-weight:700;font-size:var(--t-s);color:var(--ink)">Étienne Carpentier</p>
@@ -1294,7 +1291,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
         </div>
         <div style="display:flex;flex-direction:column;gap:14px">
           <div style="display:flex;align-items:center;gap:14px">
-            <div class="sec-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" width="15" height="15"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+            <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1.5" y="3.5" width="12" height="8" rx="2"/><path d="M1.5 7l6 3 6-3"/></svg></div>
             <p style="font-weight:600;font-size:var(--t-s)">Visio-conférence</p>
           </div>
           <div style="display:flex;align-items:center;gap:14px">
@@ -1304,14 +1301,16 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
         </div>
         <a href="https://calendly.com/etienne-odyssey-manager/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=6e5bff&month=2026-06" target="_blank" class="btn btn-p" style="justify-content:center;text-align:center">Programmer une démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
       </div>
-      <div style="background:var(--violet-10);border-radius:14px;padding:56px;">
+
+      <!-- Encart 2 — Formulaire -->
+      <div class="contact-card" style="background:var(--violet-10);">
         <p class="eyebrow" style="margin-bottom:26px">Contactez-nous</p>
-        <form class="form">
+        <form class="form" id="contactForm" novalidate>
           <div class="f-row">
-            <div class="f"><input type="text" placeholder="Votre prénom"></div>
-            <div class="f"><input type="text" placeholder="Votre nom"></div>
+            <div class="f"><input type="text" placeholder="Votre prénom" aria-label="Prénom" name="prenom"></div>
+            <div class="f"><input type="text" placeholder="Votre nom" aria-label="Nom" name="nom"></div>
           </div>
-          <div class="f"><input type="email" placeholder="Votre email"></div>
+          <div class="f"><input type="email" placeholder="Votre email" aria-label="Email" name="email"></div>
           <div class="f">
             <div class="csel" id="csel">
               <div class="csel-trigger" onclick="toggleCsel()">
@@ -1327,6 +1326,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
                 <div class="csel-opt" onclick="pickCsel(this)" data-val="Événementiel &amp; MICE"><strong>Événementiel &amp; MICE</strong><span>Organisateurs · Événementiel</span></div>
               </div>
             </div>
+            <input type="hidden" name="secteur" id="csel-input">
           </div>
           <div class="f">
             <div class="csel" id="csel2">
@@ -1341,11 +1341,13 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
                 <div class="csel-opt" onclick="pickCsel2(this)" data-val="NEST"><strong>NEST</strong><span>Votre parcours découverte interactif</span></div>
               </div>
             </div>
+            <input type="hidden" name="besoin" id="csel2-input">
           </div>
-          <div class="f"><textarea placeholder="Votre projet"></textarea></div>
+          <div class="f"><textarea placeholder="Votre projet" aria-label="Votre projet" name="projet"></textarea></div>
           <button type="submit" class="btn btn-p" style="width:100%;justify-content:center;margin-top:6px">Envoyer ma demande <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></button>
         </form>
       </div>
+
     </div>
   </div>
 </section>
@@ -1813,6 +1815,7 @@ lucide.createIcons();
 </script>
 </body>
 </html>
+
 
 
 
