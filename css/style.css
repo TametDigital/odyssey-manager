@@ -1,4 +1,4 @@
-/* =============================================
+﻿/* =============================================
    ODYSSEY MANAGER — Design System
    ============================================= */
 
@@ -662,3 +662,59 @@ p { color: var(--anthracite-2); }
 }
 .nav.open .nav__item:hover .mega-menu { display: none; }
 .nav.open .nav__item.active .mega-menu { display: grid !important; }
+
+
+/* =============================================
+   RESPONSIVE FIXES — Mobile 360–414px
+   ============================================= */
+
+/* Overflow-x global (#4, #6, #9) */
+body, html { overflow-x: hidden; }
+
+/* Pattern 1 — Cartes icard-grid → 1 colonne (#1,#8,#11,#12,#13,#14,#15) */
+@media (max-width: 600px) {
+  .icard-grid { grid-template-columns: 1fr !important; gap: 12px; }
+}
+
+/* Pattern 1 — Comparatif 2 colonnes → 1 colonne (#4) */
+@media (max-width: 600px) {
+  .cmp-table, .cmp-grid, .two-col { grid-template-columns: 1fr !important; }
+}
+
+/* Pattern 3 — Padding horizontal (#2,#6,#9,#16,#17,#18) */
+@media (max-width: 600px) {
+  .cnt { padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); box-sizing: border-box; }
+  .px { padding-left: 20px !important; padding-right: 20px !important; }
+}
+
+/* Pattern 5 — Features row : wrap + alignement (#3,#7,#16) */
+@media (max-width: 600px) {
+  .hnotify-trust { flex-wrap: wrap; gap: 6px 10px; align-items: center; overflow: hidden; }
+  .hnotify-trust i { flex-shrink: 0; }
+  .feat-sep { display: none; }
+}
+
+/* Pattern 7 — H1 hero trop grand (#16) */
+@media (max-width: 600px) {
+  .hnotify-text h1 { font-size: clamp(2rem, 8vw, 4.2rem) !important; }
+}
+
+/* Pattern 2 — Animations contraintes (#2,#5,#7,#18) */
+@media (max-width: 600px) {
+  .hnotify-img-wrap { overflow: hidden; }
+  .hnotif-group { max-width: 100%; overflow: hidden; }
+  .ulys-anim-wrap { max-width: 100%; overflow: hidden; }
+  .hcw { max-width: calc(100% - 40px); overflow: hidden; }
+  .orbit-stage { width: 240px !important; height: 240px !important; }
+}
+
+/* Pattern 6 — Avatars + section mission (#17) */
+@media (max-width: 600px) {
+  .avatar-row { flex-wrap: wrap; max-width: 100%; overflow: hidden; }
+}
+
+/* Pattern 8 — Formulaire champs pleine largeur (#6) */
+@media (max-width: 600px) {
+  .f-row { grid-template-columns: 1fr !important; }
+  .f-row input, .f-row select, .f-row textarea { width: 100%; box-sizing: border-box; }
+}
