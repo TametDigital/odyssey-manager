@@ -1114,18 +1114,13 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 </section>
 
 <!-- CONTACT -->
-<section class="px py">
+<section class="px" style="padding-top:0;padding-bottom:64px">
   <div class="cnt">
-    <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
-      <div class="hello-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="24" height="24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><circle cx="8" cy="11" r=".8" fill="currentColor"/><circle cx="12" cy="11" r=".8" fill="currentColor"/><circle cx="16" cy="11" r=".8" fill="currentColor"/></svg></div>
-      <h2 class="h-l" style="margin:0">Hello ! On discute ?</h2>
-    </div>
-    <p class="muted" style="font-size:var(--t-l);line-height:1.7;max-width:600px;margin-bottom:var(--sp-s)">Méthodologie, durée, tarifs...</p>
 
     <div class="cnt-2cards">
 
       <!-- Encart 1 — Programmer une démo -->
-      <div style="background:var(--sable);border-radius:14px;padding:56px;display:flex;flex-direction:column;gap:28px;justify-content:center;">
+      <div class="contact-card" style="background:var(--sable);display:flex;flex-direction:column;gap:28px;justify-content:center;">
         <p class="eyebrow">Réservez votre démo</p>
         <div style="display:flex;align-items:center;gap:20px">
           <div class="contact-avatar">
@@ -1150,7 +1145,7 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
       </div>
 
       <!-- Encart 2 — Formulaire -->
-      <div style="background:var(--violet-10);border-radius:14px;padding:56px;">
+      <div class="contact-card" style="background:var(--violet-10);">
         <p class="eyebrow" style="margin-bottom:26px">Contactez-nous</p>
         <form class="form" id="contactForm" novalidate>
           <div class="f-row">
@@ -1182,15 +1177,15 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 5l4 4 4-4"/></svg>
               </div>
               <div class="csel-drop" id="csel2-drop">
-                <div class="csel-opt" onclick="pickCsel2(this)" data-val="NEST"><strong>NEST</strong><span>Votre parcours découverte interactif</span></div>
                 <div class="csel-opt" onclick="pickCsel2(this)" data-val="ULYS"><strong>ULYS</strong><span>Votre guide local I.A.</span></div>
                 <div class="csel-opt" onclick="pickCsel2(this)" data-val="ITHAK"><strong>ITHAK</strong><span>Votre propre plateforme de réservation</span></div>
                 <div class="csel-opt" onclick="pickCsel2(this)" data-val="ÉCHO"><strong>ÉCHO</strong><span>Votre destination en tête sur Google</span></div>
+                <div class="csel-opt" onclick="pickCsel2(this)" data-val="NEST"><strong>NEST</strong><span>Votre parcours découverte interactif</span></div>
               </div>
             </div>
             <input type="hidden" name="besoin" id="csel2-input">
           </div>
-          <div class="f"><textarea placeholder="Votre projet"></textarea></div>
+          <div class="f"><textarea placeholder="Votre projet" aria-label="Votre projet" name="projet"></textarea></div>
           <button type="submit" class="btn btn-p" style="width:100%;justify-content:center;margin-top:6px">Envoyer ma demande <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></button>
         </form>
       </div>
@@ -1285,6 +1280,7 @@ if (contactForm) {
 
 </body>
 </html>
+
 
 
 

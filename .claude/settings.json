@@ -1,15 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "PowerShell(git add *)",
-      "PowerShell(git commit *)",
-      "PowerShell(git push *)",
-      "PowerShell(git pull *)",
-      "PowerShell(git clone *)",
-      "PowerShell(git log *)",
-      "PowerShell(git remote *)",
-      "PowerShell(Get-ChildItem *)",
-      "PowerShell(Get-Content *)"
+      "PowerShell(*)"
     ]
   }
 }
