@@ -235,6 +235,9 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
   .hero-actions .btn { width: 100%; justify-content: center; }
   .capa-grid { grid-template-columns: 1fr; }
 }
+.contact-card { border-radius:14px; padding:56px; }
+@media (max-width: 960px) { .contact-card { padding:40px; } }
+@media (max-width: 600px) { .contact-card { padding:28px 20px; } .contact-card .btn { width:100%; box-sizing:border-box; } .f-row { grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -707,6 +710,7 @@ if (contactForm) {
 
 </body>
 </html>
+
 
 
 

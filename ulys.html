@@ -527,6 +527,9 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 .faq-item[open] summary .faq-chevron { transform: rotate(180deg); }
 .faq-body { padding: 0 0 22px; font-size: var(--t-s); color: var(--ink-60); line-height: 1.75; max-width: 620px; }
 @media (max-width: 768px) { .faq { grid-template-columns: 1fr; gap: 32px; padding: 48px 0; } }
+.contact-card { border-radius:14px; padding:56px; }
+@media (max-width: 960px) { .contact-card { padding:40px; } }
+@media (max-width: 600px) { .contact-card { padding:28px 20px; } .contact-card .btn { width:100%; box-sizing:border-box; } .f-row { grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -1681,6 +1684,7 @@ if (contactForm) {
 
 </body>
 </html>
+
 
 
 
