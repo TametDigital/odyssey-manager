@@ -718,3 +718,53 @@ body, html { overflow-x: hidden; }
   .f-row { grid-template-columns: 1fr !important; }
   .f-row input, .f-row select, .f-row textarea { width: 100%; box-sizing: border-box; }
 }
+
+
+/* =============================================
+   PRICING TABLE — Responsive (#10)
+   ============================================= */
+
+/* Desktop: table normale, blocs cachés */
+.pt-mobile { display: none; }
+.pt-desktop { display: table; }
+
+/* Styles blocs mobile */
+.pt-block {
+  border: 1px solid rgba(44,46,77,0.12);
+  border-radius: 12px;
+  padding: 20px;
+  background: var(--white);
+}
+.pt-block--items {
+  background: var(--bg);
+}
+.pt-block-title {
+  font-weight: 700;
+  font-size: var(--t-m, 1rem);
+  color: var(--violet);
+  margin-bottom: 8px;
+}
+.pt-block-price {
+  font-size: var(--t-s, 0.875rem);
+  color: var(--ink-60, #666);
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(44,46,77,0.1);
+}
+.pt-block .pt-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(44,46,77,0.06);
+  font-size: var(--t-s, 0.875rem);
+}
+.pt-block .pt-row:last-child { border-bottom: none; }
+.pt-block .pt-row-label { color: var(--anthracite, #2C2E4D); }
+.pt-block .pt-row-val { font-size: var(--t-xs, 0.75rem); color: var(--ink-60, #666); text-align: right; max-width: 50%; }
+
+/* Mobile: blocs empilés, table cachée */
+@media (max-width: 600px) {
+  .pt-desktop { display: none !important; }
+  .pt-mobile { display: flex; flex-direction: column; gap: 16px; }
+}
