@@ -476,6 +476,9 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 /* Mobile : ≤ 600px */
 @media (max-width: 600px) {
   .cmp-table { grid-template-columns: 1fr; }
+  /* Animation ULYS BORNE → contrainte mobile */
+  .ulys-anim-wrap { width: 100% !important; max-width: 320px; margin: 0 auto; }
+  .hnotify-vis { overflow: hidden; }
   :root { --px: 20px; --h-xl: 2.2rem; --h-l: 1.6rem; }
   .py { padding-top: 40px; padding-bottom: 40px; }
 
@@ -1684,6 +1687,7 @@ if (contactForm) {
 
 </body>
 </html>
+
 
 
 
