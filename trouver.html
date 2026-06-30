@@ -1,0 +1,926 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+  <link rel="icon" href="images/nouveau-logo-carre.png" type="image/png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Destinations &amp; Territoires — Odyssey Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --violet:    #6E5BFF;
+  --violet-10: rgba(110,91,255,.10);
+  --sable:     #FFEAD5;
+  --ink:       #2C2E4D;
+  --ink-60:    rgba(44,46,77,.60);
+  --ink-14:    rgba(44,46,77,.14);
+  --ink-08:    rgba(44,46,77,.08);
+  --f-serif: 'Libre Baskerville', Georgia, serif;
+  --f-sans:  'Inter', system-ui, sans-serif;
+  --container: 83rem;
+  --px: clamp(24px,5vw,80px);
+  --sp-xxl: 96px;
+  --sp-m:   48px;
+  --sp-s:   32px;
+  --sp-xs:  16px;
+  --t-xl: 1.375rem;
+  --t-l:  1.25rem;
+  --t-m:  1.125rem;
+  --t-s:  1.0625rem;
+  --t-xs: 1rem;
+  --white: #ffffff;
+  --h-xl: 3.8rem;
+  --h-l:  2.25rem;
+  --h-xs: 1.1rem;
+  --btn-shadow: 0 12px 26px -12px rgba(110,91,255,.70);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
+/* Layout */
+.px  { padding-left: var(--px); padding-right: var(--px); }
+.py  { padding-top: 64px; padding-bottom: 64px; }
+.cnt { max-width: var(--container); margin: 0 auto; }
+.bg-sable { background: var(--sable); }
+/* Buttons */
+@keyframes breathe {
+  0%       { box-shadow: 0 0 0 0   rgba(110,91,255,.45), var(--btn-shadow); }
+  70%,100% { box-shadow: 0 0 0 12px rgba(110,91,255,0),  var(--btn-shadow); }
+}
+.btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 26px; border-radius: 12px; font-family: var(--f-sans); font-size: var(--t-s); font-weight: 600; cursor: pointer; border: none; transition: background .2s, box-shadow .2s, color .2s; white-space: nowrap; text-decoration: none; }
+.btn svg { transition: transform .2s; flex-shrink: 0; }
+.btn:hover svg { transform: translateX(4px); }
+.btn-p { background: var(--violet); color: #fff; animation: breathe 3s ease-out infinite; }
+.btn-p:hover { background: #5a48e8; box-shadow: 0 16px 34px -12px rgba(110,91,255,.7); animation: none; }
+.btn-g { background: var(--white); color: var(--ink); border: 1px solid var(--ink-14); }
+.btn-g:hover { border-color: var(--violet); color: var(--violet); background: var(--violet-10); }
+@keyframes hello-bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+.hero-badge { display:inline-flex; align-items:center; gap:8px; background:#fff; border-radius:999px; padding:7px 16px 7px 10px; font-size:.8125rem; font-weight:600; color:var(--ink); letter-spacing:.06em; text-transform:uppercase; }
+.h-xl { font-family:var(--f-serif); font-size:var(--h-xl); line-height:1.06; font-weight:700; letter-spacing:-.025em; }
+.h-l  { font-family:var(--f-serif); font-size:var(--h-l);  line-height:1.1;  font-weight:700; letter-spacing:-.02em; }
+.muted { color:var(--ink-60); line-height:1.65; }
+.link { display:inline-flex; align-items:center; gap:6px; color:var(--violet); font-size:var(--t-s); font-weight:600; text-decoration:none; }
+.link svg { transition:transform .2s ease; }
+.link:hover svg { transform:translateX(4px); }
+.check-list { display:flex; flex-direction:column; gap:14px; margin:24px 0; }
+.check-list li { display:flex; align-items:center; gap:12px; font-size:var(--t-s); color:var(--ink-60); line-height:1.5; }
+.check-icon { width:18px; height:18px; border-radius:6px; background:var(--violet); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.check-icon svg { width:9px; height:9px; color:#fff; stroke-width:2.2; }
+.check-list--round .check-icon { border-radius:50%; }
+.stat-quote { background:#fff; border-radius:12px; padding:20px 24px; display:flex; align-items:center; gap:16px; }
+.stat-quote-icon { width:36px; height:36px; flex-shrink:0; color:var(--violet); opacity:.15; align-self:center; }
+.stat-quote-src { font-size:var(--t-s); color:var(--violet); font-weight:600; letter-spacing:.05em; margin-bottom:6px; line-height:1.3; }
+.stat-quote-n { font-size:var(--t-s); font-weight:700; color:var(--violet); line-height:1.3; margin-bottom:6px; }
+.stat-quote-txt { font-size:var(--t-s); color:var(--ink-60); font-style:italic; line-height:1.3; }
+/* Hero layout */
+.hnotify       { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; padding:80px 0; }
+.hnotify-text  { display:flex; flex-direction:column; gap:0; align-items:flex-start; }
+.hnotify-trust { display:flex; align-items:center; gap:6px; font-size:var(--t-xs); color:var(--ink-60); margin-top:24px; }
+.hnotify-trust svg { color:var(--violet); }
+.hnotify-vis   { position:relative; }
+.hero-actions  { display:flex; gap:12px; flex-wrap:wrap; margin-top:36px; }
+.stat-quote-icon svg { width: 36px; height: 36px; fill: currentColor !important; stroke: none !important; }
+.stat-quote-icon svg * { fill: currentColor !important; stroke: none !important; }
+.hnotify-img-wrap { border-radius: 20px; overflow: hidden; position: relative; }
+.hnotify-img { width: 100%; height: 560px; object-fit: cover; object-position: center; display: block; }
+.hnotif-group { position: absolute; left: 20px; right: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; }
+.hnotif-card { background: #fff; border-radius: 14px; padding: 14px 18px; box-shadow: 0 12px 40px rgba(0,0,0,.18); opacity: 0; }
+.hnotif-card--3 { width: fit-content; padding: 10px 18px; border-radius: 999px; background: #1a9e4a; animation: notif-in 7s ease-in-out infinite; }
+.hnotif-card--1 { animation: notif-in 7s ease-in-out 1s infinite; }
+.hnotif-card--2 { animation: notif-in 7s ease-in-out 2s infinite; }
+.hnotif-card--3 .hnotif-row { gap: 8px; }
+.hnotif-card--3 .hnotif-name { color: #fff; font-size: var(--t-xs); font-weight: 700; letter-spacing: .03em; }
+.hnotif-card--3 .hnotif-icon--check { width: 20px; height: 20px; background: rgba(255,255,255,.25); border-radius: 50%; color: #fff; }
+.hnotif-row { display: flex; align-items: center; gap: 12px; }
+.hnotif-icon { width: 38px; height: 38px; flex-shrink: 0; background: var(--violet-10); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--violet); }
+.hnotif-icon--green { background: #e6f9ee; color: #1a9e4a; }
+.hnotif-name { font-size: var(--t-s); font-weight: 600; color: var(--ink); }
+.hnotif-sub { font-size: var(--t-xs); color: var(--ink-60); margin-top: 2px; }
+.hnotif-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--violet); flex-shrink: 0; margin-left: auto; }
+@keyframes notif-in {
+  0%   { opacity: 0; transform: translateY(14px); }
+  12%  { opacity: 1; transform: translateY(0); }
+  78%  { opacity: 1; transform: translateY(0); }
+  90%  { opacity: 0; transform: translateY(-8px); }
+  100% { opacity: 0; transform: translateY(14px); }
+}
+/* Photo mosaic */
+.photo-mosaic { display: grid; grid-template-columns: 3fr 2fr; gap: 14px; }
+.photo-mosaic__left { display: flex; flex-direction: column; gap: 14px; }
+.photo-mosaic__left-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.photo-mosaic__right { display: flex; flex-direction: column; gap: 14px; height: 574px; }
+.photo-mosaic__right .photo-block { flex: 1; min-height: 0; }
+.photo-block { border-radius: 14px; overflow: hidden; width: 100%; background: var(--sable); }
+.photo-block img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Bento */
+.bento-header { text-align: center; margin: 0 0 var(--sp-m); }
+.bento-header h2 { color: var(--violet); }
+.bento-header p  { font-size: var(--t-m); color: var(--ink-60); margin-top: 10px; line-height: 1.7; }
+.bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+/* Secteurs */
+.sec-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+.sec-item { padding: 32px; border-right: 1px solid var(--ink-08); border-bottom: 1px solid var(--ink-08); display: flex; flex-direction: column; gap: 12px; transition: background .2s; }
+.sec-item:nth-child(3n)        { border-right: none; }
+.sec-item:nth-last-child(-n+3) { border-bottom: none; }
+.sec-item:hover { background: var(--violet); }
+.sec-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--violet-10); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background .25s ease; }
+.sec-item:hover .sec-icon { background: rgba(255,255,255,.2); }
+.sec-icon svg { width: 15px; height: 15px; color: var(--violet); transition: color .25s ease; }
+.sec-item:hover .sec-icon svg { color: #fff; }
+.sec-item:hover .sec-icon i { color: #fff !important; }
+.sec-item h3 { font-size: var(--t-s); font-weight: 600; line-height: 1.35; transition: color .25s ease; }
+.sec-item:hover h3 { color: #fff; }
+.sec-item p  { font-size: var(--t-xs); color: var(--ink-60); line-height: 1.6; transition: color .25s ease; }
+.sec-item:hover p { color: rgba(255,255,255,.6); }
+.sec-item .link { transition: color .25s ease; }
+.sec-item:hover .link { color: rgba(255,255,255,.8); }
+.bento-card { background: var(--sable); border-radius: 16px; padding: 48px 36px; display: flex; flex-direction: column; gap: 14px; transition: transform .25s ease, box-shadow .25s ease; }
+.bento-card:hover { transform: translateY(-5px); box-shadow: 0 14px 36px -10px rgba(110,91,255,.15); }
+.bento-card--wide { grid-column: span 2; }
+.bento-card h3 { font-family: var(--f-serif); font-size: 1.25rem; font-weight: 700; line-height: 1.25; color: var(--ink); }
+.bento-card p  { font-size: var(--t-s); color: var(--ink-60); line-height: 1.7; }
+/* Chat animation */
+.chat-wrap { position:relative; z-index:2; background:#fff; border-radius:20px; width:300px; height:400px; box-shadow:0 20px 60px -10px rgba(44,46,77,.25); overflow:hidden; display:flex; flex-direction:column; }
+.chat-header { padding:12px 16px; border-bottom:1px solid var(--ink-08); display:flex; align-items:center; gap:9px; flex-shrink:0; background:#fff; }
+.chat-ai-avatar { width:28px; height:28px; border-radius:50%; background:var(--violet); display:flex; align-items:center; justify-content:center; color:#fff; flex-shrink:0; }
+.chat-body { flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:8px; scroll-behavior:smooth; }
+.chat-body::-webkit-scrollbar { display:none; }
+.chat-msg { opacity:0; transform:translateY(8px); transition:opacity .35s ease, transform .35s ease; flex-shrink:0; }
+.chat-msg.show { opacity:1; transform:translateY(0); }
+.chat-user-bubble { align-self:flex-end; background:var(--sable); color:var(--ink); padding:8px 12px; border-radius:14px 14px 4px 14px; font-size:.76em; font-weight:500; max-width:85%; line-height:1.4; display:inline-block; float:right; clear:both; }
+.chat-ai-row { display:flex; gap:7px; align-items:flex-start; clear:both; }
+.chat-ai-ic { width:24px; height:24px; border-radius:50%; background:var(--violet); display:flex; align-items:center; justify-content:center; color:#fff; flex-shrink:0; margin-top:2px; }
+.chat-ai-ic svg { width:12px; height:12px; }
+.chat-ai-content { display:flex; flex-direction:column; gap:6px; max-width:82%; }
+.chat-bubble { background:var(--ink-08); padding:8px 12px; border-radius:14px 14px 14px 4px; font-size:.76em; color:var(--ink); line-height:1.4; }
+.chat-typing { display:flex; gap:4px; align-items:center; padding:9px 14px; background:var(--ink-08); border-radius:14px 14px 14px 4px; width:fit-content; }
+.chat-typing span { width:5px; height:5px; background:#bbb; border-radius:50%; animation:chat-dot 1s ease-in-out infinite; }
+.chat-typing span:nth-child(2){animation-delay:.2s}
+.chat-typing span:nth-child(3){animation-delay:.4s}
+@keyframes chat-dot { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
+.chat-card { background:#fff; border-radius:12px; border:1px solid var(--ink-08); padding:12px; font-size:.76em; box-shadow:0 2px 8px rgba(44,46,77,.06); }
+.chat-ferry-row { display:flex; justify-content:space-between; align-items:center; padding:5px 0; border-bottom:1px solid var(--ink-08); }
+.chat-ferry-row:last-child { border-bottom:none; }
+.chat-badge { border-radius:999px; padding:3px 9px; font-size:.85em; font-weight:600; }
+.chat-badge--full { background:var(--ink-08); color:var(--ink-60); }
+.chat-badge--next { background:#E05A3A; color:#fff; }
+.chat-badge--ok { background:#E8F5ED; color:#1a9e4a; }
+.chat-ferry-next { background:#FFF0EE; border-radius:8px; padding:6px 8px; margin:2px 0; display:flex; justify-content:space-between; align-items:center; }
+.chat-ferry-next span:first-child { font-weight:700; color:#E05A3A; }
+.qr-scan-wrap { position:relative; width:fit-content; margin:0 auto 10px; }
+.qr-scan-line { position:absolute; left:0; right:0; height:2px; background:rgba(224,90,58,.75); top:0; box-shadow:0 0 8px rgba(224,90,58,.6); }
+.qr-scan-line--active { animation:qr-scan 2s linear infinite; }
+@keyframes qr-scan { 0%{top:0} 50%{top:108px} 100%{top:0} }
+/* Contact */
+.cnt-2cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; }
+.cnt-2cards > div { display: flex; flex-direction: column; }
+.contact-avatar { width: 80px; height: 80px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
+.hello-icon { width: 48px; height: 48px; border-radius: 50%; background: var(--violet-10); display: flex; align-items: center; justify-content: center; color: var(--violet); flex-shrink: 0; animation: hello-bounce 2s ease-in-out infinite; }
+.form { display: flex; flex-direction: column; gap: 14px; }
+.f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.f { display: flex; flex-direction: column; gap: 6px; }
+.f input, .f select, .f textarea { padding: 12px 16px; border: 1px solid var(--ink-14); border-radius: 10px; font-family: var(--f-sans); font-size: var(--t-s); color: var(--ink); background: var(--white); outline: none; transition: border-color .2s; appearance: none; -webkit-appearance: none; }
+.f input:focus, .f select:focus, .f textarea:focus { border-color: var(--violet); }
+.f textarea { resize: vertical; min-height: 110px; }
+.csel { position: relative; }
+.csel-trigger { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border: 1px solid var(--ink-14); border-radius: 10px; font-family: var(--f-sans); font-size: var(--t-s); color: var(--ink); background: var(--white); cursor: pointer; transition: border-color .2s; }
+.csel-trigger:hover, .csel.open .csel-trigger { border-color: var(--violet); }
+.csel-val { color: var(--ink-60); }
+.csel-val.selected { color: var(--ink); }
+.csel-drop { display: none; position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #fff; border: 1px solid var(--ink-14); border-radius: 12px; box-shadow: 0 12px 32px -8px rgba(44,46,77,.12); z-index: 100; overflow: hidden; }
+.csel.open .csel-drop { display: block; }
+.csel-opt { padding: 14px 16px; cursor: pointer; display: flex; flex-direction: column; gap: 2px; border-bottom: 1px solid var(--ink-08); transition: background .15s; }
+.csel-opt:last-child { border-bottom: none; }
+.csel-opt:hover { background: var(--violet-10); }
+.csel-opt strong { font-size: var(--t-s); font-weight: 600; color: var(--violet); }
+.csel-opt span { font-size: var(--t-xs); color: var(--ink-60); }
+/* CTA Bands */
+.cta { padding: 80px 0; display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+.cta h2 { max-width: 520px; }
+.cta-acts { display: flex; gap: 12px; flex-shrink: 0; }
+.h-m { font-family: var(--f-serif); font-size: 1.75rem; line-height: 1.18; font-weight: 700; }
+.bg-v { background: var(--violet); }
+.bg-v h2, .bg-v p { color: #fff; }
+.bg-v p { opacity: .6; }
+.bg-d { background: var(--ink); }
+.bg-d h2, .bg-d p { color: #fff; }
+.bg-d p { opacity: .45; }
+.bg-s { background: var(--sable); }
+/* Comparaison chatbot vs ULYS */
+.cmp-table { display:grid; grid-template-columns:1fr 1fr; margin-top:var(--sp-s); gap:16px; }
+.cmp-head { padding:32px 36px 20px; }
+.cmp-head--left { background:#fff; }
+.cmp-head--right { background:var(--violet); }
+.cmp-badge { display:inline-flex; align-items:center; gap:8px; background:#fff; border-radius:999px; padding:7px 16px; height:34px; box-sizing:border-box; font-size:.8125rem; font-weight:600; color:var(--ink); letter-spacing:.06em; text-transform:uppercase; margin-bottom:16px; }
+.cmp-badge i { width:16px; height:16px; color:var(--violet); }
+.cmp-title { font-size:var(--t-l); font-weight:700; color:var(--ink); margin-bottom:6px; }
+.cmp-sub { font-size:var(--t-xs); color:var(--violet); font-weight:500; }
+.cmp-sub--light { color:rgba(255,255,255,.7); }
+.cmp-row { display:contents; }
+.cmp-cell { display:flex; align-items:flex-start; gap:14px; padding:8px 36px; }
+.cmp-cell--left { background-color:#fff; }
+.cmp-cell--right { background-color:var(--violet); }
+.cmp-cell-icon { flex-shrink:0; width:22px; height:22px; display:flex; align-items:center; justify-content:center; margin-top:1px; }
+.cmp-cell-icon i { width:20px; height:20px; }
+.cmp-cell--left .cmp-cell-icon i { color:var(--violet); }
+.cmp-cell p { font-size:var(--t-xs); line-height:1.6; color:var(--ink-60); }
+.cmp-cell--right p { color:#fff; }
+/* Grille icônes constat */
+.icon-grid { position:absolute; inset:0; display:grid; grid-template-columns:repeat(5,1fr); grid-template-rows:repeat(5,1fr); }
+.grid-cell { border:1px solid rgba(255,255,255,.20); display:flex; align-items:center; justify-content:center; transition:background .2s; }
+.grid-cell:hover { background:rgba(255,255,255,.08); }
+.grid-cell i, .grid-cell svg { width:48px; height:48px; color:#fff; stroke:currentColor; opacity:.1; stroke-width:1.6; transition:opacity .25s ease; }
+.grid-cell:hover i, .grid-cell:hover svg { opacity:1; }
+/* 2 colonnes */
+.twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+.vis { background: var(--sable); border-radius: 14px; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; }
+/* Stepper constat */
+.cst-stepper { display:flex; align-items:flex-start; gap:10px; }
+.cst-node { display:flex; flex-direction:column; align-items:center; gap:8px; flex-shrink:0; }
+.cst-connector { flex:1; max-width:60px; height:2px; background:rgba(110,91,255,.15); align-self:flex-start; margin-top:19px; position:relative; overflow:hidden; }
+.cst-connector-fill { position:absolute; left:0; top:0; height:100%; width:0%; background:rgba(110,91,255,.7); transition:width .7s ease; }
+.cst-connector--done .cst-connector-fill { width:100%; }
+.cst-stepper--sm .cst-label { font-size:10px; }
+.cst-stepper--sm { justify-content:center; }
+.cst-circle { width:40px; height:40px; border-radius:50%; background:var(--violet-10); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:background .4s ease; }
+.cst-node--done .cst-circle { background:var(--violet); box-shadow:0 0 0 4px rgba(110,91,255,.15); }
+.cst-icon-n { color:var(--violet); display:flex; }
+.cst-icon-d { color:#fff; display:none; }
+.cst-node--done .cst-icon-n { display:none; }
+.cst-node--done .cst-icon-d { display:flex; }
+.cst-label { font-size:11px; font-weight:600; color:rgba(110,91,255,.4); white-space:nowrap; text-align:center; transition:color .4s ease; }
+.cst-node--done .cst-label { color:var(--ink); }
+/* Icone Cards */
+.eyebrow { font-size: var(--t-xs); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--violet); }
+.mb-xs { margin-bottom: var(--sp-xs); }
+.mb-s  { margin-bottom: var(--sp-s); }
+.icard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.icard { border-radius: 14px; padding: 32px 28px; display: flex; flex-direction: column; gap: 20px; transition: transform .25s ease, box-shadow .25s ease; }
+.icard:hover { transform: translateY(-6px); box-shadow: none; }
+.icard:hover .icard-icon { background: var(--violet); }
+.icard:hover .icard-icon svg, .icard:hover .icard-icon i { color: #fff; opacity: 1; }
+.icard--sable { background: var(--sable); }
+.icard-icon { width: 42px; height: 42px; border-radius: 10px; background: rgba(255,255,255,.65); display: flex; align-items: center; justify-content: center; transition: background .25s ease; }
+.icard-icon svg, .icard-icon i { width: 18px; height: 18px; color: var(--ink); opacity: .6; transition: color .25s ease, opacity .25s ease; }
+.icard h3 { font-family: var(--f-serif); font-size: var(--h-xs); line-height: 1.25; font-weight: 700; }
+.icard p  { font-size: var(--t-xs); color: var(--ink-60); line-height: 1.7; }
+/* Features List */
+.feat-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 80px; align-items: start; }
+.feat-list { display: flex; flex-direction: column; }
+.feat-item { display: flex; align-items: flex-start; gap: 18px; padding: 22px 0; border-bottom: 1px solid var(--ink-08); }
+.feat-item:first-child { border-top: 1px solid var(--ink-08); }
+.feat-icon { width: 38px; height: 38px; flex-shrink: 0; background: var(--violet-10); border-radius: 9px; display: flex; align-items: center; justify-content: center; transition: background .2s ease; }
+.feat-icon svg { width: 17px; height: 17px; color: var(--violet); transition: color .2s ease; }
+.feat-item:hover .feat-icon { background: var(--violet); }
+.feat-item:hover .feat-icon svg { color: #fff; }
+.feat-text h3 { font-size: var(--t-s); font-weight: 600; margin-bottom: 3px; transition: color .2s ease; }
+.feat-item:hover .feat-text h3 { color: var(--violet); }
+.feat-text p  { font-size: var(--t-xs); color: var(--ink-60); line-height: 1.6; }
+/* Capacités C */
+.capa-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.capa-card { background: var(--white); border-radius: 12px; padding: 22px 20px; display: flex; flex-direction: column; gap: 10px; transition: background .25s ease; cursor: default; }
+.capa-card:hover { background: var(--violet) !important; }
+.capa-icon { width: 20px; height: 20px; color: var(--violet); transition: color .25s ease; }
+.capa-card:hover .capa-icon { color: #fff; }
+.capa-icon svg { width: 20px; height: 20px; stroke: currentColor; }
+.capa-icon i { display: flex; width: 20px; height: 20px; }
+.capa-card h3 { font-size: var(--t-s); font-weight: 600; line-height: 1.3; color: var(--ink); transition: color .25s ease; }
+.capa-card:hover h3 { color: #fff; }
+.capa-card p  { font-size: var(--t-xs); color: var(--violet); line-height: 1.6; transition: color .25s ease; }
+.capa-card:hover p { color: rgba(255,255,255,.65); }
+/* Orbit */
+.cnt--m { max-width: 68rem; margin: 0 auto; }
+.orbit-card { background: var(--sable); border-radius: 20px; padding: 72px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; overflow: hidden; position: relative; }
+.orbit-card::before { content:''; position:absolute; inset:0; background:url('images/fond_orbit.jpeg') center/cover no-repeat; z-index:0; }
+.orbit-card::after { content:''; position:absolute; inset:0; background:linear-gradient(135deg, rgba(255,234,213,1) 0%, rgba(255,234,213,1) 33%, rgba(255,234,213,.60) 100%); z-index:1; }
+.orbit-card > * { position:relative; z-index:2; }
+.orbit-stage { position: relative; width: 420px; height: 420px; margin: 0 auto; flex-shrink: 0; }
+.orbit-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 80px; height: 80px; border-radius: 50%; background: var(--violet); display: flex; align-items: center; justify-content: center; z-index: 1; animation: orbit-breathe 3s ease-in-out infinite; }
+@keyframes orbit-breathe {
+  0%, 100% { box-shadow: 0 0 0 14px rgba(110,91,255,.20), 0 0 0 32px rgba(110,91,255,.10), 0 0 0 60px rgba(110,91,255,.05), 0 0 0 100px rgba(110,91,255,.02); }
+  50%       { box-shadow: 0 0 0 22px rgba(110,91,255,.16), 0 0 0 50px rgba(110,91,255,.08), 0 0 0 88px rgba(110,91,255,.04), 0 0 0 130px rgba(110,91,255,.01); }
+}
+.orbit-center svg { width: 32px; height: 32px; color: #fff; }
+.oi { position: absolute; top: 50%; left: 50%; width: 52px; height: 52px; margin: -26px 0 0 -26px; z-index: 4; }
+.oi-inner { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,.14); }
+.oi--1 { animation: oi1 24s linear infinite; }
+.oi--2 { animation: oi2 24s linear infinite; }
+.oi--3 { animation: oi3 24s linear infinite; }
+.oi--4 { animation: oi4 24s linear infinite; }
+.oi--5 { animation: oi5 24s linear infinite; }
+.oi--6 { animation: oi6 24s linear infinite; }
+.oi--7 { animation: oi7 24s linear infinite; }
+.oi--8 { animation: oi8 24s linear infinite; }
+@keyframes oi1 { from{transform:rotate(0deg)   translateX(170px) rotate(0deg);}   to{transform:rotate(360deg)  translateX(170px) rotate(-360deg);} }
+@keyframes oi2 { from{transform:rotate(45deg)  translateX(170px) rotate(-45deg);}  to{transform:rotate(405deg)  translateX(170px) rotate(-405deg);} }
+@keyframes oi3 { from{transform:rotate(90deg)  translateX(170px) rotate(-90deg);}  to{transform:rotate(450deg)  translateX(170px) rotate(-450deg);} }
+@keyframes oi4 { from{transform:rotate(135deg) translateX(170px) rotate(-135deg);} to{transform:rotate(495deg)  translateX(170px) rotate(-495deg);} }
+@keyframes oi5 { from{transform:rotate(180deg) translateX(170px) rotate(-180deg);} to{transform:rotate(540deg)  translateX(170px) rotate(-540deg);} }
+@keyframes oi6 { from{transform:rotate(225deg) translateX(170px) rotate(-225deg);} to{transform:rotate(585deg)  translateX(170px) rotate(-585deg);} }
+@keyframes oi7 { from{transform:rotate(270deg) translateX(170px) rotate(-270deg);} to{transform:rotate(630deg)  translateX(170px) rotate(-630deg);} }
+@keyframes oi8 { from{transform:rotate(315deg) translateX(170px) rotate(-315deg);} to{transform:rotate(675deg)  translateX(170px) rotate(-675deg);} }
+/* Sources */
+.src-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.src-card { background: var(--violet-10); border-radius: 14px; padding: 32px 28px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; }
+.src-icon { width: 48px; height: 48px; color: var(--violet); display: flex; align-items: center; justify-content: center; }
+.src-icon i { width: 32px; height: 32px; }
+.src-card h3 { font-size: var(--t-s); font-weight: 600; color: var(--violet); line-height: 1.3; }
+.src-card p  { font-size: var(--t-xs); color: var(--ink-60); line-height: 1.65; }
+
+.ulys-anim-wrap { position:relative; width:420px; aspect-ratio:1/1; border-radius:20px; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+.ulys-anim-wrap > img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.ulys-anim-wrap::after { content:''; position:absolute; inset:0; background:rgba(44,46,77,.35); }
+.ulys-anim-wrap.no-overlay::after { display:none; }
+.ulys-phone { position:relative; z-index:2; background:#fff; border-radius:20px; padding:28px 24px 20px; width:320px; box-shadow:0 20px 60px -10px rgba(44,46,77,.25); }
+.ulys-screens { overflow:hidden; }
+.ulys-screen { display:none; animation:ulys-fadein .5s ease; }
+.ulys-screen.active { display:block; }
+@keyframes ulys-fadein { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+.ulys-label { font-size:.65rem; font-weight:700; letter-spacing:.18em; color:var(--ink-60); margin-bottom:14px; font-family:var(--f-sans); }
+.ulys-pills { display:flex; flex-wrap:wrap; gap:8px; }
+.ulys-pill { display:inline-flex; align-items:center; gap:6px; padding:8px 14px; border-radius:99px; border:1.5px solid var(--ink-14); font-size:.8rem; font-weight:500; color:var(--ink); cursor:pointer; transition:all .2s; font-family:var(--f-sans); }
+.ulys-pill--active { border-color:var(--violet); color:var(--violet); background:rgba(110,91,255,.06); }
+.ulys-pill-icon { width:13px; height:13px; }
+.ulys-counters { display:flex; flex-direction:column; gap:14px; margin-bottom:18px; }
+.ulys-counter-row { display:flex; align-items:center; justify-content:space-between; background:var(--violet-10); border-radius:12px; padding:14px 16px; }
+.ulys-counter-label { font-size:.85rem; font-weight:500; color:var(--ink); font-family:var(--f-sans); }
+.ulys-counter { display:flex; align-items:center; gap:14px; }
+.ulys-btn-count { width:30px; height:30px; border-radius:50%; border:none; background:var(--ink-08); color:var(--ink); font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.ulys-btn-count--active { background:var(--violet); color:#fff; }
+.ulys-count { font-size:1rem; font-weight:700; color:var(--ink); min-width:16px; text-align:center; font-family:var(--f-sans); }
+.ulys-checks { display:flex; flex-direction:column; gap:10px; }
+.ulys-check { display:flex; align-items:center; gap:10px; font-size:.85rem; color:var(--ink); font-family:var(--f-sans); cursor:pointer; }
+.ulys-check-box { width:18px; height:18px; border-radius:5px; border:1.5px solid var(--ink-14); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.ulys-check-box--checked { background:var(--violet); border-color:var(--violet); }
+.ulys-check-box svg { display:none; }
+.ulys-check-box--checked svg { display:block; }
+.ulys-check--checked { color:var(--violet); }
+@keyframes ulys-wave { 0%{box-shadow:0 0 0 0 rgba(110,91,255,.5);} 70%{box-shadow:0 0 0 10px rgba(110,91,255,0);} 100%{box-shadow:0 0 0 0 rgba(110,91,255,0);} }
+.ulys-wave { animation: ulys-wave .5s ease-out; }
+.ulys-budget { display:flex; gap:10px; }
+.ulys-budget-card { flex:1; display:flex; flex-direction:column; align-items:center; gap:8px; padding:18px 10px; border-radius:14px; border:1.5px solid var(--ink-08); font-size:.78rem; font-weight:500; color:var(--ink); font-family:var(--f-sans); }
+.ulys-budget-card--active { border-color:var(--violet); color:var(--violet); background:rgba(110,91,255,.05); }
+.ulys-budget-icon { width:20px; height:20px; }
+.ulys-budget-card--active .ulys-budget-icon { color:var(--violet); }
+.ulys-dots { display:flex; justify-content:center; gap:6px; margin-top:18px; }
+.ulys-dot { width:6px; height:6px; border-radius:50%; background:var(--ink-14); transition:all .3s; }
+.ulys-dot--active { background:var(--violet); width:18px; border-radius:3px; }
+.ulys-prep-card { background:var(--violet-10); border-radius:14px; padding:18px 16px; }
+.ulys-prep-title { font-size:.85rem; font-weight:600; color:var(--ink); font-family:var(--f-sans); margin-bottom:16px; }
+.ulys-steps { display:flex; flex-direction:column; gap:12px; margin-bottom:16px; }
+.ulys-step { display:flex; align-items:center; gap:10px; }
+.ulys-step--pending .ulys-step-label { color:var(--ink-60); }
+.ulys-step-label { font-size:.82rem; font-family:var(--f-sans); color:var(--ink); font-weight:500; transition:color .3s; }
+.ulys-step-icon { width:22px; height:22px; border-radius:50%; background:var(--violet); display:flex; align-items:center; justify-content:center; color:#fff; flex-shrink:0; transition:background .3s; }
+.ulys-step-icon--pending { background:var(--ink-08); color:var(--ink-60); }
+@keyframes ulys-spin { to { transform:rotate(360deg); } }
+.ulys-step-icon--spinning svg { animation:ulys-spin 1s linear infinite; }
+.ulys-progress-wrap { background:var(--ink-08); border-radius:99px; height:4px; margin-bottom:10px; overflow:hidden; }
+.ulys-progress-bar { height:4px; background:var(--violet); border-radius:99px; width:0%; transition:width .4s ease; }
+.ulys-prep-hint { font-size:.72rem; color:var(--ink-60); font-family:var(--f-sans); font-style:italic; }
+/* Hero chat window */
+.hcw { position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; overflow:hidden; padding:20px 36px 0; }
+.hcw-head { background:#fff; padding:10px 14px; display:inline-flex; align-items:center; gap:10px; border-radius:14px; align-self:flex-start; box-shadow:0 4px 16px rgba(0,0,0,.1); flex-shrink:0; }
+.hcw-av { width:28px; height:28px; border-radius:50%; background:var(--violet); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.hcw-name { font-size:.74em; font-weight:600; color:var(--ink); }
+.hcw-status { font-size:.65em; color:var(--ink-60); display:flex; align-items:center; gap:5px; margin-top:2px; }
+.hcw-dot { width:6px; height:6px; border-radius:50%; background:#1a9e4a; flex-shrink:0; }
+.hcw-body { flex:1; overflow-y:auto; padding:14px 36px; display:flex; flex-direction:column; gap:8px; scroll-behavior:smooth; }
+.hcw-body::-webkit-scrollbar { display:none; }
+/* Messages */
+.hc-msg { opacity:0; transform:translateY(6px); transition:opacity .3s ease, transform .3s ease; flex-shrink:0; }
+.hc-msg.show { opacity:1; transform:translateY(0); }
+.hc-user { display:flex; justify-content:flex-end; }
+.hc-user span { background:var(--sable); color:var(--ink); padding:8px 12px; border-radius:14px 14px 4px 14px; font-size:.75em; font-weight:500; max-width:82%; line-height:1.4; display:inline-block; }
+.hc-ai-row { display:flex; gap:7px; align-items:flex-start; }
+.hc-avatar { width:24px; height:24px; border-radius:50%; background:var(--violet); display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+.hc-bubble { background:#fff; padding:8px 12px; border-radius:14px 14px 14px 4px; font-size:.75em; color:var(--ink); line-height:1.45; max-width:82%; }
+/* Suggestions */
+.hcw-sugg-wrap { background:#fff; border-radius:16px; padding:10px; margin-left:31px; box-shadow:0 4px 20px rgba(0,0,0,.08); }
+.hcw-sugg { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+.hcw-sugg-btn { border-radius:10px; padding:9px 10px; font-size:.71em; color:var(--ink); font-weight:500; cursor:default; display:flex; align-items:center; gap:7px; line-height:1.3; border:none; }
+.hcw-sugg-btn i { flex-shrink:0; width:13px; height:13px; }
+/* Cards */
+.hcw-cards { display:flex; gap:8px; padding-left:31px; overflow-x:auto; padding-bottom:4px; }
+.hcw-cards::-webkit-scrollbar { display:none; }
+.hcw-card { background:#fff; border-radius:12px; min-width:130px; flex-shrink:0; overflow:hidden; }
+.hcw-card-visual { height:52px; overflow:hidden; }
+.hcw-card-visual img { width:100%; height:100%; object-fit:cover; display:block; }
+.hcw-card-body { padding:8px 10px 10px; }
+.hcw-card-status { font-size:.6em; font-weight:600; padding:2px 7px; border-radius:20px; background:var(--violet-10); color:var(--violet); display:inline-block; margin-bottom:5px; }
+.hcw-card-status--green { background:#e6f9ed; color:#1a9e4a; }
+.hcw-card-status--orange { background:#fff3ec; color:#E05A3A; }
+.hcw-card-title { font-size:.72em; font-weight:600; color:var(--ink); line-height:1.3; margin-bottom:6px; }
+.hcw-card-tags { display:flex; flex-direction:column; gap:6px; }
+.hcw-card-info { display:flex; align-items:center; gap:5px; font-size:.68em; color:var(--ink-60); }
+/* Recap card */
+.hcw-recap-card { background:#fff; border-radius:12px; padding:12px 14px; display:flex; flex-direction:column; gap:10px; max-width:92%; }
+.hcw-recap-title { font-size:.72em; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:5px; padding-bottom:8px; border-bottom:1px solid var(--ink-08); }
+.hcw-recap-bottom { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.hcw-recap-qr { background:var(--violet); border-radius:10px; padding:10px 8px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; }
+.hcw-recap-qr-label { font-size:.62em; font-weight:600; color:rgba(255,255,255,.85); text-align:center; line-height:1.3; }
+.hcw-recap-wa { background:#25D366; border-radius:10px; padding:10px 8px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; cursor:default; }
+.hcw-recap-wa-text { font-size:.62em; font-weight:600; color:#fff; text-align:center; line-height:1.3; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+/* Tablette : ≤ 960px */
+@media (max-width: 960px) {
+  :root { --px: clamp(20px, 5vw, 48px); --h-xl: 2.8rem; --h-l: 1.875rem; }
+  .py { padding-top: 48px; padding-bottom: 48px; }
+
+  /* Hero */
+  .hnotify { grid-template-columns: 1fr; gap: 40px; padding: 48px 0; }
+  .hnotify-vis { order: -1; }
+  .ulys-anim-wrap { max-width: 540px; margin: 0 auto; }
+
+  /* Grilles 3 colonnes → 2 colonnes */
+  .bento-grid { grid-template-columns: repeat(2, 1fr); }
+  .bento-card--wide { grid-column: span 2; }
+  .sec-grid { grid-template-columns: repeat(2, 1fr); }
+  .sec-item:nth-child(3n)        { border-right: 1px solid var(--ink-08); }
+  .sec-item:nth-child(2n)        { border-right: none; }
+  .sec-item:nth-last-child(-n+3) { border-bottom: 1px solid var(--ink-08); }
+  .sec-item:nth-last-child(-n+2) { border-bottom: none; }
+  .icard-grid { grid-template-columns: repeat(2, 1fr); }
+  .capa-grid  { grid-template-columns: repeat(3, 1fr); }
+
+  /* Photo mosaic */
+  .photo-mosaic { grid-template-columns: 1fr; }
+  .photo-mosaic__right { height: auto; flex-direction: row; }
+  .photo-mosaic__right .photo-block { height: 200px; }
+
+  /* ULYS DETAIL hnotify */
+  .hnotify { grid-template-columns: 1fr; gap: 36px; padding: 40px 0; }
+
+  /* Orbit */
+  .orbit-card { flex-direction: column !important; gap: 40px !important; }
+  .orbit-stage { width: 320px; height: 320px; }
+
+  /* Features list */
+  .feat-grid { grid-template-columns: 1fr; gap: 40px; }
+
+  /* Comparaison table */
+  .cmp-table { font-size: .875rem; }
+
+  /* Twocol → 1 colonne */
+  .twocol { grid-template-columns: 1fr; gap: 48px; }
+
+  /* icard 4 colonnes → 2 colonnes */
+  .icard-grid[style*="repeat(4"] { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+/* Mobile : ≤ 600px */
+@media (max-width: 600px) {
+  :root { --px: 20px; --h-xl: 2.2rem; --h-l: 1.6rem; }
+  .py { padding-top: 40px; padding-bottom: 40px; }
+
+  /* Hero */
+  .hnotify { padding: 32px 0; gap: 28px; }
+  .hero-actions { flex-direction: column; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+
+  /* Grilles → 1 colonne */
+  .bento-grid { grid-template-columns: 1fr; }
+  .bento-card--wide { grid-column: span 1; }
+  .sec-grid { grid-template-columns: 1fr; }
+  .sec-item { border-right: none !important; }
+  .sec-item:last-child { border-bottom: none; }
+  .icard-grid { grid-template-columns: 1fr; gap: 12px; }
+  .capa-grid  { grid-template-columns: repeat(2, 1fr); }
+
+  /* Photo mosaic */
+  .photo-mosaic__right { flex-direction: column; }
+  .photo-mosaic__right .photo-block { height: 160px; }
+
+  /* Orbit */
+  .orbit-stage { width: 260px; height: 260px; }
+
+  /* Bento */
+  .bento-card { padding: 32px 24px; }
+
+  /* Chat animation */
+  .hcw { padding: 12px 16px 0; }
+  .hcw-body { padding: 10px 16px; }
+  .hcw-sugg { grid-template-columns: 1fr; }
+
+  /* Contact */
+  .cnt-2cards { grid-template-columns: 1fr; gap: 24px !important; }
+
+  /* Photo mosaic sous-grille */
+  .photo-mosaic__left-bottom { grid-template-columns: 1fr; }
+
+  /* icard 4 colonnes → 1 colonne */
+  .icard-grid[style*="repeat(4"] { grid-template-columns: 1fr !important; }
+}
+/* Product images (carré, responsive) */
+.prod-img { border-radius:20px; overflow:hidden; aspect-ratio:1/1; }
+.prod-img img { width:100%; height:100%; object-fit:cover; display:block; }
+
+/* Product section alt (image-gauche, padding custom) */
+.prod-section-alt { padding-top:64px; padding-bottom:120px; }
+
+@media (max-width: 960px) {
+  .prod-section-alt { padding-top:48px; padding-bottom:80px; }
+  .twocol { gap:48px; }
+}
+
+@media (max-width: 600px) {
+  /* Image toujours au-dessus du texte */
+  .prod-img { order:-1; max-width:480px; margin:0 auto; width:100%; }
+  /* Réduire padding sections */
+  .prod-section-alt { padding-top:32px; padding-bottom:40px; }
+  /* Réduire gap twocol */
+  .twocol { gap:28px; }
+  /* Hero min-height */
+  .bg-sable { min-height:auto !important; }
+}
+.contact-card { border-radius:14px; padding:56px; }
+@media (max-width: 960px) { .contact-card { padding:40px; } }
+@media (max-width: 600px) { .contact-card { padding:28px 20px; } .contact-card .btn { width:100%; box-sizing:border-box; } .f-row { grid-template-columns:1fr; } }
+/* FAQ */
+.faq { display: grid; grid-template-columns: 320px 1fr; gap: 80px; padding: 80px 0; align-items: start; }
+.faq-list { display: flex; flex-direction: column; }
+.faq-item { border-bottom: 1px solid rgba(44,46,77,.1); }
+.faq-item summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 0; cursor: pointer; font-size: var(--t-m); font-weight: 600; color: var(--ink); }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary .faq-chevron { flex-shrink: 0; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; transition: transform .3s; }
+.faq-item[open] summary .faq-chevron { transform: rotate(180deg); }
+.faq-body { padding: 0 0 22px; font-size: var(--t-s); color: var(--ink-60); line-height: 1.75; max-width: 620px; }
+@media (max-width: 768px) { .faq { grid-template-columns: 1fr; gap: 32px; padding: 48px 0; } }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="px bg-sable" style="min-height:85vh;display:flex;align-items:center">
+  <div class="cnt">
+    <div class="hnotify">
+      <div class="hnotify-text">
+        <span class="hero-badge" style="margin-bottom:12px;background:#fff;color:var(--violet)"><i data-lucide="map-pin" style="width:1.2em;height:1.2em;color:var(--violet);display:inline-flex"></i>Offices et agences de tourisme</span>
+        <h1 class="h-xl" style="margin-bottom:22px">Votre territoire mérite des outils à la hauteur de son ambition</h1>
+        <p class="muted" style="font-size:var(--t-l);line-height:1.65;max-width:480px">Parcours de découverte interactifs, guide IA conversationnel, visibilité Google, réservation directe : quatre solutions conçues pour les acteurs publics du tourisme territorial.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-p">Demander une démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+          <a href="#" class="btn btn-g">Voir comment ça marche</a>
+        </div>
+      </div>
+      <div class="hnotify-vis">
+        <div class="prod-img">
+          <img src="images/home-cards-1.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+      </div>
+    </div><!-- /hnotify -->
+  </div><!-- /cnt -->
+</section><!-- /hero -->
+
+<!-- ICONE CARDS — Fond sable -->
+<section class="px py">
+  <div class="cnt">
+    <p class="eyebrow mb-xs">LE TOURISME TERRITORIAL EN 2026</p>
+    <h2 class="h-l" style="margin-bottom:var(--sp-s)">Les attentes de vos visiteurs ont déjà changé</h2>
+    <div class="icard-grid" style="grid-template-columns:repeat(4,1fr)">
+      <div class="icard icard--sable">
+        <div class="icard-icon"><i data-lucide="smartphone"></i></div>
+        <h3>Ils veulent découvrir autrement</h3>
+        <p>Parcours interactifs, QR codes, contenus immersifs sur le terrain. La brochure papier et le site vitrine ne suffisent plus.</p>
+      </div>
+      <div class="icard icard--sable">
+        <div class="icard-icon"><i data-lucide="message-circle"></i></div>
+        <h3>Ils posent des questions à toute heure</h3>
+        <p>Le soir, le week-end, en dehors de vos horaires. Dans leur langue. Et ils attendent une réponse immédiate.</p>
+      </div>
+      <div class="icard icard--sable">
+        <div class="icard-icon"><i data-lucide="search"></i></div>
+        <h3>Ils vous cherchent sur Google</h3>
+        <p>Et ce sont les agrégateurs qui répondent à leur place, sur vos propres requêtes territoriales.</p>
+      </div>
+      <div class="icard icard--sable">
+        <div class="icard-icon"><i data-lucide="shopping-bag"></i></div>
+        <h3>Ils veulent réserver chez vous</h3>
+        <p>Pas sur une plateforme tierce qui capte la commission et la relation client à votre place.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- GALERIE PHOTOS -->
+<section class="px" style="padding-top:32px;padding-bottom:120px">
+  <div class="cnt">
+    <div class="photo-mosaic">
+      <div class="photo-mosaic__left">
+        <div class="photo-block" style="height:340px">
+          <img src="images/ulys_galerie5.jpeg" alt="">
+        </div>
+        <div class="photo-mosaic__left-bottom">
+          <div class="photo-block" style="height:220px">
+            <img src="images/ulys_galerie3.jpeg" alt="">
+          </div>
+          <div class="photo-block" style="height:220px">
+            <img src="images/ulys_galerie1.jpeg" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="photo-mosaic__right">
+        <div class="photo-block" style="flex:1">
+          <img src="images/ulys_galerie4.jpeg" alt="">
+        </div>
+        <div class="photo-block" style="flex:1;background:url('images/ulys_galerie2.jpeg') center center/cover no-repeat"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ULYS DETAIL — 2 cols texte + notifs animées -->
+<section class="px py" style="background:var(--sable)">
+  <div class="cnt">
+    <div class="twocol">
+      <div>
+        <span class="hero-badge" style="margin-bottom:12px;color:var(--violet);background:#fff;letter-spacing:.25em;font-weight:600;font-size:var(--t-s)"><i data-lucide="map" style="width:1.4em;height:1.4em;color:var(--violet);display:inline-flex"></i>NEST</span>
+        <h2 class="h-l" style="margin-bottom:10px">Faites vivre votre territoire avec un parcours découverte interactif</h2>
+        <p style="font-size:var(--t-s);line-height:1.6;color:var(--violet);font-weight:500;margin-bottom:12px">NEST déploie sur votre territoire des parcours de découverte guidés par QR codes, contenus multimédias géolocalisés et archives animées par l'IA. Chaque commune, chaque site, chaque histoire devient une étape que vos visiteurs explorent à leur rythme, sur leur smartphone.</p>
+        <ul class="check-list check-list--round">
+          <li><span class="check-icon" style="background:var(--violet)"><i data-lucide="check" style="width:11px;height:11px;color:#fff;stroke-width:3"></i></span>Parcours interactifs déployés sur l'ensemble de votre territoire</li>
+          <li><span class="check-icon" style="background:var(--violet)"><i data-lucide="check" style="width:11px;height:11px;color:#fff;stroke-width:3"></i></span>QR codes sur site pour une découverte guidée et autonome</li>
+          <li><span class="check-icon" style="background:var(--violet)"><i data-lucide="check" style="width:11px;height:11px;color:#fff;stroke-width:3"></i></span>Archives historiques et culturelles animées par l'IA</li>
+          <li><span class="check-icon" style="background:var(--violet)"><i data-lucide="check" style="width:11px;height:11px;color:#fff;stroke-width:3"></i></span>Expérience personnalisable par commune, thématique ou saison</li>
+        </ul>
+        <a href="nest.html" class="link" style="margin-top:28px">Découvrez NEST <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+      </div>
+      <div class="prod-img">
+        <img src="images/nest_illu.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ULYS DETAIL — quinconce : image gauche, texte droite -->
+<section class="px prod-section-alt" style="background:var(--sable)">
+  <div class="cnt">
+    <div class="twocol">
+      <div class="prod-img">
+        <img src="images/ulys_illu.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+      </div>
+      <div>
+        <span class="hero-badge" style="margin-bottom:12px;color:var(--violet);background:#fff;letter-spacing:.25em;font-weight:600;font-size:var(--t-s)"><i data-lucide="bot" style="width:1.4em;height:1.4em;color:var(--violet);display:inline-flex"></i>ULYS</span>
+        <h2 class="h-l" style="margin-bottom:10px">Un guide IA qui connaît votre territoire sur le bout des doigts</h2>
+        <p style="font-size:var(--t-s);line-height:1.6;color:var(--violet);font-weight:500;margin-bottom:12px">ULYS accueille vos visiteurs 24h/24, dans leur langue, avec la connaissance d'un conseiller de 20 ans d'expérience. Entraîné sur vos contenus (PDF, brochures, site web, bases SIT, données temps réel), il dialogue, suggère des parcours sur-mesure et accompagne chaque visiteur de la préparation jusqu'après le séjour.</p>
+        <ul class="check-list check-list--round">
+          <li><span class="check-icon" style="background:var(--violet)"><i data-lucide="check" style="width:11px;height:11px;color:#fff;stroke-width:3"></i></span>Disponible 24h/24 sur web, tablette et borne tactile</li>
+          <li><span class="check-icon" style="background:var(--violet)"><i data-lucide="check" style="width:11px;height:11px;color:#fff;stroke-width:3"></i></span>Détection automatique de la langue, multilingue nativement</li>
+          <li><span class="check-icon" style="background:var(--violet)"><i data-lucide="check" style="width:11px;height:11px;color:#fff;stroke-width:3"></i></span>Mémoire conversationnelle sur 20 à 30 échanges</li>
+          <li><span class="check-icon" style="background:var(--violet)"><i data-lucide="check" style="width:11px;height:11px;color:#fff;stroke-width:3"></i></span>Collecte RGPD-compliant des contacts et préférences visiteurs</li>
+        </ul>
+        <a href="ulys.html" class="link" style="margin-top:28px">Découvrez ULYS <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ULYS DETAIL — 2 cols texte + notifs animées -->
+<section class="px py" style="background:var(--sable)">
+  <div class="cnt">
+    <div class="twocol">
+      <div>
+        <span class="hero-badge" style="margin-bottom:12px;color:var(--violet);background:#fff;letter-spacing:.25em;font-weight:600;font-size:var(--t-s)"><i data-lucide="search" style="width:1.4em;height:1.4em;color:var(--violet);display:inline-flex"></i>ÉCHO</span>
+        <h2 class="h-l" style="margin-bottom:10px">Dominez Google sur chaque recoin de votre territoire</h2>
+        <p style="font-size:var(--t-s);line-height:1.6;color:var(--violet);font-weight:500;margin-bottom:12px">Couvrir chaque commune, chaque activité, chaque hébergement avec des pages SEO optimisées, c'est des milliers d'articles que vos équipes n'ont pas les ressources de produire. ÉCHO les génère automatiquement, détecte les requêtes non couvertes et publie un contenu qui vous positionne devant les agrégateurs.</p>
+        <ul class="check-list check-list--round">
+          <li><span class="check-icon" style="background:var(--violet)"><i data-lucide="check" style="width:11px;height:11px;color:#fff;stroke-width:3"></i></span>Production automatique de pages SEO par angle territorial</li>
+          <li><span class="check-icon" style="background:var(--violet)"><i data-lucide="check" style="width:11px;height:11px;color:#fff;stroke-width:3"></i></span>Détection des requêtes non couvertes sur votre destination</li>
+          <li><span class="check-icon" style="background:var(--violet)"><i data-lucide="check" style="width:11px;height:11px;color:#fff;stroke-width:3"></i></span>Trafic organique qualifié en croissance continue</li>
+          <li><span class="check-icon" style="background:var(--violet)"><i data-lucide="check" style="width:11px;height:11px;color:#fff;stroke-width:3"></i></span>Reprise de visibilité face aux grandes plateformes nationales</li>
+        </ul>
+        <a href="echo.html" class="link" style="margin-top:28px">Découvrez ÉCHO <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+      </div>
+      <div class="prod-img">
+        <img src="images/echo-illu.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ULYS DETAIL — quinconce : image gauche, texte droite -->
+<section class="px prod-section-alt" style="background:var(--sable)">
+  <div class="cnt">
+    <div class="twocol">
+      <div class="prod-img">
+        <img src="images/ithak_illu.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+      </div>
+      <div>
+        <span class="hero-badge" style="margin-bottom:12px;color:var(--violet);background:#fff;letter-spacing:.25em;font-weight:600;font-size:var(--t-s)"><i data-lucide="calendar-check" style="width:1.4em;height:1.4em;color:var(--violet);display:inline-flex"></i>ITHAK</span>
+        <h2 class="h-l" style="margin-bottom:10px">Transformez votre trafic en réservations directes</h2>
+        <p style="font-size:var(--t-s);line-height:1.6;color:var(--violet);font-weight:500;margin-bottom:12px">ITHAK intègre sur votre site une plateforme de réservation en marque blanche. Vos visiteurs réservent chez vous, vous percevez une commission sur chaque transaction. Vos hébergeurs n'ont rien à faire. Zéro développement, zéro charge pour vos équipes.</p>
+        <ul class="check-list check-list--round">
+          <li><span class="check-icon" style="background:var(--violet)"><i data-lucide="check" style="width:11px;height:11px;color:#fff;stroke-width:3"></i></span>Plateforme en marque blanche, votre identité, vos couleurs</li>
+          <li><span class="check-icon" style="background:var(--violet)"><i data-lucide="check" style="width:11px;height:11px;color:#fff;stroke-width:3"></i></span>Commissions automatiques sur chaque réservation</li>
+          <li><span class="check-icon" style="background:var(--violet)"><i data-lucide="check" style="width:11px;height:11px;color:#fff;stroke-width:3"></i></span>Intégration transparente sur votre site actuel</li>
+          <li><span class="check-icon" style="background:var(--violet)"><i data-lucide="check" style="width:11px;height:11px;color:#fff;stroke-width:3"></i></span>Data qualifiée sur les comportements de réservation</li>
+        </ul>
+        <a href="ithak.html" class="link" style="margin-top:28px">Découvrez ITHAK <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- FAQ -->
+<section class="px" style="background:#fff">
+  <div class="cnt">
+    <div class="faq">
+      <div>
+        <p class="eyebrow mb-xs">Aller plus loin</p>
+        <h2 class="h-l">Questions fréquentes</h2>
+      </div>
+      <div class="faq-list">
+
+        <details class="faq-item" open>
+          <summary>Combien de temps faut-il pour déployer les solutions sur notre territoire ?<span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <div class="faq-body">ULYS est opérationnel en 2 à 4 semaines après réception de vos contenus. ECHO commence à publier des pages dès le premier mois. NEST nécessite un travail de repérage terrain et de création de contenus, comptez 6 à 12 semaines selon l'ampleur du parcours. ITHAK est livré clé en main, prêt à l'emploi en 3 à 4 semaines.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Nos équipes doivent-elles produire du contenu ou gérer les outils au quotidien ?<span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <div class="faq-body">Non. ULYS s'entraîne sur vos contenus existants (site web, PDF, brochures, bases SIT). ECHO génère et publie son contenu de manière autonome. NEST est produit par nos équipes après un brief initial. ITHAK ne nécessite aucune intervention de vos hébergeurs ni de vos équipes.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Les solutions fonctionnent-elles avec nos outils existants (SIT, CRM, site web) ?<span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <div class="faq-body">Oui. ULYS se connecte aux bases SIT régionales et aux API temps réel (météo, événements, disponibilités). ITHAK s'intègre sur votre site actuel sans refonte. ECHO publie directement sur votre domaine. Nous nous adaptons à votre stack technique existant.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Faut-il s'engager sur les quatre produits ?<span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <div class="faq-body">Non. Chaque solution fonctionne indépendamment. Vous pouvez commencer par un ou deux produits selon vos priorités, et compléter ensuite. Les quatre se renforcent mutuellement, mais aucun ne dépend d'un autre pour fonctionner.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Quel est le modèle tarifaire ?<span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <div class="faq-body">ULYS fonctionne par abonnement mensuel selon votre volume de visiteurs. ECHO et NEST font l'objet d'un forfait adapté à la taille de votre territoire. ITHAK génère des commissions sur les réservations, sans coût fixe pour votre structure. Chaque forfait inclut l'intégration et la formation.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Comment ULYS gère-t-il les informations erronées ou obsolètes ?<span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <div class="faq-body">ULYS restitue uniquement les contenus que vous lui fournissez. Il ne génère pas d'informations inventées. Les mises à jour de votre site et de vos bases SIT sont synchronisées automatiquement. Vous gardez le contrôle éditorial complet.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>ECHO ne risque-t-il pas de produire du contenu générique ou dupliqué ?<span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <div class="faq-body">Chaque page ECHO est générée spécifiquement pour votre territoire, à partir de vos données et de l'analyse des requêtes locales. Le contenu est unique, ancré dans votre destination, et optimisé pour les intentions de recherche réelles de vos visiteurs.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Quelles données collectent les solutions, et sont-elles conformes RGPD ?<span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <div class="faq-body">ULYS collecte les préférences, profils et coordonnées des visiteurs qui consentent. ITHAK collecte les données de réservation et de comportement. Toute la collecte est RGPD-compliant, les données vous appartiennent et alimentent directement votre CRM.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Achat ou leasing pour la borne ?<span class="faq-chevron"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+          <div class="faq-body">Les deux. Vous choisissez la formule qui correspond le mieux à votre budget et à votre mode de fonctionnement.</div>
+        </details>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="px" style="padding-top:0;padding-bottom:64px">
+  <div class="cnt">
+
+    <div class="cnt-2cards">
+
+      <!-- Encart 1 — Programmer une démo -->
+      <div class="contact-card" style="background:var(--sable);display:flex;flex-direction:column;gap:28px;justify-content:center;">
+        <p class="eyebrow">Réservez votre démo</p>
+        <div style="display:flex;align-items:center;gap:20px">
+          <div class="contact-avatar">
+            <img src="images/etienne.jpg" alt="Étienne Carpentier" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+          </div>
+          <div>
+            <p style="font-weight:700;font-size:var(--t-s);color:var(--ink)">Étienne Carpentier</p>
+            <p class="muted" style="font-size:var(--t-xs)">Responsable clientèle · Odyssey Manager</p>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;gap:14px">
+            <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1.5" y="3.5" width="12" height="8" rx="2"/><path d="M1.5 7l6 3 6-3"/></svg></div>
+            <p style="font-weight:600;font-size:var(--t-s)">Visio-conférence</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px">
+            <div class="sec-icon"><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7.5" cy="7.5" r="6"/><path d="M7.5 5v2.5l2 2"/></svg></div>
+            <p style="font-weight:600;font-size:var(--t-s)">Durée 30 min</p>
+          </div>
+        </div>
+        <a href="https://calendly.com/etienne-odyssey-manager/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=6e5bff&month=2026-06" target="_blank" class="btn btn-p" style="justify-content:center;text-align:center">Programmer une démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+      </div>
+
+      <!-- Encart 2 — Formulaire -->
+      <div class="contact-card" style="background:var(--violet-10);">
+        <p class="eyebrow" style="margin-bottom:26px">Contactez-nous</p>
+        <form class="form" id="contactForm" novalidate>
+          <div class="f-row">
+            <div class="f"><input type="text" placeholder="Votre prénom" aria-label="Prénom" name="prenom"></div>
+            <div class="f"><input type="text" placeholder="Votre nom" aria-label="Nom" name="nom"></div>
+          </div>
+          <div class="f"><input type="email" placeholder="Votre email" aria-label="Email" name="email"></div>
+          <div class="f">
+            <div class="csel" id="csel">
+              <div class="csel-trigger" onclick="toggleCsel()">
+                <span class="csel-val">Votre secteur</span>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 5l4 4 4-4"/></svg>
+              </div>
+              <div class="csel-drop" id="csel-drop">
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Destinations &amp; Territoires"><strong>Destinations &amp; Territoires</strong><span>OT · CDT · CRT</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Sites &amp; Patrimoine"><strong>Sites &amp; Patrimoine</strong><span>Culturel · Cultuel · Nature</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Complexe &amp; Loisirs"><strong>Complexe &amp; Loisirs</strong><span>Villages · Parcs · Campings</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Bien-être &amp; Santé"><strong>Bien-être &amp; Santé</strong><span>Thalassos · Spas · Clubs</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Opérateurs &amp; Médias"><strong>Opérateurs &amp; Médias</strong><span>Agences · Guides · Médias</span></div>
+                <div class="csel-opt" onclick="pickCsel(this)" data-val="Événementiel &amp; MICE"><strong>Événementiel &amp; MICE</strong><span>Organisateurs · Événementiel</span></div>
+              </div>
+            </div>
+            <input type="hidden" name="secteur" id="csel-input">
+          </div>
+          <div class="f">
+            <div class="csel" id="csel2">
+              <div class="csel-trigger" onclick="toggleCsel2()">
+                <span class="csel-val" id="csel2-val">Votre besoin</span>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 5l4 4 4-4"/></svg>
+              </div>
+              <div class="csel-drop" id="csel2-drop">
+                <div class="csel-opt" onclick="pickCsel2(this)" data-val="ULYS"><strong>ULYS</strong><span>Votre guide local I.A.</span></div>
+                <div class="csel-opt" onclick="pickCsel2(this)" data-val="ITHAK"><strong>ITHAK</strong><span>Votre propre plateforme de réservation</span></div>
+                <div class="csel-opt" onclick="pickCsel2(this)" data-val="ÉCHO"><strong>ÉCHO</strong><span>Votre destination en tête sur Google</span></div>
+                <div class="csel-opt" onclick="pickCsel2(this)" data-val="NEST"><strong>NEST</strong><span>Votre parcours découverte interactif</span></div>
+              </div>
+            </div>
+            <input type="hidden" name="besoin" id="csel2-input">
+          </div>
+          <div class="f"><textarea placeholder="Votre projet" aria-label="Votre projet" name="projet"></textarea></div>
+          <button type="submit" class="btn btn-p" style="width:100%;justify-content:center;margin-top:6px">Envoyer ma demande <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+function toggleCsel() { document.getElementById('csel').classList.toggle('open'); }
+function pickCsel(el) {
+  var val = el.getAttribute('data-val');
+  document.querySelector('#csel .csel-val').textContent = el.querySelector('strong').textContent;
+  document.querySelector('#csel .csel-val').classList.add('selected');
+  document.getElementById('csel-input').value = val;
+  document.getElementById('csel').classList.remove('open');
+}
+function toggleCsel2() { document.getElementById('csel2').classList.toggle('open'); }
+function pickCsel2(el) {
+  var val = el.getAttribute('data-val');
+  document.getElementById('csel2-val').textContent = el.querySelector('strong').textContent;
+  document.getElementById('csel2-val').classList.add('selected');
+  document.getElementById('csel2-input').value = val;
+  document.getElementById('csel2').classList.remove('open');
+}
+document.addEventListener('click', function(e) {
+  var c = document.getElementById('csel'); if(c && !c.contains(e.target)) c.classList.remove('open');
+  var c2 = document.getElementById('csel2'); if(c2 && !c2.contains(e.target)) c2.classList.remove('open');
+});
+var contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var btn = contactForm.querySelector('button[type="submit"]');
+    if (btn) { btn.textContent = 'Message envoyé ✓'; btn.disabled = true; btn.style.opacity = '.7'; }
+  });
+}
+</script>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>lucide.createIcons();</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
