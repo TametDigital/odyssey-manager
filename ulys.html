@@ -477,7 +477,8 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 @media (max-width: 600px) {
   .cmp-table { grid-template-columns: 1fr; }
   /* Padding horizontal global */
-  .cnt { padding-left: 20px; padding-right: 20px; box-sizing: border-box; }
+  .px { padding-left: 20px !important; padding-right: 20px !important; }
+  .cnt { padding-left: 20px; padding-right: 20px; box-sizing: border-box; overflow-x: hidden; }
   /* Animation ULYS BORNE → contrainte mobile */
   .ulys-anim-wrap { width: 100% !important; max-width: 320px; margin: 0 auto; }
   .hnotify-vis { overflow: hidden; }
@@ -1689,6 +1690,7 @@ if (contactForm) {
 
 </body>
 </html>
+
 
 
 
