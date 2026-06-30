@@ -165,9 +165,9 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
   .icard-grid { grid-template-columns: 1fr !important; }
   /* Contact → 1 colonne */
   .cnt-2cards { grid-template-columns: 1fr !important; }
-  /* Tableau tarifs → scroll horizontal */
-  .pt-desktop { overflow-x: auto; display: block; }
-  .pt-table { min-width: 560px; }
+  /* Tableau tarifs : desktop caché, mobile blocs */
+  .pt-desktop { display: none !important; }
+  .pt-mobile { display: flex; flex-direction: column; gap: 16px; }
 }
 
 /* PRICING TABLE */
@@ -1091,6 +1091,45 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
           <tr><td><i data-lucide="languages" style="width:18px;height:18px;vertical-align:middle;margin-right:8px;color:var(--violet)"></i>Langues</td><td class="pt-val">Français</td><td class="pt-val">Français + 1 langue</td><td class="pt-val">Français + 2 langues et plus</td></tr>
         </tbody>
       </table>
+      <!-- Mobile blocs -->
+      <div class="pt-mobile">
+        <div class="pt-block">
+          <div class="pt-block-title">Parcours</div>
+          <div class="pt-block-price">À partir de 1 890 € HT</div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="map" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>Carte</span><span class="pt-row-val"><span class="pt-icon-yes"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span></span></div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="text-cursor-input" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>Texte</span><span class="pt-row-val"><span class="pt-icon-yes"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span></span></div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="headphones" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>Audio</span><span class="pt-row-val"><span class="pt-icon-no"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round"><line x1="2" y1="6" x2="10" y2="6"/></svg></span></span></div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="video" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>Vidéo</span><span class="pt-row-val"><span class="pt-icon-no"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round"><line x1="2" y1="6" x2="10" y2="6"/></svg></span></span></div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="map-pin" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>Étapes</span><span class="pt-row-val">Jusqu'à 10</span></div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="signpost-big" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>Totem</span><span class="pt-row-val">1</span></div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="qr-code" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>QR codes</span><span class="pt-row-val">PVC</span></div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="languages" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>Langues</span><span class="pt-row-val">Français</span></div>
+        </div>
+        <div class="pt-block">
+          <div class="pt-block-title">Voyage</div>
+          <div class="pt-block-price">À partir de 3 890 € HT</div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="map" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>Carte</span><span class="pt-row-val"><span class="pt-icon-yes"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span></span></div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="text-cursor-input" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>Texte</span><span class="pt-row-val"><span class="pt-icon-yes"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span></span></div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="headphones" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>Audio</span><span class="pt-row-val"><span class="pt-icon-yes"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span></span></div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="video" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>Vidéo</span><span class="pt-row-val"><span class="pt-icon-no"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round"><line x1="2" y1="6" x2="10" y2="6"/></svg></span></span></div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="map-pin" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>Étapes</span><span class="pt-row-val">Jusqu'à 20</span></div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="signpost-big" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>Totem</span><span class="pt-row-val">2</span></div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="qr-code" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>QR codes</span><span class="pt-row-val">PVC</span></div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="languages" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>Langues</span><span class="pt-row-val">Français + 1 langue</span></div>
+        </div>
+        <div class="pt-block">
+          <div class="pt-block-title">Odyssée</div>
+          <div class="pt-block-price">Sur devis</div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="map" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>Carte</span><span class="pt-row-val"><span class="pt-icon-yes"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span></span></div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="text-cursor-input" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>Texte</span><span class="pt-row-val"><span class="pt-icon-yes"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span></span></div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="headphones" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>Audio</span><span class="pt-row-val"><span class="pt-icon-yes"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span></span></div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="video" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>Vidéo</span><span class="pt-row-val"><span class="pt-icon-yes"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></span></span></div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="map-pin" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>Étapes</span><span class="pt-row-val">Au-delà de 20</span></div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="signpost-big" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>Totem</span><span class="pt-row-val">3 et plus</span></div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="qr-code" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>QR codes</span><span class="pt-row-val">PVC, bois ou métal</span></div>
+          <div class="pt-row"><span class="pt-row-label"><i data-lucide="languages" style="width:15px;height:15px;vertical-align:middle;margin-right:6px;color:var(--violet)"></i>Langues</span><span class="pt-row-val">Français + 2 langues et plus</span></div>
+        </div>
+      </div>
 
           </div>
   </div>
@@ -1263,6 +1302,8 @@ if (contactForm) {
 
 </body>
 </html>
+
+
 
 
 
