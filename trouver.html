@@ -551,6 +551,7 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 .faq-item[open] summary .faq-chevron { transform: rotate(180deg); }
 .faq-body { padding: 0 0 22px; font-size: var(--t-s); color: var(--ink-60); line-height: 1.75; max-width: 620px; }
 @media (max-width: 768px) { .faq { grid-template-columns: 1fr; gap: 32px; padding: 48px 0; } }
+    a.link:hover .cta-arrow, a:hover .cta-arrow { transform: translateX(4px); }
 </style>
 </head>
 <body>
@@ -625,7 +626,7 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
             <p style="font-size:var(--t-s);color:var(--ink-60);margin:0">Votre catalogue est riche, votre référencement non. ECHO produit le volume de pages que votre offre mérite, à l&rsquo;échelle des plateformes.</p>
           </div>
         </div>
-        Découvrez ÉCHO <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+        <a href="echo.html" class="link" style="margin-top:0;display:inline-flex;align-items:center;gap:6px;color:var(--violet);font-weight:600;text-decoration:none">Découvrez ÉCHO <svg style="transition:transform .2s ease" class="cta-arrow" width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
       </div>
       <div class="prod-img">
         <img src="images/echo-illu.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
@@ -816,6 +817,8 @@ if (contactForm) {
 <script>lucide.createIcons();</script>
 </body>
 </html>
+
+
 
 
 
