@@ -552,6 +552,9 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 .faq-body { padding: 0 0 22px; font-size: var(--t-s); color: var(--ink-60); line-height: 1.75; max-width: 620px; }
 @media (max-width: 768px) { .faq { grid-template-columns: 1fr; gap: 32px; padding: 48px 0; } }
     a.link:hover .cta-arrow, a:hover .cta-arrow { transform: translateX(4px); }
+    @media (max-width:600px) {
+      .icard-grid { grid-template-columns: 1fr !important; }
+    }
 </style>
 </head>
 <body>
@@ -817,6 +820,7 @@ if (contactForm) {
 <script>lucide.createIcons();</script>
 </body>
 </html>
+
 
 
 
