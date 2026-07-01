@@ -71,7 +71,7 @@
 
   var P = {
     chev:    '<path d="m6 9 6 6 6-6"/>',
-    bot:     '<rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 8h.01"/><path d="M17 8h.01"/><path d="M9.5 11a2.5 2.5 0 0 0 5 0"/>',
+    bot:     '<path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/>',
     laptop:  '<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/>',
     pin:     '<circle cx="12" cy="12" r="10"/><path d="M16.2 7.8l-2 6.3-6.4 2.1 2-6.3z"/>',
     bar:     '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
