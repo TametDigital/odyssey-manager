@@ -6,7 +6,7 @@
     '.om-footer a{text-decoration:none;color:inherit;}',
 
     /* main grid */
-    '.om-footer-main{display:grid;grid-template-columns:260px 1fr 1fr 1fr 260px;gap:48px;padding:64px clamp(24px,5vw,80px) 56px;}',
+    '.om-footer-main{display:grid;grid-template-columns:220px auto auto auto 1fr;gap:32px 48px;padding:64px clamp(24px,5vw,80px) 56px;align-items:start;}',
 
     /* left col */
     '.om-footer-logo{margin-bottom:28px;}',
