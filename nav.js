@@ -3,10 +3,10 @@
   /* ---- CSS ---- */
   var css = [
     '.om-nav{position:sticky;top:0;z-index:9999;background:#fff;border-bottom:1px solid rgba(44,46,77,.08);font-family:"Inter",system-ui,sans-serif;}',
-    '.om-nav-inner{display:flex;align-items:center;gap:8px;padding:0 clamp(24px,5vw,80px);height:68px;}',
+    '.om-nav-inner{display:flex;align-items:center;gap:8px;padding:0 clamp(24px,5vw,80px);height:68px;position:relative;}',
     '.om-logo{font-family:"Libre Baskerville",Georgia,serif;font-weight:700;font-size:1.35rem;color:#6E5BFF;letter-spacing:-.02em;flex-shrink:0;margin-right:16px;text-decoration:none;}',
     '.om-links{display:flex;align-items:center;gap:2px;flex:1;justify-content:center;}',
-    '.om-drop{position:relative;}',
+    '.om-drop{position:static;}',
     '.om-drop-btn,.om-plain-link{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;border-radius:8px;font-size:.9375rem;font-weight:500;color:#2C2E4D;background:none;border:none;cursor:pointer;text-decoration:none;transition:background .15s,color .15s;white-space:nowrap;font-family:inherit;line-height:1;}',
     '.om-drop-btn:hover,.om-plain-link:hover,.om-drop.is-open .om-drop-btn{background:none;color:#6E5BFF;}',
     '.om-drop-btn .om-chev{transition:transform .2s;}',
@@ -18,7 +18,7 @@
     '.om-primary:hover{background:#5a48e8;}',
 
     /* panels */
-    '.om-panel{position:absolute;top:100%;left:50%;transform:translateX(-50%);background:#fff;border-radius:16px;box-shadow:0 8px 40px -8px rgba(44,46,77,.18),0 0 0 1px rgba(44,46,77,.06);padding:16px 32px 28px;padding-top:16px;margin-top:0;display:none;z-index:100;}',
+    '.om-panel{position:absolute;top:68px;left:50%;transform:translateX(-50%);background:#fff;border-radius:16px;box-shadow:0 8px 40px -8px rgba(44,46,77,.18),0 0 0 1px rgba(44,46,77,.06);padding:28px 32px;display:none;z-index:100;}',
     '.om-panel::before{content:"";position:absolute;top:-12px;left:0;right:0;height:12px;}',
     '.om-drop.is-open .om-panel{display:block;}',
     '.om-panel-hd{margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(44,46,77,.08);}',
