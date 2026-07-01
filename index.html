@@ -170,10 +170,10 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 .press-q { font-size: var(--t-s); line-height: 1.65; color: var(--ink-60); font-style: italic; flex: 1; }
 /* Études de cas grid */
 .etudes-grid { display:grid; grid-template-columns:1fr 1fr; gap:28px; }
-@media (max-width: 768px) { .etudes-grid { grid-template-columns:1fr; } }
+@media (max-width: 960px) { .etudes-grid { grid-template-columns:1fr; } }
 /* Stats 4-col inside cards */
 .etudes-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
-@media (max-width: 480px) { .etudes-stats { grid-template-columns:repeat(2,1fr); } }
+@media (max-width: 960px) { .etudes-stats { grid-template-columns:repeat(2,1fr); } }
 /* Press responsive */
 @media (max-width: 960px) { .press { grid-template-columns: repeat(2, 1fr); } .press-card:nth-child(2) { border-right: none; } .press-card:nth-child(3) { border-top: 1px solid var(--ink-08); } .press-card:nth-child(4) { border-top: 1px solid var(--ink-08); } }
 @media (max-width: 600px) { .press { grid-template-columns: 1fr; } .press-card { border-right: none; border-top: 1px solid var(--ink-08); } .press-card:first-child { border-top: none; } }
