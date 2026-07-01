@@ -1009,11 +1009,14 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 .temo-role { font-size: var(--t-xs); color: var(--ink-60); margin-top: 2px; }
 
 /* ── PRESSE ─────────────────────────────────────────── */
-.press { display: grid; grid-template-columns: repeat(3, 1fr); }
-.press-card { padding: 36px 32px; border-right: 1px solid var(--ink-08); display: flex; flex-direction: column; gap: 14px; }
+.press { display: grid; grid-template-columns: repeat(4, 1fr); }
+.press-card { padding: 36px 32px; border-right: 1px solid var(--ink-08); display: flex; flex-direction: column; gap: 20px; }
 .press-card:last-child { border-right: none; }
-.press-src { font-size: var(--t-xs); font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-60); }
-.press-q { font-size: var(--t-s); line-height: 1.65; color: var(--ink); flex: 1; }
+.press-logo { height: 40px; display: flex; align-items: center; }
+.press-logo img { height: 40px; width: auto; object-fit: contain; display: block; }
+.press-q { font-size: var(--t-s); line-height: 1.65; color: var(--ink-60); font-style: italic; flex: 1; }
+@media (max-width: 960px) { .press { grid-template-columns: repeat(2, 1fr); } .press-card:nth-child(2) { border-right: none; } .press-card:nth-child(3) { border-top: 1px solid var(--ink-08); } .press-card:nth-child(4) { border-top: 1px solid var(--ink-08); } }
+@media (max-width: 600px) { .press { grid-template-columns: 1fr; } .press-card { border-right: none; border-top: 1px solid var(--ink-08); } .press-card:first-child { border-top: none; } }
 
 /* ── CONTACT ────────────────────────────────────────── */
 .cnt-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 80px; align-items: start; }
@@ -1358,11 +1361,14 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 .stats.dark-v .stat-n span { color: rgba(255,255,255,.55); }
 
 /* ── PRESSE ─────────────────────────────────────────── */
-.press { display: grid; grid-template-columns: repeat(3, 1fr); }
-.press-card { padding: 36px 32px; border-right: 1px solid var(--ink-08); display: flex; flex-direction: column; gap: 14px; }
+.press { display: grid; grid-template-columns: repeat(4, 1fr); }
+.press-card { padding: 36px 32px; border-right: 1px solid var(--ink-08); display: flex; flex-direction: column; gap: 20px; }
 .press-card:last-child { border-right: none; }
-.press-src { font-size: var(--t-xs); font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-60); }
-.press-q { font-size: var(--t-s); line-height: 1.65; color: var(--ink); flex: 1; }
+.press-logo { height: 40px; display: flex; align-items: center; }
+.press-logo img { height: 40px; width: auto; object-fit: contain; display: block; }
+.press-q { font-size: var(--t-s); line-height: 1.65; color: var(--ink-60); font-style: italic; flex: 1; }
+@media (max-width: 960px) { .press { grid-template-columns: repeat(2, 1fr); } .press-card:nth-child(2) { border-right: none; } .press-card:nth-child(3) { border-top: 1px solid var(--ink-08); } .press-card:nth-child(4) { border-top: 1px solid var(--ink-08); } }
+@media (max-width: 600px) { .press { grid-template-columns: 1fr; } .press-card { border-right: none; border-top: 1px solid var(--ink-08); } .press-card:first-child { border-top: none; } }
 
 /* ── CONTACT ────────────────────────────────────────── */
 .cnt-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 80px; align-items: start; }
@@ -1815,64 +1821,68 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
   </div>
 </section>
 
-<section class="px py">
+<section class="px py bg-sable">
   <div class="cnt">
-    <hr class="mb-s">
-    <p class="eyebrow mb-xs">Ils en parlent</p>
-    <h2 class="h-l" style="margin-bottom:var(--sp-s)">La presse parle d'Odyssey</h2>
-    <div class="press">
-      <div class="press-card">
-        <span class="press-src">France 3 Occitanie</span>
-        <p class="press-q">"Un service unique pour le pèlerin" : le Sanctuaire de Lourdes lance sa propre plateforme de réservation.</p>
-        <a href="#" class="link">Lire l'article <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg></a>
+    <div class="bento-grid" style="grid-template-columns:repeat(3,1fr)">
+
+      <div class="bento-card" style="background:#fff">
+        <h3>Pour les visiteurs</h3>
+        <ul class="check-list check-list--round" style="margin:0">
+          <li><span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M1.5 5l2.5 2.5 4.5-4.5"/></svg></span>Expérience de réservation simplifiée et intégrée</li>
+          <li><span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M1.5 5l2.5 2.5 4.5-4.5"/></svg></span>Accompagnement personnalisé tout au long du parcours visiteur</li>
+          <li><span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M1.5 5l2.5 2.5 4.5-4.5"/></svg></span>Contribution douce au financement du Sanctuaire</li>
+        </ul>
       </div>
-      <div class="press-card">
-        <span class="press-src">Ouest-France</span>
-        <p class="press-q">Sanctuaire de Lourdes : "Une nouvelle plateforme pour aider les pèlerins à réserver leur séjour".</p>
-        <a href="#" class="link">Lire l'article <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg></a>
+
+      <div class="bento-card" style="background:#fff">
+        <h3>Pour les hôteliers</h3>
+        <ul class="check-list check-list--round" style="margin:0">
+          <li><span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M1.5 5l2.5 2.5 4.5-4.5"/></svg></span>Réduction de 50% des commissions par rapport aux OTA traditionnelles</li>
+          <li><span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M1.5 5l2.5 2.5 4.5-4.5"/></svg></span>Augmentation du taux d'occupation grâce à une meilleure visibilité</li>
+          <li><span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M1.5 5l2.5 2.5 4.5-4.5"/></svg></span>Relation directe avec les clients facilitant la personnalisation des services</li>
+        </ul>
       </div>
-      <div class="press-card">
-        <span class="press-src">La Dépêche</span>
-        <p class="press-q">"Moins chère et plus complète pour les pèlerins" : le Sanctuaire de Lourdes innove et lance sa propre plateforme.</p>
-        <a href="#" class="link">Lire l'article <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg></a>
+
+      <div class="bento-card" style="background:#fff">
+        <h3>Pour le Sanctuaire</h3>
+        <ul class="check-list check-list--round" style="margin:0">
+          <li><span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M1.5 5l2.5 2.5 4.5-4.5"/></svg></span>Création de nouveaux revenus sans investissement lourd</li>
+          <li><span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M1.5 5l2.5 2.5 4.5-4.5"/></svg></span>Reprise du contrôle sur l'expérience visiteur</li>
+          <li><span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M1.5 5l2.5 2.5 4.5-4.5"/></svg></span>Données précieuses sur les comportements et préférences des pèlerins</li>
+          <li><span class="check-icon"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M1.5 5l2.5 2.5 4.5-4.5"/></svg></span>Renforcement des liens avec l'écosystème hôtelier local</li>
+        </ul>
       </div>
+
     </div>
   </div>
 </section>
 
 <section class="px py">
-  <div class="cnt--m">
-    <div class="bento-header">
-      <h2 class="h-l">Chaque conversation devient une connaissance</h2>
-      <p>ULYS transforme chaque échange en données actionnables — saison après saison.</p>
-    </div>
-    <div class="bento-grid">
-
-      <div class="bento-card bento-card--wide">
-        <h3>Profils visiteurs</h3>
-        <p>Demandes récurrentes, budgets, centres d'intérêt, comportements de navigation — ULYS agrège et structure ces données pour construire une connaissance fine et exploitable de chaque profil visiteur.</p>
+  <div class="cnt">
+    <hr class="mb-s">
+    <p class="eyebrow mb-xs">Presse</p>
+    <h2 class="h-l" style="margin-bottom:var(--sp-s)">Ils parlent du nouveau service du Sanctuaire</h2>
+    <div class="press">
+      <div class="press-card">
+        <div class="press-logo"><img src="images/logo-france3.webp" alt="France 3" style="height:60px"></div>
+        <p class="press-q">« Un service unique pour le pèlerin »</p>
+        <a href="https://france3-regions.franceinfo.fr/occitanie/hautes-pyrenees/tarbes/un-service-unique-pour-le-pelerin-le-sanctuaire-de-lourdes-lance-sa-propre-plateforme-de-reservation-d-hotels-3117502.html" target="_blank" rel="noopener" class="link">Lire l'article <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg></a>
       </div>
-
-      <div class="bento-card">
-        <h3>Collecte de contacts</h3>
-        <p>Emails et numéros collectés automatiquement, en conformité RGPD, à chaque conversation.</p>
+      <div class="press-card">
+        <div class="press-logo"><img src="images/logo-ouest.png" alt="Ouest France"></div>
+        <p class="press-q">« Une nouvelle plateforme pour aider les pèlerins »</p>
+        <a href="https://www.ouest-france.fr/tourisme/sanctuaire-de-lourdes-une-nouvelle-plateforme-pour-aider-les-pelerins-a-reserver-leur-sejour-a4389a4a-00dd-11f0-a7bd-cdc0f6c37e37" target="_blank" rel="noopener" class="link">Lire l'article <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg></a>
       </div>
-
-      <div class="bento-card">
-        <h3>Base de données enrichie</h3>
-        <p>Segmentation automatique de vos contacts pour des actions marketing précises et ciblées.</p>
+      <div class="press-card">
+        <div class="press-logo"><img src="images/logo-ici.webp" alt="ICI par France Bleu et France 3" style="height:60px"></div>
+        <p class="press-q">« Le sanctuaire de Lourdes lance sa propre plate-forme de réservation d'hôtels »</p>
+        <a href="https://www.ici.fr/infos/societe/le-sanctuaire-de-lourdes-lance-sa-propre-plate-forme-de-reservation-d-hotels-6897418" target="_blank" rel="noopener" class="link">Lire l'article <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg></a>
       </div>
-
-      <div class="bento-card">
-        <h3>Tendances émergentes</h3>
-        <p>Ce qui manque, ce qui revient, ce qui change — ULYS détecte les signaux avant vous.</p>
+      <div class="press-card">
+        <div class="press-logo"><img src="images/logo-depeche.webp" alt="La Dépêche"></div>
+        <p class="press-q">« Moins chère et plus complète pour les pèlerins »</p>
+        <a href="https://www.ladepeche.fr/2025/03/04/moins-chere-et-plus-complete-pour-les-pelerins-le-sanctuaire-de-lourdes-innove-et-lance-sa-propre-plateforme-de-reservation-dhotels-12548756.php" target="_blank" rel="noopener" class="link">Lire l'article <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg></a>
       </div>
-
-      <div class="bento-card">
-        <h3>Enquêtes de satisfaction</h3>
-        <p>Sondages ciblés activés automatiquement selon le profil et le moment du séjour.</p>
-      </div>
-
     </div>
   </div>
 </section>
