@@ -10,7 +10,7 @@
     '.om-footer-left{flex-shrink:0;width:220px;}',
     '.om-footer-cols{display:flex;gap:48px;flex:1;}',
     '.om-footer-col{flex-shrink:0;}',
-    '.om-footer-right{flex-shrink:0;width:220px;}',
+    '.om-footer-right{flex-shrink:0;display:flex;gap:16px;}',
 
     /* left col */
     '.om-footer-logo{margin-bottom:28px;}',
@@ -121,9 +121,20 @@
 
         '</div>', /* end om-footer-cols */
 
-        /* — Featured card — */
+        /* — Featured cards — */
         '<div class="om-footer-right">',
-        '<div class="om-footer-card">',
+        '<div class="om-footer-card" style="width:220px">',
+          '<div class="om-footer-card-img">',
+            '<img src="images/mission.jpg" alt="&Eacute;tude de cas">',
+          '</div>',
+          '<div class="om-footer-card-label">&Eacute;tude de cas</div>',
+          '<div class="om-footer-card-text">D&eacute;couvrez comment odyssey a rendu son autonomie digitale &agrave; la 2&deg; ville h&ocirc;teli&egrave;re de France&nbsp;!</div>',
+          '<a href="etude-de-cas-lourdes.html" class="om-footer-card-btn">',
+            '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1"/></svg>',
+            'D&eacute;couvrir',
+          '</a>',
+        '</div>',
+        '<div class="om-footer-card" style="width:220px">',
           '<div class="om-footer-card-img">',
             '<img src="images/mission.jpg" alt="&Eacute;tude de cas">',
           '</div>',
