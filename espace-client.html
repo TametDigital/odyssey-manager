@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<link rel="icon" href="images/nouveau-logo-carre.png" type="image/png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Espace Client — Odyssey Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(255,234,213,.7) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(110,91,255,.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 60% 80%, rgba(110,91,255,.08) 0%, transparent 50%),
+    #f8f7ff;
+  padding: 24px;
+}
+
+.login-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 48px -8px rgba(44,46,77,.12), 0 0 0 1px rgba(44,46,77,.06);
+  padding: 48px 44px 40px;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.login-logo {
+  margin-bottom: 36px;
+}
+.login-logo img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+.login-title {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2C2E4D;
+  letter-spacing: -.02em;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+.form-label {
+  font-size: .8125rem;
+  font-weight: 600;
+  color: #2C2E4D;
+}
+.form-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid rgba(44,46,77,.18);
+  border-radius: 10px;
+  font-size: .9375rem;
+  font-family: inherit;
+  color: #2C2E4D;
+  background: #fff;
+  transition: border-color .15s, box-shadow .15s;
+  outline: none;
+}
+.form-input::placeholder { color: rgba(44,46,77,.35); }
+.form-input:focus {
+  border-color: #6E5BFF;
+  box-shadow: 0 0 0 3px rgba(110,91,255,.12);
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  cursor: pointer;
+}
+.form-check input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #6E5BFF;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.form-check-label {
+  font-size: .875rem;
+  color: rgba(44,46,77,.65);
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+.btn-login {
+  width: 100%;
+  padding: 13px;
+  background: #6E5BFF;
+  color: #fff;
+  font-family: inherit;
+  font-size: .9375rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background .15s, box-shadow .15s;
+  letter-spacing: .01em;
+}
+.btn-login:hover { background: #5a48e8; box-shadow: 0 8px 20px -6px rgba(110,91,255,.5); }
+
+.login-links {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+}
+.login-link-row {
+  font-size: .875rem;
+  color: rgba(44,46,77,.55);
+  text-align: center;
+}
+.login-link-row a {
+  color: #6E5BFF;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity .15s;
+}
+.login-link-row a:hover { opacity: .75; }
+</style>
+</head>
+<body>
+
+<div class="login-card">
+
+  <div class="login-logo">
+    <img src="images/nouveau-logo.png" alt="Odyssey Manager">
+  </div>
+
+  <h1 class="login-title">Connectez-vous</h1>
+
+  <form class="login-form" onsubmit="return false;">
+    <div class="form-group">
+      <label class="form-label" for="email">E-mail</label>
+      <input class="form-input" type="email" id="email" name="email" placeholder="nom@societe.com" autocomplete="email">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="password">Mot de passe</label>
+      <input class="form-input" type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password">
+    </div>
+
+    <label class="form-check">
+      <input type="checkbox" id="remember" name="remember">
+      <span class="form-check-label">Maintenir ma connexion active pendant 30 jours</span>
+    </label>
+
+    <button class="btn-login" type="submit">Continuer</button>
+  </form>
+
+  <div class="login-links">
+    <p class="login-link-row">
+      Pas encore de compte ? <a href="https://calendly.com/etienne-odyssey-manager/30min" target="_blank" rel="noopener">Demander une démo</a>
+    </p>
+    <p class="login-link-row">
+      Retour au site ? <a href="index.html">Page d'accueil</a>
+    </p>
+  </div>
+
+</div>
+
+</body>
+</html>

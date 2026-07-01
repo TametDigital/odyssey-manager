@@ -189,7 +189,7 @@
           '<a href="a-propos.html" class="om-plain-link">&Agrave; propos</a>',
         '</div>',
         '<div class="om-ctas">',
-          '<a href="#" class="om-ghost">Espace Client</a>',
+          '<a href="espace-client.html" class="om-ghost">Espace Client</a>',
           '<a href="https://calendly.com/etienne-odyssey-manager/30min" target="_blank" rel="noopener" class="om-primary">Demander une d&eacute;mo</a>',
         '</div>',
         '<button class="om-hamburger" id="om-hamburger" aria-label="Menu">' + svg(P.menu, 24) + '</button>',
