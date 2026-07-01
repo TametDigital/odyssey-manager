@@ -3,7 +3,7 @@
   /* ---- CSS ---- */
   var css = [
     '.om-nav{position:sticky;top:0;z-index:9999;background:#fff;border-bottom:1px solid rgba(44,46,77,.08);font-family:"Inter",system-ui,sans-serif;}',
-    '.om-nav-inner{display:flex;align-items:center;gap:8px;max-width:83rem;margin:0 auto;padding:0 clamp(24px,5vw,80px);height:68px;}',
+    '.om-nav-inner{display:flex;align-items:center;gap:8px;padding:0 clamp(24px,5vw,80px);height:68px;}',
     '.om-logo{font-family:"Libre Baskerville",Georgia,serif;font-weight:700;font-size:1.35rem;color:#6E5BFF;letter-spacing:-.02em;flex-shrink:0;margin-right:16px;text-decoration:none;}',
     '.om-links{display:flex;align-items:center;gap:2px;flex:1;justify-content:center;}',
     '.om-drop{position:relative;}',
@@ -176,7 +176,7 @@
   var navHtml = [
     '<nav class="om-nav" id="om-nav">',
       '<div class="om-nav-inner">',
-        '<a href="index.html" class="om-logo"><img src="images/nouveau-logo-carre.png" alt="Odyssey" style="height:36px;width:auto;display:block"></a>',
+        '<a href="index.html" class="om-logo"><img src="images/nouveau-logo.png" alt="Odyssey" style="height:36px;width:auto;display:block"></a>',
         '<div class="om-links">',
           '<div class="om-drop" id="om-drop-sol">',
             '<button class="om-drop-btn">Nos solutions <span class="om-chev">' + ic('chev',14) + '</span></button>',
