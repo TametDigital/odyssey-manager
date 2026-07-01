@@ -3,7 +3,7 @@
   /* ---- CSS ---- */
   var css = [
     '.om-footer{background:#6E5BFF;color:#fff;font-family:"Inter",system-ui,sans-serif;}',
-    '.om-footer a{text-decoration:none;color:inherit;}',
+    '.om-footer a{text-decoration:none;color:inherit;}.om-footer .om-footer-btn{color:#6E5BFF!important;}.om-footer .om-footer-soc-btn{color:#6E5BFF!important;}',
 
     /* main grid */
     '.om-footer-main{display:flex;align-items:start;gap:48px;padding:64px clamp(24px,5vw,80px) 56px;}',
