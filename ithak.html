@@ -197,13 +197,13 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 .faq-body { padding: 0 0 22px; font-size: var(--t-s); color: var(--ink-60); line-height: 1.75; max-width: 620px; }
 @media (max-width: 768px) {
   .faq { grid-template-columns: 1fr; gap: 32px; padding: 48px 0; }
-  .cnt-2cards { grid-template-columns: 1fr; }
   .pt-table { min-width: 600px; }
   .f-row { grid-template-columns: 1fr; }
 }
 
 /* CONTACT */
 .cnt-2cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; }
+@media (max-width: 600px) { .cnt-2cards { grid-template-columns: 1fr; } }
 .cnt-2cards > div { display: flex; flex-direction: column; }
 .contact-avatar { width: 80px; height: 80px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
 .hello-icon { width: 48px; height: 48px; border-radius: 50%; background: var(--violet-10); display: flex; align-items: center; justify-content: center; color: var(--violet); flex-shrink: 0; animation: hello-bounce 2s ease-in-out infinite; }
