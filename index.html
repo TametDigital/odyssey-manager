@@ -46,8 +46,8 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; overflow-x: hidden; }
-body { font-family: var(--f-sans); font-size: var(--t-m); line-height: 1.2; color: var(--ink); background: var(--white); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--f-sans); font-size: var(--t-m); line-height: 1.2; color: var(--ink); background: var(--white); -webkit-font-smoothing: antialiased; overflow-x: hidden; width: 100%; }
 img { max-width: 100%; display: block; }
 a { text-decoration: none; color: inherit; }
 ul { list-style: none; }
@@ -501,6 +501,14 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
   .px { padding-left: 16px; padding-right: 16px; }
   .py { padding-top: 40px; padding-bottom: 40px; }
   .sol-inner { height: auto; min-height: 240px; }
+}
+@media (max-width: 768px) {
+  .ulys-phone  { width: 100%; max-width: 320px; }
+  .ithak-phone { width: 100%; max-width: 300px; }
+  .chat-wrap   { width: 100%; max-width: 300px; }
+  .orbit-stage { width: 260px; height: 260px; max-width: 100%; }
+  .hnotif-card--1, .hnotif-card--2 { min-width: 0; width: 100%; }
+  .ulys-anim-wrap, .ithak-anim-wrap { max-width: 100%; }
 }
 
 .contact-card { border-radius:14px; padding:56px; }
