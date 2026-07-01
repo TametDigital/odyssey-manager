@@ -4,7 +4,8 @@
 <meta charset="UTF-8"/>
   <link rel="icon" href="images/nouveau-logo-carre.png" type="image/png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Odyssey Manager</title>
+<title>Odyssey Manager — La plateforme de tourisme digital</title>
+<meta name="description" content="Odyssey Manager aide les destinations touristiques à rayonner, accueillir et fidéliser leurs visiteurs grâce à des solutions digitales sur mesure.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -161,11 +162,21 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 .temo-name { font-weight: 600; font-size: var(--t-s); }
 .temo-role { font-size: var(--t-xs); color: var(--ink-60); margin-top: 2px; }
 /* PRESSE */
-.press { display: grid; grid-template-columns: repeat(3, 1fr); }
-.press-card { padding: 36px 32px; border-right: 1px solid var(--ink-08); display: flex; flex-direction: column; gap: 14px; }
+.press { display: grid; grid-template-columns: repeat(4, 1fr); }
+.press-card { padding: 36px 32px; border-right: 1px solid var(--ink-08); display: flex; flex-direction: column; gap: 20px; }
 .press-card:last-child { border-right: none; }
-.press-src { font-size: var(--t-xs); font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-60); }
-.press-q { font-size: var(--t-s); line-height: 1.65; color: var(--ink); flex: 1; }
+.press-logo { height: 40px; display: flex; align-items: center; }
+.press-logo img { height: 40px; width: auto; object-fit: contain; display: block; }
+.press-q { font-size: var(--t-s); line-height: 1.65; color: var(--ink-60); font-style: italic; flex: 1; }
+/* Études de cas grid */
+.etudes-grid { display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+@media (max-width: 768px) { .etudes-grid { grid-template-columns:1fr; } }
+/* Stats 4-col inside cards */
+.etudes-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+@media (max-width: 480px) { .etudes-stats { grid-template-columns:repeat(2,1fr); } }
+/* Press responsive */
+@media (max-width: 960px) { .press { grid-template-columns: repeat(2, 1fr); } .press-card:nth-child(2) { border-right: none; } .press-card:nth-child(3) { border-top: 1px solid var(--ink-08); } .press-card:nth-child(4) { border-top: 1px solid var(--ink-08); } }
+@media (max-width: 600px) { .press { grid-template-columns: 1fr; } .press-card { border-right: none; border-top: 1px solid var(--ink-08); } .press-card:first-child { border-top: none; } }
 /* CONTACT */
 .form { display: flex; flex-direction: column; gap: 14px; }
 .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -477,9 +488,6 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
   /* Sections manquantes */
   .py { padding-top: 56px; padding-bottom: 56px; }
   .temo { grid-template-columns: 1fr; gap: 40px; }
-  .press { grid-template-columns: 1fr; }
-  .press-card { border-right: none; border-bottom: 1px solid var(--ink-08); }
-  .press-card:last-child { border-bottom: none; }
   .cnt-2cards { grid-template-columns: 1fr; }
   .f-row { grid-template-columns: 1fr; }
   .orbit-stage { width: 280px; height: 280px; }
@@ -509,8 +517,8 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
         <h1 class="h-xl" style="margin-bottom:22px">Construisez l'odyssée de vos visiteurs</h1>
         <p class="muted" style="font-size:var(--t-l);line-height:1.65;max-width:480px">Offrez à vos visiteurs une expérience mémorable du premier clic jusqu'au souvenir.</p>
         <div class="hero-actions">
-          <a href="#" class="btn btn-p">Demander une démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
-          <a href="#" class="btn btn-g">Voir comment ça marche</a>
+          <a href="https://calendly.com/etienne-odyssey-manager/30min" target="_blank" rel="noopener" class="btn btn-p">Demander une démo <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
+          <a href="#solutions" class="btn btn-g">Voir comment ça marche</a>
         </div>
         <div class="hnotify-trust">
           <i data-lucide="target" style="width:15px;height:15px;flex-shrink:0"></i> Rayonner &nbsp;&nbsp;
@@ -1199,52 +1207,93 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
   </div>
 </section>
 
-<!-- TÉMOIGNAGE -->
+<!-- ÉTUDES DE CAS -->
 <section class="px py" style="background:var(--violet-10)">
   <div class="cnt">
-    <div class="temo">
-      <div>
+    <p class="eyebrow mb-xs" style="text-align:center">Études de cas</p>
+    <h2 class="h-l" style="text-align:center;margin-bottom:var(--sp-m)">Ils nous font confiance</h2>
+    <div class="etudes-grid">
 
-        <p class="eyebrow mb-xs">Étude de cas</p>
-        <div style="background:#fff;border-radius:12px;padding:16px 20px;display:inline-flex;align-items:center;gap:14px">
-          <div class="temo-av" style="background:#fff;padding:4px;overflow:hidden;width:64px;height:64px;flex-shrink:0;border:1px solid rgba(0,0,0,.1)">
-            <img src="images/logo_lourdes.webp" alt="Lourdes" style="width:100%;height:100%;object-fit:contain">
-          </div>
-          <div>
-            <p class="temo-name">Sanctuaire Notre-Dame de Lourdes</p>
-            <p class="temo-role">2ème ville hôtelière de France</p>
-          </div>
+      <!-- Lourdes -->
+      <div style="background:#fff;border-radius:20px;overflow:hidden;display:flex;flex-direction:column">
+        <div style="height:220px;overflow:hidden">
+          <img src="images/hero_lourdes.jpg" alt="Sanctuaire de Lourdes" style="width:100%;height:100%;object-fit:cover;object-position:center center;display:block">
         </div>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px;margin-bottom:24px">
-          <div style="display:flex;flex-direction:column;gap:6px">
-            <div style="color:var(--violet);margin-bottom:2px"><i data-lucide="hotel" style="width:18px;height:18px"></i></div>
-            <p style="font-family:var(--f-serif);font-size:var(--h-s);font-weight:700;color:var(--ink);line-height:1">2ème</p>
-            <p style="font-size:var(--t-xs);color:var(--ink-60);line-height:1.3">ville hôtelière de France</p>
+        <div style="padding:32px;display:flex;flex-direction:column;flex:1;gap:20px">
+          <div style="display:inline-flex;align-items:center;gap:12px;background:var(--violet-10);border-radius:10px;padding:10px 14px;align-self:flex-start">
+            <img src="images/logo_lourdes.jpg" alt="Lourdes" style="width:36px;height:36px;border-radius:6px;object-fit:contain">
+            <div>
+              <p style="font-size:.8125rem;font-weight:700;color:var(--ink);line-height:1.2">Sanctuaire Notre-Dame de Lourdes</p>
+              <p style="font-size:.75rem;color:var(--ink-60)">2ème ville hôtelière de France</p>
+            </div>
           </div>
-          <div style="display:flex;flex-direction:column;gap:6px">
-            <div style="color:var(--violet);margin-bottom:2px"><i data-lucide="users" style="width:18px;height:18px"></i></div>
-            <p style="font-family:var(--f-serif);font-size:var(--h-s);font-weight:700;color:var(--ink);line-height:1">3,2M</p>
-            <p style="font-size:var(--t-xs);color:var(--ink-60);line-height:1.3">visiteurs par an</p>
+          <div class="etudes-stats">
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="color:var(--violet)"><i data-lucide="hotel" style="width:16px;height:16px"></i></div>
+              <p style="font-family:var(--f-serif);font-size:1.25rem;font-weight:700;color:var(--ink);line-height:1">2ème</p>
+              <p style="font-size:.75rem;color:var(--ink-60);line-height:1.3">ville hôtelière de France</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="color:var(--violet)"><i data-lucide="users" style="width:16px;height:16px"></i></div>
+              <p style="font-family:var(--f-serif);font-size:1.25rem;font-weight:700;color:var(--ink);line-height:1">3,2M</p>
+              <p style="font-size:.75rem;color:var(--ink-60);line-height:1.3">visiteurs par an</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="color:var(--violet)"><i data-lucide="moon" style="width:16px;height:16px"></i></div>
+              <p style="font-family:var(--f-serif);font-size:1.25rem;font-weight:700;color:var(--ink);line-height:1">2,5M</p>
+              <p style="font-size:.75rem;color:var(--ink-60);line-height:1.3">nuitées hôtelières</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="color:var(--violet)"><i data-lucide="bed" style="width:16px;height:16px"></i></div>
+              <p style="font-family:var(--f-serif);font-size:1.25rem;font-weight:700;color:var(--ink);line-height:1">26 500</p>
+              <p style="font-size:.75rem;color:var(--ink-60);line-height:1.3">lits disponibles</p>
+            </div>
           </div>
-          <div style="display:flex;flex-direction:column;gap:6px">
-            <div style="color:var(--violet);margin-bottom:2px"><i data-lucide="moon" style="width:18px;height:18px"></i></div>
-            <p style="font-family:var(--f-serif);font-size:var(--h-s);font-weight:700;color:var(--ink);line-height:1">2,5M</p>
-            <p style="font-size:var(--t-xs);color:var(--ink-60);line-height:1.3">nuitées hôtelières</p>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:6px">
-            <div style="color:var(--violet);margin-bottom:2px"><i data-lucide="bed" style="width:18px;height:18px"></i></div>
-            <p style="font-family:var(--f-serif);font-size:var(--h-s);font-weight:700;color:var(--ink);line-height:1">26 500</p>
-            <p style="font-size:var(--t-xs);color:var(--ink-60);line-height:1.3">lits hôteliers disponibles</p>
-          </div>
+          <p style="font-size:var(--t-s);color:var(--ink-60);line-height:1.65;font-style:italic;flex:1">"Un service unique pour le pèlerin — moins cher et plus complet que les plateformes tierces."</p>
+          <a href="etude-de-cas-lourdes.html" class="btn btn-p" style="align-self:flex-start">Lire l'étude de cas <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
         </div>
-        <p class="temo-quote" style="line-height:1;margin-top:20px">"Un service unique pour le pèlerin — moins cher et plus complet que les plateformes tierces."</p>
-        <a href="#" class="btn btn-p" style="margin-top:32px">Lire l'étude de cas <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
       </div>
-      <div class="hnotify-vis">
-        <div class="hnotify-img-wrap">
-          <img src="images/lourdes.jpg" alt="" class="hnotify-img">
+
+      <!-- DodoDog -->
+      <div style="background:#fff;border-radius:20px;overflow:hidden;display:flex;flex-direction:column">
+        <div style="height:220px;overflow:hidden">
+          <img src="images/hero_dododog.jpg" alt="DodoDog" style="width:100%;height:100%;object-fit:cover;object-position:center center;display:block">
+        </div>
+        <div style="padding:32px;display:flex;flex-direction:column;flex:1;gap:20px">
+          <div style="display:inline-flex;align-items:center;gap:12px;background:var(--violet-10);border-radius:10px;padding:10px 14px;align-self:flex-start">
+            <img src="images/logo_dododog.jpg" alt="DodoDog" style="width:36px;height:36px;border-radius:6px;object-fit:contain">
+            <div>
+              <p style="font-size:.8125rem;font-weight:700;color:var(--ink);line-height:1.2">DodoDog</p>
+              <p style="font-size:.75rem;color:var(--ink-60)">La plateforme du voyage canin</p>
+            </div>
+          </div>
+          <div class="etudes-stats">
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="color:var(--violet)"><i data-lucide="bed-double" style="width:16px;height:16px"></i></div>
+              <p style="font-family:var(--f-serif);font-size:1.25rem;font-weight:700;color:var(--ink);line-height:1">+40K</p>
+              <p style="font-size:.75rem;color:var(--ink-60);line-height:1.3">hébergements dog-friendly</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="color:var(--violet)"><i data-lucide="map-pinned" style="width:16px;height:16px"></i></div>
+              <p style="font-family:var(--f-serif);font-size:1.25rem;font-weight:700;color:var(--ink);line-height:1">+20K</p>
+              <p style="font-size:.75rem;color:var(--ink-60);line-height:1.3">activités dog-friendly</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="color:var(--violet)"><i data-lucide="star" style="width:16px;height:16px"></i></div>
+              <p style="font-family:var(--f-serif);font-size:1.25rem;font-weight:700;color:var(--ink);line-height:1">4,5★</p>
+              <p style="font-size:.75rem;color:var(--ink-60);line-height:1.3">satisfaction clients</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="color:var(--violet)"><i data-lucide="dog" style="width:16px;height:16px"></i></div>
+              <p style="font-family:var(--f-serif);font-size:1.25rem;font-weight:700;color:var(--ink);line-height:1">378</p>
+              <p style="font-size:.75rem;color:var(--ink-60);line-height:1.3">races de chiens</p>
+            </div>
+          </div>
+          <p style="font-size:var(--t-s);color:var(--ink-60);line-height:1.65;font-style:italic;flex:1">"La plateforme dédiée au voyage canin en France — le bon endroit pour voyager avec son chien."</p>
+          <a href="etude-de-cas-dododog.html" class="btn btn-p" style="align-self:flex-start">Lire l'étude de cas <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6.5h9M7 2.5l4 4-4 4"/></svg></a>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -1253,23 +1302,28 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 <section class="px py">
   <div class="cnt">
     <hr class="mb-s">
-    <p class="eyebrow mb-xs">Ils en parlent</p>
-    <h2 class="h-l" style="margin-bottom:var(--sp-s)">La presse parle d'Odyssey</h2>
+    <p class="eyebrow mb-xs">Presse</p>
+    <h2 class="h-l" style="margin-bottom:var(--sp-s)">Ils parlent du nouveau service du Sanctuaire</h2>
     <div class="press">
       <div class="press-card">
-        <span class="press-src">France 3 Occitanie</span>
-        <p class="press-q">"Un service unique pour le pèlerin" : le Sanctuaire de Lourdes lance sa propre plateforme de réservation.</p>
-        <a href="#" class="link">Lire l'article <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg></a>
+        <div class="press-logo"><img src="images/logo-france3.webp" alt="France 3" style="height:60px"></div>
+        <p class="press-q">« Un service unique pour le pèlerin »</p>
+        <a href="https://france3-regions.franceinfo.fr/occitanie/hautes-pyrenees/tarbes/un-service-unique-pour-le-pelerin-le-sanctuaire-de-lourdes-lance-sa-propre-plateforme-de-reservation-d-hotels-3117502.html" target="_blank" rel="noopener" class="link">Lire l'article <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg></a>
       </div>
       <div class="press-card">
-        <span class="press-src">Ouest-France</span>
-        <p class="press-q">Sanctuaire de Lourdes : "Une nouvelle plateforme pour aider les pèlerins à réserver leur séjour".</p>
-        <a href="#" class="link">Lire l'article <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg></a>
+        <div class="press-logo"><img src="images/logo-ouest.png" alt="Ouest France"></div>
+        <p class="press-q">« Une nouvelle plateforme pour aider les pèlerins »</p>
+        <a href="https://www.ouest-france.fr/tourisme/sanctuaire-de-lourdes-une-nouvelle-plateforme-pour-aider-les-pelerins-a-reserver-leur-sejour-a4389a4a-00dd-11f0-a7bd-cdc0f6c37e37" target="_blank" rel="noopener" class="link">Lire l'article <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg></a>
       </div>
       <div class="press-card">
-        <span class="press-src">La Dépêche</span>
-        <p class="press-q">"Moins chère et plus complète pour les pèlerins" : le Sanctuaire de Lourdes innove et lance sa propre plateforme.</p>
-        <a href="#" class="link">Lire l'article <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg></a>
+        <div class="press-logo"><img src="images/logo-ici.webp" alt="ICI par France Bleu et France 3" style="height:60px"></div>
+        <p class="press-q">« Le sanctuaire de Lourdes lance sa propre plate-forme de réservation d'hôtels »</p>
+        <a href="https://www.ici.fr/infos/societe/le-sanctuaire-de-lourdes-lance-sa-propre-plate-forme-de-reservation-d-hotels-6897418" target="_blank" rel="noopener" class="link">Lire l'article <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg></a>
+      </div>
+      <div class="press-card">
+        <div class="press-logo"><img src="images/logo-depeche.webp" alt="La Dépêche"></div>
+        <p class="press-q">« Moins chère et plus complète pour les pèlerins »</p>
+        <a href="https://www.ladepeche.fr/2025/03/04/moins-chere-et-plus-complete-pour-les-pelerins-le-sanctuaire-de-lourdes-innove-et-lance-sa-propre-plateforme-de-reservation-dhotels-12548756.php" target="_blank" rel="noopener" class="link">Lire l'article <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg></a>
       </div>
     </div>
   </div>
