@@ -8,7 +8,7 @@
     '.om-links{display:flex;align-items:center;gap:2px;flex:1;justify-content:center;}',
     '.om-drop{position:relative;}',
     '.om-drop-btn,.om-plain-link{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;border-radius:8px;font-size:.9375rem;font-weight:500;color:#2C2E4D;background:none;border:none;cursor:pointer;text-decoration:none;transition:background .15s,color .15s;white-space:nowrap;font-family:inherit;line-height:1;}',
-    '.om-drop-btn:hover,.om-plain-link:hover,.om-drop.is-open .om-drop-btn{background:rgba(44,46,77,.06);color:#6E5BFF;}',
+    '.om-drop-btn:hover,.om-plain-link:hover,.om-drop.is-open .om-drop-btn{background:none;color:#6E5BFF;}',
     '.om-drop-btn .om-chev{transition:transform .2s;}',
     '.om-drop.is-open .om-drop-btn .om-chev{transform:rotate(180deg);}',
     '.om-ctas{display:flex;align-items:center;gap:10px;flex-shrink:0;margin-left:8px;}',
