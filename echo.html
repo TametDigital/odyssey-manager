@@ -172,7 +172,8 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 .csel-opt:hover { background: var(--violet-10); }
 .csel-opt strong { font-size: var(--t-s); font-weight: 600; color: var(--violet); }
 .csel-opt span { font-size: var(--t-xs); color: var(--ink-60); }
-.sec-icon { width: 36px; height: 36px; border-radius: 8px; background: #fff; display: flex; align-items: center; justify-content: center; }
+.sec-icon { width: 36px; height: 36px; border-radius: 8px; background: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--violet); }
+.sec-icon svg { width: 18px; height: 18px; }
 /* ICONE CARDS */
 .icard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .icard-grid--4 { grid-template-columns: repeat(4, 1fr); }
@@ -512,7 +513,7 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 </section>
 
 <!-- CONTACT -->
-<section class="px" style="padding-top:0;padding-bottom:64px">
+<section class="px py">
   <div class="cnt">
 
     <div class="cnt-2cards">
