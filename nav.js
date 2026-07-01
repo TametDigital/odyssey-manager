@@ -236,15 +236,8 @@
   /* ---- INTERACTIONS ---- */
   var drops = document.querySelectorAll('.om-drop');
   drops.forEach(function (drop) {
-    drop.querySelector('.om-drop-btn').addEventListener('click', function (e) {
-      e.stopPropagation();
-      var wasOpen = drop.classList.contains('is-open');
-      drops.forEach(function (d) { d.classList.remove('is-open'); });
-      if (!wasOpen) drop.classList.add('is-open');
-    });
-  });
-  document.addEventListener('click', function () {
-    drops.forEach(function (d) { d.classList.remove('is-open'); });
+    drop.addEventListener('mouseenter', function () { drop.classList.add('is-open'); });
+    drop.addEventListener('mouseleave', function () { drop.classList.remove('is-open'); });
   });
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') drops.forEach(function (d) { d.classList.remove('is-open'); });
