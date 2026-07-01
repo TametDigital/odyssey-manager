@@ -96,8 +96,10 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 /* HERO NOTIFY */
 .hnotify { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; padding: 80px 0; }
 .hnotify-text { display: flex; flex-direction: column; gap: 0; }
-.hnotify-trust { display: flex; align-items: center; gap: 6px; font-size: var(--t-xs); color: var(--ink-60); margin-top: 24px; }
+.hnotify-trust { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; font-size: var(--t-xs); color: var(--ink-60); margin-top: 24px; }
+.hnotify-trust-item { display: inline-flex; align-items: center; gap: 6px; }
 .hnotify-trust svg { color: var(--violet); }
+@media (max-width: 768px) { .hnotify-trust { gap: 12px; font-size: .8rem; } }
 .hnotify-vis { position: relative; }
 .hnotify-img-wrap { border-radius: 20px; overflow: hidden; position: relative; aspect-ratio: 1/1; }
 .hnotify-img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
@@ -533,10 +535,10 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
           <a href="#solutions" class="btn btn-g">Voir comment ça marche</a>
         </div>
         <div class="hnotify-trust">
-          <i data-lucide="target" style="width:15px;height:15px;flex-shrink:0"></i> Rayonner &nbsp;&nbsp;
-          <i data-lucide="heart-handshake" style="width:15px;height:15px;flex-shrink:0"></i> Accueillir &nbsp;&nbsp;
-          <i data-lucide="compass" style="width:15px;height:15px;flex-shrink:0"></i> Guider &nbsp;&nbsp;
-          <i data-lucide="line-chart" style="width:15px;height:15px;flex-shrink:0"></i> Anticiper
+          <span class="hnotify-trust-item"><i data-lucide="target" style="width:15px;height:15px;flex-shrink:0"></i> Rayonner</span>
+          <span class="hnotify-trust-item"><i data-lucide="heart-handshake" style="width:15px;height:15px;flex-shrink:0"></i> Accueillir</span>
+          <span class="hnotify-trust-item"><i data-lucide="compass" style="width:15px;height:15px;flex-shrink:0"></i> Guider</span>
+          <span class="hnotify-trust-item"><i data-lucide="line-chart" style="width:15px;height:15px;flex-shrink:0"></i> Anticiper</span>
         </div>
       </div>
 
