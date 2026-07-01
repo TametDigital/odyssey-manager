@@ -292,7 +292,7 @@ body { font-family: var(--f-sans); background: #fff; color: var(--ink); }
 .capa-card:hover p { color: rgba(255,255,255,.65); }
 /* Orbit */
 .cnt--m { max-width: 68rem; margin: 0 auto; }
-.orbit-card { background: var(--sable); border-radius: 20px; padding: 72px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; overflow: hidden; position: relative; }
+.orbit-card { background: var(--sable); border-radius: 20px; padding: 72px 64px; display: block; overflow: hidden; position: relative; }
 .orbit-card::before { content:''; position:absolute; inset:0; background:url('images/fond_orbit.jpeg') center/cover no-repeat; z-index:0; }
 .orbit-card::after { content:''; position:absolute; inset:0; background:linear-gradient(135deg, rgba(255,234,213,1) 0%, rgba(255,234,213,1) 33%, rgba(255,234,213,.60) 100%); z-index:1; }
 .orbit-card > * { position:relative; z-index:2; }
@@ -692,7 +692,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 .screen span { font-size: var(--t-xs); color: var(--ink-60); }
 
 /* ── HERO NOTIFY ────────────────────────────────────── */
-.hnotify { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; padding: 80px 0; }
+.hnotify { display: block; padding: 80px 0; }
 .hnotify-text { display: flex; flex-direction: column; gap: 0; }
 .hnotify-trust { display: flex; align-items: center; gap: 6px; font-size: var(--t-xs); color: var(--ink-60); margin-top: 24px; }
 .hnotify-trust svg { color: var(--violet); }
@@ -911,7 +911,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
 .check-icon svg { width: 9px; height: 9px; color: #fff; stroke-width: 2.2; }
 
 /* ── ORBIT ──────────────────────────────────────────── */
-.orbit-card { background: var(--sable); border-radius: 20px; padding: 72px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; overflow: hidden; }
+.orbit-card { background: var(--sable); border-radius: 20px; padding: 72px 64px; display: block; overflow: hidden; }
 .orbit-stage { position: relative; width: 420px; height: 420px; margin: 0 auto; flex-shrink: 0; }
 
 /* Halos rayonnants via box-shadow (non clippable) */
@@ -1359,7 +1359,7 @@ hr { border: none; border-top: 1px solid var(--ink-14); }
   <div class="cnt--m">
     <div class="orbit-card">
 
-      <div style="max-width:75%">
+      <div style="max-width:75%;width:75%">
         <p class="eyebrow mb-xs">Mission</p>
         <h2 class="h-l" style="margin-bottom:20px">Nous donnons aux acteurs du tourisme les moyens de séduire, convertir et fidéliser leurs visiteurs.</h2>
         <p style="font-size:var(--t-m);color:var(--ink-60);line-height:1.7;margin-bottom:20px">Nous construisons les outils qui manquaient aux acteurs locaux pour se confronter aux géants du tourisme.</p>
