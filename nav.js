@@ -159,7 +159,7 @@
   }
 
   var pObj = [
-    '<div class="om-panel" style="min-width:460px">',
+    '<div class="om-panel" style="width:440px">',
       '<div class="om-panel-hd">',
         '<div class="om-panel-hd-label">Enjeux &amp; ambitions</div>',
         '<div class="om-panel-hd-sub">Identifiez les outils qui correspondent &agrave; vos ambitions et &agrave; vos besoins.</div>',
