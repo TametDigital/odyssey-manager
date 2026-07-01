@@ -6,7 +6,11 @@
     '.om-footer a{text-decoration:none;color:inherit;}',
 
     /* main grid */
-    '.om-footer-main{display:grid;grid-template-columns:220px auto auto auto 220px;gap:32px 48px;padding:64px clamp(24px,5vw,80px) 56px;align-items:start;}',
+    '.om-footer-main{display:flex;align-items:start;gap:48px;padding:64px clamp(24px,5vw,80px) 56px;}',
+    '.om-footer-left{flex-shrink:0;width:220px;}',
+    '.om-footer-cols{display:flex;gap:48px;flex:1;}',
+    '.om-footer-col{flex-shrink:0;}',
+    '.om-footer-right{flex-shrink:0;width:220px;}',
 
     /* left col */
     '.om-footer-logo{margin-bottom:28px;}',
@@ -57,7 +61,7 @@
       '<div class="om-footer-main">',
 
         /* — left col — */
-        '<div>',
+        '<div class="om-footer-left">',
           '<div class="om-footer-logo">',
             '<img src="images/nouveau-logo-nlanc.png" alt="Odyssey">',
           '</div>',
@@ -81,8 +85,9 @@
           '</div>',
         '</div>',
 
-        /* — Solutions — */
-        '<div>',
+        /* — 3 link cols — */
+        '<div class="om-footer-cols">',
+        '<div class="om-footer-col">',
           '<div class="om-footer-col-title">Solutions</div>',
           '<div class="om-footer-col-links">',
             '<a href="ulys.html" class="om-footer-col-link">ULYS</a>',
@@ -92,8 +97,7 @@
           '</div>',
         '</div>',
 
-        /* — Secteurs — */
-        '<div>',
+        '<div class="om-footer-col">',
           '<div class="om-footer-col-title">Secteurs</div>',
           '<div class="om-footer-col-links">',
             '<a href="destinations.html" class="om-footer-col-link">Destinations &amp; Territoires</a>',
@@ -105,8 +109,7 @@
           '</div>',
         '</div>',
 
-        /* — Objectifs — */
-        '<div>',
+        '<div class="om-footer-col">',
           '<div class="om-footer-col-title">Objectifs</div>',
           '<div class="om-footer-col-links">',
             '<a href="trouver.html" class="om-footer-col-link">Devenir plus visible</a>',
@@ -116,7 +119,10 @@
           '</div>',
         '</div>',
 
+        '</div>', /* end om-footer-cols */
+
         /* — Featured card — */
+        '<div class="om-footer-right">',
         '<div class="om-footer-card">',
           '<div class="om-footer-card-img">',
             '<img src="images/mission.jpg" alt="&Eacute;tude de cas">',
@@ -128,6 +134,7 @@
             'D&eacute;couvrir',
           '</a>',
         '</div>',
+        '</div>', /* end om-footer-right */
 
       '</div>',
 
