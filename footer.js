@@ -8,7 +8,7 @@
     /* main grid */
     '.om-footer-main{display:flex;align-items:start;gap:48px;padding:64px clamp(24px,5vw,80px) 56px;}',
     '.om-footer-left{flex-shrink:0;width:220px;}',
-    '.om-footer-cols{display:flex;gap:48px;flex:1;}',
+    '.om-footer-cols{display:flex;gap:72px;flex:1;}',
     '.om-footer-col{flex-shrink:0;}',
     '.om-footer-right{flex-shrink:0;display:flex;gap:16px;}',
 
@@ -24,7 +24,7 @@
 
     /* link cols */
     '.om-footer-col-title{font-size:.8125rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.55);margin-bottom:18px;}',
-    '.om-footer-col-links{display:flex;flex-direction:column;gap:10px;}',
+    '.om-footer-col-links{display:flex;flex-direction:column;gap:16px;}',
     '.om-footer-col-link{font-size:.9375rem;font-weight:500;color:rgba(255,255,255,.85);transition:color .15s;}',
     '.om-footer-col-link:hover{color:#fff;}',
 
