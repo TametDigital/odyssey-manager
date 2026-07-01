@@ -176,7 +176,7 @@
   var navHtml = [
     '<nav class="om-nav" id="om-nav">',
       '<div class="om-nav-inner">',
-        '<a href="index.html" class="om-logo">odyssey</a>',
+        '<a href="index.html" class="om-logo"><img src="images/nouveau-logo-carre.png" alt="Odyssey" style="height:36px;width:auto;display:block"></a>',
         '<div class="om-links">',
           '<div class="om-drop" id="om-drop-sol">',
             '<button class="om-drop-btn">Nos solutions <span class="om-chev">' + ic('chev',14) + '</span></button>',
