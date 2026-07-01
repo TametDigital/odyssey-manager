@@ -81,10 +81,10 @@
     flower:  '<path d="M12 7.5a4.5 4.5 0 1 1 4.5 4.5M12 7.5A4.5 4.5 0 1 0 7.5 12M12 7.5V9m-4.5 3H9m7.5 0H15m-3 4.5V15"/><circle cx="12" cy="12" r="3"/><path d="m8 16 1.5-1.5"/><path d="M14.5 9.5 16 8"/><path d="m8 8 1.5 1.5"/><path d="M14.5 14.5 16 16"/>',
     send:    '<path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>',
     cal:     '<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/>',
-    eye:     '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>',
-    pct:     '<line x1="19" x2="5" y1="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/>',
-    nav2:    '<polygon points="3 11 22 2 13 21 11 13 3 11"/>',
-    msg:     '<path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/>',
+    eye:     '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1"/>',
+    pct:     '<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/>',
+    nav2:    '<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>',
+    msg:     '<path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="m19 9-5 5-4-4-3 3"/>',
     menu:    '<line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>',
     close:   '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>'
   };
@@ -165,10 +165,10 @@
         '<div class="om-panel-hd-sub">Identifiez les outils qui correspondent &agrave; vos ambitions et &agrave; vos besoins.</div>',
       '</div>',
       '<div class="om-panel-grid" style="grid-template-columns:1fr 1fr">',
-        objItem('trouver.html','eye','Devenir plus visible','Votre pr&eacute;sence digitale sur Google et au-del&agrave;'),
-        objItem('satisfaire.html','nav2','Surprendre vos visiteurs','Une exp&eacute;rience digitale de bout en bout'),
-        objItem('monetiser.html','pct','G&eacute;n&eacute;rer des revenus','La r&eacute;servation directe au c&oelig;ur de votre mod&egrave;le'),
-        objItem('comprendre.html','msg','Piloter avec la data','La connaissance et la fid&eacute;lisation de vos visiteurs'),
+        objItem('trouver.html','eye','Trouver','Attirez de nouveaux visiteurs via Google et l&rsquo;exp&eacute;rience IA'),
+        objItem('satisfaire.html','pct','Satisfaire','Surprenez vos visiteurs avec une exp&eacute;rience qu&rsquo;ils n&rsquo;attendaient pas'),
+        objItem('monetiser.html','nav2','Mon&eacute;tiser','G&eacute;n&eacute;rez de nouveaux revenus sans d&eacute;pendre des plateformes'),
+        objItem('comprendre.html','msg','Comprendre','Pilotez votre strat&eacute;gie avec les donn&eacute;es de l&rsquo;IA et de vos r&eacute;servations'),
       '</div>',
     '</div>'
   ].join('');
