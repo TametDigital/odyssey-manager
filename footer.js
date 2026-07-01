@@ -47,8 +47,8 @@
     '.om-footer-legal-dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.30);}',
 
     /* responsive */
-    '@media(max-width:1100px){.om-footer-main{grid-template-columns:1fr 1fr 1fr;}.om-footer-card{display:none;}}',
-    '@media(max-width:700px){.om-footer-main{grid-template-columns:1fr 1fr;gap:32px;padding:48px 24px 40px;}.om-footer-bar{flex-direction:column;align-items:flex-start;gap:12px;}}'
+    '@media(max-width:1100px){.om-footer-right{display:none;}.om-footer-cols{gap:40px;}}',
+    '@media(max-width:700px){.om-footer-main{flex-direction:column;gap:32px;padding:48px 24px 40px;}.om-footer-left{width:100%;}.om-footer-cols{flex-direction:column;gap:24px;}.om-footer-bar{flex-direction:column;align-items:flex-start;gap:12px;}}'
   ].join('');
 
   /* ---- SVG helper ---- */
