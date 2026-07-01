@@ -70,7 +70,7 @@
               svg('<rect width="20" height="15" x="2" y="3" rx="2"/><polyline points="17 8 12 13 7 8"/>',16),
               'Planifiez une visio',
             '</a>',
-            '<a href="a-propos.html" class="om-footer-btn">',
+            '<a href="mailto:etienne@odyssey-manager.com?subject=Prise%20de%20contact" class="om-footer-btn">',
               svg('<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',16),
               'Contactez-nous',
             '</a>',
