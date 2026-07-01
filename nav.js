@@ -229,7 +229,9 @@
   var styleEl = document.createElement('style');
   styleEl.textContent = css;
   document.head.appendChild(styleEl);
-  document.body.insertAdjacentHTML('afterbegin', navHtml);
+
+  function init() {
+    document.body.insertAdjacentHTML('afterbegin', navHtml);
 
   /* ---- INTERACTIONS ---- */
   var drops = document.querySelectorAll('.om-drop');
@@ -277,5 +279,12 @@
       if (btn) btn.querySelector('.om-drop-btn').style.color = '#6E5BFF';
     }
   });
+  } // end init()
+
+  if (document.body) {
+    init();
+  } else {
+    document.addEventListener('DOMContentLoaded', init);
+  }
 
 })();
