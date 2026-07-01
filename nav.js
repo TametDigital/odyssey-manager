@@ -34,7 +34,7 @@
     '.om-item-sub{font-size:.8125rem;color:rgba(44,46,77,.60);line-height:1.4;}',
 
     /* secteur panel */
-    '.om-secteur-layout{display:grid;grid-template-columns:1fr 1fr auto;gap:0 28px;align-items:start;}',
+    '.om-secteur-layout{display:grid;grid-template-columns:1fr 1fr;gap:0 28px;align-items:start;}',
     '.om-secteur-col{display:flex;flex-direction:column;gap:2px;}',
     '.om-secteur-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;text-decoration:none;color:#2C2E4D;transition:background .15s;}',
     '.om-secteur-item:hover{background:rgba(110,91,255,.06);}',
@@ -143,11 +143,6 @@
           sectItem('bien-etre.html','flower','Bien-&ecirc;tre &amp; Sant&eacute;','Thalassos &middot; Spas &middot; Clubs'),
           sectItem('operateur.html','send','Op&eacute;rateurs &amp; M&eacute;dias','Agences &middot; Guides &middot; M&eacute;dias'),
           sectItem('mice.html','cal','&Eacute;v&eacute;nementiel &amp; MICE','Organisateurs &middot; &Eacute;v&eacute;nementiel'),
-        '</div>',
-        '<div class="om-featured">',
-          '<div class="om-featured-label">&Eacute;tudes de cas</div>',
-          '<div class="om-featured-title">2&deg; ville h&ocirc;teli&egrave;re de France&nbsp;!</div>',
-          '<a href="etude-de-cas-lourdes.html" class="om-featured-btn">D&eacute;couvrir</a>',
         '</div>',
       '</div>',
     '</div>'
