@@ -156,9 +156,9 @@
       '<div class="om-footer-bar">',
         '<span class="om-footer-copy">&copy; 2026 ODYSSEY MANAGER &reg; | Tous droits r&eacute;serv&eacute;s.</span>',
         '<div class="om-footer-legal">',
-          '<a href="#">Mentions l&eacute;gales</a>',
+          '<a href="mentions-legales.html">Mentions l&eacute;gales</a>',
           '<span class="om-footer-legal-dot"></span>',
-          '<a href="#">Politique de cookies</a>',
+          '<a href="politique-cookies.html">Politique de cookies</a>',
         '</div>',
       '</div>',
 
