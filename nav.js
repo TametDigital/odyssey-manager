@@ -96,7 +96,7 @@
 
   /* ---- PANEL: Nos solutions ---- */
   var pSol = [
-    '<div class="om-panel" style="min-width:680px">',
+    '<div class="om-panel" style="width:710px">',
       '<div class="om-panel-hd">',
         '<div class="om-panel-hd-label">Services &amp; Outils</div>',
         '<div class="om-panel-hd-sub">Quatre solutions comp&eacute;l&eacute;mentaires pour les d&eacute;fis de votre destination.</div>',
@@ -128,7 +128,7 @@
   }
 
   var pSec = [
-    '<div class="om-panel" style="min-width:710px">',
+    '<div class="om-panel" style="width:710px">',
       '<div class="om-panel-hd">',
         '<div class="om-panel-hd-label">Secteurs &amp; Activit&eacute;s</div>',
         '<div class="om-panel-hd-sub">Trouvez les solutions pens&eacute;es pour votre secteur et votre r&eacute;alit&eacute; terrain.</div>',
@@ -159,7 +159,7 @@
   }
 
   var pObj = [
-    '<div class="om-panel" style="width:440px">',
+    '<div class="om-panel" style="width:710px">',
       '<div class="om-panel-hd">',
         '<div class="om-panel-hd-label">Enjeux &amp; ambitions</div>',
         '<div class="om-panel-hd-sub">Identifiez les outils qui correspondent &agrave; vos ambitions et &agrave; vos besoins.</div>',
