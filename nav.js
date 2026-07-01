@@ -240,6 +240,7 @@
     var timer;
     drop.addEventListener('mouseenter', function () {
       clearTimeout(timer);
+      drops.forEach(function (d) { if (d !== drop) d.classList.remove('is-open'); });
       drop.classList.add('is-open');
     });
     drop.addEventListener('mouseleave', function () {
